@@ -16,6 +16,32 @@
       "country": "FR"
     },
     {
+      "id": "ffa-740d1863e1e2",
+      "name": "Meeting 3 lancers PCA AV",
+      "city": "Colmar",
+      "date": "2026-11-01",
+      "end": "2026-11-01",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/585846580840980843742828777855701837",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-74c68bc03ce2",
+      "name": "Natura Cap Eckwersheim",
+      "city": "Eckwersheim",
+      "date": "2026-11-01",
+      "end": "2026-11-01",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "nord",
+      "source": "https://www.athle.fr/competitions/736846692840369849349840409849348849",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r2",
       "name": "Natura’Cap",
       "city": "Eckwersheim",
@@ -48,6 +74,21 @@
       "country": "FR"
     },
     {
+      "id": "r5",
+      "name": "10 km de La Wantzenau",
+      "city": "La Wantzenau",
+      "date": "2026-11-08",
+      "end": "2026-11-08",
+      "kind": "Route",
+      "dist": [
+        10
+      ],
+      "zone": "nord",
+      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
       "id": "r4",
       "name": "Courses de Colmar",
       "city": "Colmar",
@@ -60,21 +101,6 @@
       ],
       "zone": "centre",
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
-      "certainty": "confirmée",
-      "country": "FR"
-    },
-    {
-      "id": "r5",
-      "name": "10 km de La Wantzenau",
-      "city": "La Wantzenau",
-      "date": "2026-11-08",
-      "end": "2026-11-08",
-      "kind": "Route",
-      "dist": [
-        10
-      ],
-      "zone": "nord",
-      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
       "certainty": "confirmée",
       "country": "FR"
     },
@@ -559,5 +585,6 @@
       "young": false
     }
   ],
-  "asOf": "2026-10-29"
+  "asOf": "2026-10-30",
+  "runningCheckedAt": "2026-10-30"
 }
