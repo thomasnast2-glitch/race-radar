@@ -1,6 +1,3 @@
-# RACE//RADAR : collecte FFA + publication du site
-# Première source automatisée : calendrier officiel FFA uniquement.
-# Running 30 minutes / HYROX : périmètre encore partiel.
 name: RACE RADAR - Mise a jour quotidienne
 
 on:
@@ -13,6 +10,8 @@ on:
     paths:
       - 'index.html'
       - 'events.json'
+      - 'scripts/collect_events.py'
+      - 'tests/**'
       - '.github/workflows/race-radar.yml'
 
 permissions:
@@ -37,184 +36,23 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Installer le parseur HTML
+      - name: Installer les dependances
         run: python -m pip install --disable-pip-version-check 'beautifulsoup4>=4.12,<5'
-      - name: Consulter la FFA et mettre a jour events.json
-        shell: bash
-        run: |
-          python - <<'PYCODE'
-          """RACE//RADAR - collecte prudente depuis le calendrier public de la FFA.
-
-          N'aspire que les lignes affichées par le calendrier à la date du contrôle.
-          Conserve toutes les courses existantes. N'affirme jamais que l'ensemble
-          est exhaustif ni que la durée de trajet est inférieure à 30 min.
-          """
-          from __future__ import annotations
-
-          import hashlib
-          import json
-          import re
-          import sys
-          import unicodedata
-          from datetime import date, datetime
-          from difflib import SequenceMatcher
-          from pathlib import Path
-          from urllib.request import Request, urlopen
-          from zoneinfo import ZoneInfo
-
-          from bs4 import BeautifulSoup
-
-          SOURCE = 'https://www.athle.fr/base/calendrier'
-          DATA = Path('events.json')
-          # Communes retenues à titre indicatif, PAS d'isochrone routière à 30 minutes.
-          CITIES = {
-              'soultzmatt': 'sud', 'sulzbach': 'sud', 'guebwiller': 'sud',
-              'soultz haut rhin': 'sud', 'buhl': 'sud', 'rouffach': 'sud',
-              'pfaffenheim': 'sud', 'wintzfelden': 'sud', 'westhalten': 'sud',
-              'orfschwihr': 'sud', 'bergholtz': 'sud', 'jungholtz': 'sud',
-              'issenheim': 'sud', 'cernay': 'sud', 'ensISheim'.lower(): 'sud',
-              'wettolsheim': 'centre', 'wintzenheim': 'centre', 'colmar': 'centre',
-              'horbourg wihr': 'centre', 'sundhoffen': 'centre', 'munster': 'centre',
-              'turckheim': 'centre', 'ingersheim': 'centre', 'eguisheim': 'centre',
-              'kaysersberg': 'centre', 'kientzheim': 'centre', 'ribeauville': 'centre',
-              'riquewihr': 'centre', 'bergheim': 'centre', 'scherwiller': 'centre',
-              'selestat': 'centre', 'chatenois': 'centre', 'saint hippolyte': 'centre',
-              'marckolsheim': 'centre', 'sainte marie aux mines': 'centre',
-              'dambach la ville': 'centre', 'epfig': 'centre', 'ville': 'centre',
-              'barr': 'centre', 'andlau': 'centre', 'obernai': 'centre',
-              'rosheim': 'centre', 'boersch': 'centre', 'molsheim': 'nord',
-              'mutzig': 'nord', 'dorlisheim': 'nord', 'ernolsheim bruche': 'nord',
-              'strasbourg': 'nord', 'illkirch graffenstaden': 'nord',
-              'ostwald': 'nord', 'lingolsheim': 'nord', 'eckbolsheim': 'nord',
-              'schiltigheim': 'nord', 'bischheim': 'nord', 'hoenheim': 'nord',
-              'mundolsheim': 'nord', 'lampertheim': 'nord', 'eckwersheim': 'nord',
-              'la wantzenau': 'nord', 'vendenheim': 'nord', 'reichstett': 'nord',
-              'erstein': 'nord', 'gerstheim': 'nord', 'benfeld': 'centre',
-              'rhinau': 'centre', 'geispolsheim': 'nord', 'fegersheim': 'nord',
-              'eschau': 'nord', 'marmoutier': 'nord', 'wasselonne': 'nord',
-              'marlenheim': 'nord', 'westhoffen': 'nord', 'brumath': 'nord',
-          }
-          MONTHS = {
-              'janvier':1, 'fevrier':2, 'mars':3, 'avril':4, 'mai':5,
-              'juin':6, 'juillet':7, 'aout':8, 'septembre':9, 'octobre':10,
-              'novembre':11, 'decembre':12,
-          }
-
-          def normalized(s: str) -> str:
-              s = ''.join(c for c in unicodedata.normalize('NFKD', s) if not unicodedata.combining(c))
-              s = s.lower().replace('œ', 'oe')
-              return re.sub(r'[^a-z0-9]+', ' ', s).strip()
-
-
-          def date_from_label(s: str, today: date) -> str | None:
-              # Exemples : 01 novembre ; 01-02 novembre ; 08 août.
-              m = re.search(r'\b(\d{1,2})(?:\s*[-–]\s*\d{1,2})?\s+([a-zA-Zéèêûôàùïëîç]+)\b', s, re.I)
-              if not m:
-                  return None
-              day, mo = int(m.group(1)), MONTHS.get(normalized(m.group(2)))
-              if not mo:
-                  return None
-              # Calendrier courant : une course dont le mois est largement antérieur
-              # à aujourd'hui est très probablement en début d'année suivante.
-              year = today.year + (1 if mo < today.month - 3 else 0)
-              try:
-                  d = date(year, mo, day)
-              except ValueError:
-                  return None
-              return d.isoformat() if d >= today else None
-
-
-          def parse_ffa(html: str, today: date) -> tuple[list[dict], int]:
-              soup = BeautifulSoup(html, 'html.parser')
-              out, seen = [], 0
-              for tr in soup.select('tr'):
-                  cells = tr.find_all('td', recursive=False)
-                  if len(cells) < 4:
-                      continue
-                  label = cells[0].get_text(' ', strip=True)
-                  raw_city = cells[2].get_text(' ', strip=True)
-                  m_date = date_from_label(label, today)
-                  # Aucune interprétation à partir des autres tables du site.
-                  if not m_date or not re.search(r'\b0?(?:67|68)\b', raw_city):
-                      continue
-                  kind_raw = normalized(cells[3].get_text(' ', strip=True))
-                  if not ('running' in kind_raw or 'cross' in kind_raw):
-                      continue
-                  seen += 1
-                  city = next(cells[2].stripped_strings, '').strip()
-                  zone = CITIES.get(normalized(city))
-                  if not zone:
-                      continue
-                  name = cells[1].get_text(' ', strip=True)
-                  if len(name) < 4:
-                      continue
-                  kind = 'Cross' if 'cross' in kind_raw else ('Trail' if 'trail' in normalized(name) else 'Nature' if 'nature' in normalized(name) else 'Route')
-                  href = None
-                  for a in tr.select('a[href]'):
-                      h = a.get('href', '')
-                      if '/competitions/' in h:
-                          from urllib.parse import urljoin
-                          href = urljoin(SOURCE, h)
-                          break
-                  key = normalized(f'{name} {city} {m_date}')
-                  id_ = 'ffa-' + hashlib.sha256(key.encode()).hexdigest()[:12]
-                  distances = [float(x.replace(',', '.')) for x in re.findall(r'(?<!\d)(\d{1,3}(?:[,.]\d+)?)\s*km\b', name, re.I)]
-                  out.append({'id':id_,'name':name,'city':city,'date':m_date,'end':m_date,
-                              'kind':kind,'dist':distances,'zone':zone,'source':href or SOURCE,
-                              'certainty':'à vérifier','country':'FR'})
-              return out, seen
-
-
-          def same_event(a: dict, b: dict) -> bool:
-              if a['date'] != b['date'] or normalized(a['city']) != normalized(b['city']):
-                  return False
-              an, bn = normalized(a['name']), normalized(b['name'])
-              return an == bn or SequenceMatcher(None, an, bn).ratio() >= 0.70
-
-
-          def main() -> None:
-              existing = json.loads(DATA.read_text(encoding='utf-8'))
-              assert isinstance(existing['running'], list) and isinstance(existing['hyrox'], list)
-              request = Request(SOURCE, headers={'User-Agent': 'Mozilla/5.0 (compatible; RaceRadar/1.0; personal nonprofit race calendar)'})
-              try:
-                  with urlopen(request, timeout=25) as response:
-                      html = response.read(3_000_000).decode('utf-8', errors='replace')
-              except Exception as exc:
-                  print(f'::warning::Impossible de consulter la FFA : {exc}. Les données existantes sont conservées.')
-                  return
-              today = datetime.now(ZoneInfo('Europe/Paris')).date()
-              results, seen = parse_ffa(html, today)
-              if seen < 1:
-                  print('::warning::Format de la page FFA non reconnu, aucune modification de events.json.')
-                  return
-              added = []
-              for event in results:
-                  if not any(same_event(e, event) for e in existing['running'] + added):
-                      added.append(event)
-              existing['running'].extend(added)
-              existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
-              existing['runningCheckedAt'] = today.isoformat()
-              if added:
-                  existing['asOf'] = today.isoformat()
-              DATA.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-              print(f'FFA : {seen} lignes régionales lues, {len(results)} dans la zone indicative, {len(added)} nouveautés ajoutées.')
-              print('Attention : isochrones 30 min et mise à jour HYROX non couverts par cette version.')
-
-
-          if __name__ == '__main__':
-              main()
-          PYCODE
-      - name: Enregistrer les nouvelles donnees sur GitHub
+      - name: Tester l'extraction avec des exemples
+        run: python -m unittest discover -s tests -v
+      - name: Collecter FFA et Running-Trail 67-68
+        run: python scripts/collect_events.py
+      - name: Sauvegarder la collecte sur GitHub
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add events.json
+          git add events.json review_candidates.json
           if ! git diff --cached --quiet; then
-            git commit -m 'RACE RADAR : synchronisation du calendrier FFA'
+            git commit -m 'RACE RADAR : collecte quotidienne multi-sources'
             git push
           else
-            echo 'Aucune modification de events.json.'
+            echo 'Aucune modification des donnees.'
           fi
       - name: Preparer GitHub Pages
         uses: actions/configure-pages@v5
