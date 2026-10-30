@@ -1,0 +1,563 @@
+{
+  "running": [
+    {
+      "id": "r1",
+      "name": "Cross EHA",
+      "city": "Soultz-Haut-Rhin",
+      "date": "2026-11-01",
+      "end": "2026-11-01",
+      "kind": "Cross",
+      "dist": [
+        5
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r2",
+      "name": "Natura’Cap",
+      "city": "Eckwersheim",
+      "date": "2026-11-01",
+      "end": "2026-11-01",
+      "kind": "Nature",
+      "dist": [
+        5,
+        10,
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r3",
+      "name": "Molsh’Stach",
+      "city": "Molsheim",
+      "date": "2026-11-07",
+      "end": "2026-11-07",
+      "kind": "Route",
+      "dist": [
+        5
+      ],
+      "zone": "nord",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r4",
+      "name": "Courses de Colmar",
+      "city": "Colmar",
+      "date": "2026-11-08",
+      "end": "2026-11-08",
+      "kind": "Route",
+      "dist": [
+        5,
+        10
+      ],
+      "zone": "centre",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r5",
+      "name": "10 km de La Wantzenau",
+      "city": "La Wantzenau",
+      "date": "2026-11-08",
+      "end": "2026-11-08",
+      "kind": "Route",
+      "dist": [
+        10
+      ],
+      "zone": "nord",
+      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r6",
+      "name": "Courses Nature de Rhinau",
+      "city": "Rhinau",
+      "date": "2026-11-08",
+      "end": "2026-11-08",
+      "kind": "Nature",
+      "dist": [
+        5,
+        10
+      ],
+      "zone": "centre",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r7",
+      "name": "Cross du Sapin",
+      "city": "Sélestat",
+      "date": "2026-11-21",
+      "end": "2026-11-21",
+      "kind": "Cross",
+      "dist": [
+        5.4,
+        6.8
+      ],
+      "zone": "centre",
+      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r8",
+      "name": "10 km PsyCHEdélik",
+      "city": "Erstein",
+      "date": "2026-11-22",
+      "end": "2026-11-22",
+      "kind": "Route",
+      "dist": [
+        10
+      ],
+      "zone": "nord",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r9",
+      "name": "La Landsberg",
+      "city": "Barr",
+      "date": "2026-11-29",
+      "end": "2026-11-29",
+      "kind": "Trail",
+      "dist": [
+        9,
+        16,
+        24
+      ],
+      "zone": "centre",
+      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r10",
+      "name": "Les Courses de Wintzenheim",
+      "city": "Wintzenheim",
+      "date": "2026-11-29",
+      "end": "2026-11-29",
+      "kind": "Route",
+      "dist": [
+        5,
+        10
+      ],
+      "zone": "centre",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r11",
+      "name": "Cross de Guebwiller",
+      "city": "Guebwiller",
+      "date": "2026-12-05",
+      "end": "2026-12-05",
+      "kind": "Cross",
+      "dist": [
+        3.4
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r12",
+      "name": "Trail du Téléthon de Buhl",
+      "city": "Buhl",
+      "date": "2026-12-06",
+      "end": "2026-12-06",
+      "kind": "Trail",
+      "dist": [
+        11,
+        18
+      ],
+      "zone": "sud",
+      "source": "https://www.finishers.com/ou-courir/europe/france/grand-est/haut-rhin",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r13",
+      "name": "Trail du Téléthon de Marlenheim",
+      "city": "Marlenheim",
+      "date": "2026-12-06",
+      "end": "2026-12-06",
+      "kind": "Trail",
+      "dist": [
+        10.5,
+        17.5,
+        24
+      ],
+      "zone": "nord",
+      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r14",
+      "name": "Corrida de Noël",
+      "city": "Illkirch-Graffenstaden",
+      "date": "2026-12-13",
+      "end": "2026-12-13",
+      "kind": "Route",
+      "dist": [
+        5,
+        10,
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r15",
+      "name": "Corrida Jean Ritzenthaler",
+      "city": "Kientzheim",
+      "date": "2026-12-27",
+      "end": "2026-12-27",
+      "kind": "Route",
+      "dist": [
+        6.9
+      ],
+      "zone": "centre",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r16",
+      "name": "La Slun",
+      "city": "Bergheim",
+      "date": "2027-01-10",
+      "end": "2027-01-10",
+      "kind": "Trail",
+      "dist": [
+        5,
+        10
+      ],
+      "zone": "centre",
+      "source": "https://fr.milesrepublic.com/trail/haut-rhin",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r17",
+      "name": "Trail du Grand Ballon — Hivernale",
+      "city": "Jungholtz",
+      "date": "2027-01-16",
+      "end": "2027-01-16",
+      "kind": "Trail",
+      "dist": [
+        48.5
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r18",
+      "name": "Semi-marathon de Haute Alsace",
+      "city": "Cernay",
+      "date": "2027-03-07",
+      "end": "2027-03-07",
+      "kind": "Route",
+      "dist": [
+        21.1
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r19",
+      "name": "Trail du Petit Ballon",
+      "city": "Rouffach",
+      "date": "2027-03-14",
+      "end": "2027-03-14",
+      "kind": "Trail",
+      "dist": [
+        12,
+        23,
+        42.2,
+        52
+      ],
+      "zone": "sud",
+      "source": "https://fr.milesrepublic.com/trail/haut-rhin",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r20",
+      "name": "Trail des Elfes & Druides",
+      "city": "Pfaffenheim",
+      "date": "2027-04-18",
+      "end": "2027-04-18",
+      "kind": "Trail",
+      "dist": [
+        10,
+        20
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r21",
+      "name": "La Colmarienne",
+      "city": "Colmar",
+      "date": "2027-05-01",
+      "end": "2027-05-01",
+      "kind": "Route",
+      "dist": [
+        5,
+        10
+      ],
+      "zone": "centre",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r22",
+      "name": "Foulées de la Foire aux Vins",
+      "city": "Guebwiller",
+      "date": "2027-05-06",
+      "end": "2027-05-06",
+      "kind": "Trail",
+      "dist": [
+        11,
+        18,
+        21.5
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r23",
+      "name": "Courses de Strasbourg Eurométropole",
+      "city": "Strasbourg",
+      "date": "2027-05-09",
+      "end": "2027-05-09",
+      "kind": "Route",
+      "dist": [
+        5,
+        10,
+        21.1,
+        31
+      ],
+      "zone": "nord",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r24",
+      "name": "Trail Alsace by UTMB",
+      "city": "Obernai",
+      "date": "2027-05-13",
+      "end": "2027-05-16",
+      "kind": "Trail",
+      "dist": [
+        11,
+        18,
+        29,
+        47,
+        108,
+        156
+      ],
+      "zone": "centre",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r25",
+      "name": "Courses du Taennchel",
+      "city": "Ribeauvillé",
+      "date": "2027-05-23",
+      "end": "2027-05-23",
+      "kind": "Trail",
+      "dist": [
+        11,
+        22,
+        33
+      ],
+      "zone": "centre",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r26",
+      "name": "Marathon du Vignoble d’Alsace",
+      "city": "Molsheim",
+      "date": "2027-05-29",
+      "end": "2027-05-29",
+      "kind": "Route",
+      "dist": [
+        5,
+        10,
+        21.1,
+        42.2
+      ],
+      "zone": "nord",
+      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "r27",
+      "name": "Run in Soultz",
+      "city": "Soultz-Haut-Rhin",
+      "date": "2027-05-29",
+      "end": "2027-05-29",
+      "kind": "Route",
+      "dist": [
+        10
+      ],
+      "zone": "sud",
+      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "certainty": "confirmée",
+      "country": "FR"
+    }
+  ],
+  "hyrox": [
+    {
+      "id": "h1",
+      "name": "HYROX Nice",
+      "city": "Nice",
+      "date": "2026-10-29",
+      "end": "2026-11-01",
+      "country": "FR",
+      "url": "https://hyroxfrance.com/fr/event/trainsweateat-hyrox-nice/",
+      "location": "France · Sud-Est",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": false
+    },
+    {
+      "id": "h2",
+      "name": "HYROX Paris",
+      "city": "Paris",
+      "date": "2026-12-12",
+      "end": "2026-12-20",
+      "country": "FR",
+      "url": "https://hyroxfrance.com/fr/event/fitness-park-hyrox-paris/",
+      "location": "France · Île-de-France",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": false
+    },
+    {
+      "id": "h3",
+      "name": "HYROX Youngstars Paris",
+      "city": "Paris",
+      "date": "2026-12-19",
+      "end": "2026-12-20",
+      "country": "FR",
+      "url": "https://hyrox.com/event/hyrox-youngstars-paris/",
+      "location": "France · Jeunes",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": true
+    },
+    {
+      "id": "h4",
+      "name": "HYROX Toulouse",
+      "city": "Toulouse",
+      "date": "2027-02-03",
+      "end": "2027-02-07",
+      "country": "FR",
+      "url": "https://hyroxfrance.com/fr/event/hyrox-toulouse/",
+      "location": "France · Occitanie",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": false
+    },
+    {
+      "id": "h5",
+      "name": "HYROX Youngstars Toulouse",
+      "city": "Toulouse",
+      "date": "2027-02-06",
+      "end": "2027-02-07",
+      "country": "FR",
+      "url": "https://hyroxfrance.com/fr/trouve-ta-course/?filter_region=france",
+      "location": "France · Jeunes",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": true
+    },
+    {
+      "id": "h6",
+      "name": "HYROX Paris Grand Palais",
+      "city": "Paris",
+      "date": "2027-04-08",
+      "end": "2027-04-12",
+      "country": "FR",
+      "url": "https://hyroxfrance.com/fr/event/maybelline-hyrox-paris-grand-palais/",
+      "location": "France · Île-de-France",
+      "status": "Ouverture non annoncée",
+      "open_date": null,
+      "young": false
+    },
+    {
+      "id": "h7",
+      "name": "HYROX Lyon",
+      "city": "Lyon",
+      "date": "2027-05-12",
+      "end": "2027-05-16",
+      "country": "FR",
+      "url": "https://hyroxfrance.com/fr/event/hyrox-lyon/",
+      "location": "France · Auvergne-Rhône-Alpes",
+      "status": "Ouverture non annoncée",
+      "open_date": null,
+      "young": false
+    },
+    {
+      "id": "h8",
+      "name": "HYROX Bâle",
+      "city": "Bâle",
+      "date": "2027-02-12",
+      "end": "2027-02-14",
+      "country": "CH",
+      "url": "https://hyrox.com/event/hyrox-basel/",
+      "location": "Suisse · Proximité régionale",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": false
+    },
+    {
+      "id": "h9",
+      "name": "HYROX Francfort",
+      "city": "Francfort",
+      "date": "2026-12-10",
+      "end": "2026-12-13",
+      "country": "DE",
+      "url": "https://support.hyrox.com/?country=DE",
+      "location": "Allemagne · Plus éloigné",
+      "status": "Voir billetterie",
+      "open_date": null,
+      "young": false
+    }
+  ],
+  "asOf": "2026-10-29"
+}
