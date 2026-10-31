@@ -1,65 +1,96 @@
-name: RACE RADAR - Mise a jour quotidienne
+"""RACE//RADAR: collecte FFA + veille des calendriers officiels 67/68.
 
-on:
-  schedule:
-    - cron: '17 6 * * *'
-      timezone: Europe/Paris
-  workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'index.html'
-      - 'events.json'
-      - 'scripts/collect_events.py'
-      - 'tests/**'
-      - '.github/workflows/race-radar.yml'
+Collecte FFA et inventaire des liens des commissions officielles 67 et 68.
+Vérifie robots.txt avant les requêtes aux sources complémentaires.
+Aucune date approximative n'est publiée comme date exacte.
+"""
+from __future__ import annotations
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+import hashlib
+import json
+import re
+import sys
+import unicodedata
+from datetime import date, datetime
+from difflib import SequenceMatcher
+from pathlib import Path
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError
+from urllib.parse import urljoin, urlsplit
+from urllib.robotparser import RobotFileParser
+from datetime import timedelta
+import argparse
+import os
+from zoneinfo import ZoneInfo
 
-concurrency:
-  group: race-radar-pages
-  cancel-in-progress: false
+from bs4 import BeautifulSoup
 
-jobs:
-  synchroniser-et-publier:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Recuperer les fichiers du site
-        uses: actions/checkout@v4
-      - name: Installer Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Installer les dependances
-        run: python -m pip install --disable-pip-version-check 'beautifulsoup4>=4.12,<5'
-      - name: Tester l'extraction avec des exemples
-        run: python -m unittest discover -s tests -v
-      - name: Collecter FFA et Running-Trail 67-68
-        run: python scripts/collect_events.py
-      - name: Sauvegarder la collecte sur GitHub
-        shell: bash
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add events.json review_candidates.json
-          if ! git diff --cached --quiet; then
-            git commit -m 'RACE RADAR : collecte quotidienne multi-sources'
-            git push
-          else
-            echo 'Aucune modification des donnees.'
-          fi
-      - name: Preparer GitHub Pages
-        uses: actions/configure-pages@v5
-      - name: Envoyer les fichiers du site
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: '.'
-      - name: Publier sur GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+SOURCE = 'https://www.athle.fr/base/calendrier'
+DATA = Path('events.json')
+# Communes retenues à titre indicatif, PAS d'isochrone routière à 30 minutes.
+CITIES = {
+    'soultzmatt': 'sud', 'sulzbach': 'sud', 'guebwiller': 'sud',
+    'soultz haut rhin': 'sud', 'buhl': 'sud', 'rouffach': 'sud',
+    'pfaffenheim': 'sud', 'wintzfelden': 'sud', 'westhalten': 'sud',
+    'orfschwihr': 'sud', 'bergholtz': 'sud', 'jungholtz': 'sud',
+    'issenheim': 'sud', 'cernay': 'sud', 'ensISheim'.lower(): 'sud',
+    'wettolsheim': 'centre', 'wintzenheim': 'centre', 'colmar': 'centre',
+    'horbourg wihr': 'centre', 'sundhoffen': 'centre', 'munster': 'centre',
+    'turckheim': 'centre', 'ingersheim': 'centre', 'eguisheim': 'centre',
+    'kaysersberg': 'centre', 'kientzheim': 'centre', 'ribeauville': 'centre',
+    'riquewihr': 'centre', 'bergheim': 'centre', 'scherwiller': 'centre',
+    'selestat': 'centre', 'chatenois': 'centre', 'saint hippolyte': 'centre',
+    'marckolsheim': 'centre', 'sainte marie aux mines': 'centre',
+    'dambach la ville': 'centre', 'epfig': 'centre', 'ville': 'centre',
+    'barr': 'centre', 'andlau': 'centre', 'obernai': 'centre',
+    'rosheim': 'centre', 'boersch': 'centre', 'molsheim': 'nord',
+    'mutzig': 'nord', 'dorlisheim': 'nord', 'ernolsheim bruche': 'nord',
+    'strasbourg': 'nord', 'illkirch graffenstaden': 'nord',
+    'ostwald': 'nord', 'lingolsheim': 'nord', 'eckbolsheim': 'nord',
+    'schiltigheim': 'nord', 'bischheim': 'nord', 'hoenheim': 'nord',
+    'mundolsheim': 'nord', 'lampertheim': 'nord', 'eckwersheim': 'nord',
+    'la wantzenau': 'nord', 'vendenheim': 'nord', 'reichstett': 'nord',
+    'erstein': 'nord', 'gerstheim': 'nord', 'benfeld': 'centre',
+    'rhinau': 'centre', 'geispolsheim': 'nord', 'fegersheim': 'nord',
+    'eschau': 'nord', 'marmoutier': 'nord', 'wasselonne': 'nord',
+    'marlenheim': 'nord', 'westhoffen': 'nord', 'brumath': 'nord',
+}
+MONTHS = {
+    'janvier':1, 'fevrier':2, 'mars':3, 'avril':4, 'mai':5,
+    'juin':6, 'juillet':7, 'aout':8, 'septembre':9, 'octobre':10,
+    'novembre':11, 'decembre':12,
+}
+
+def normalized(s: str) -> str:
+    s = ''.join(c for c in unicodedata.normalize('NFKD', s) if not unicodedata.combining(c))
+    s = s.lower().replace('œ', 'oe')
+    return re.sub(r'[^a-z0-9]+', ' ', s).strip()
+
+
+def date_from_label(s: str, today: date) -> str | None:
+    # Exemples : 01 novembre ; 01-02 novembre ; 08 août.
+    m = re.search(r'\b(\d{1,2})(?:\s*[-–]\s*\d{1,2})?\s+([a-zA-Zéèêûôàùïëîç]+)\b', s, re.I)
+    if not m:
+        return None
+    day, mo = int(m.group(1)), MONTHS.get(normalized(m.group(2)))
+    if not mo:
+        return None
+    # Calendrier courant : une course dont le mois est largement antérieur
+    # à aujourd'hui est très probablement en début d'année suivante.
+    year = today.year + (1 if mo < today.month - 3 else 0)
+    try:
+        d = date(year, mo, day)
+    except ValueError:
+        return None
+    return d.isoformat() if d >= today else None
+
+
+def parse_ffa(html: str, today: date) -> tuple[list[dict], int]:
+    soup = BeautifulSoup(html, 'html.parser')
+    out, seen = [], 0
+    for tr in soup.select('tr'):
+        cells = tr.find_all('td', recursive=False)
+        if len(cells) < 4:
+            continue
+        label = cells[0].get_text(' ', strip=True)
+        raw_city = cells[2].get_text(' ', strip=True)
