@@ -38,6 +38,7 @@
   },
   "alsaceDateConflicts": [],
   "verified2027Conflicts": [],
+  "corpoConflicts": [],
   "ffaSeasonPreview": [],
   "ffaSeasonStatus": {
     "source": "https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&frmpostback=true&frmsaisonffa=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=",

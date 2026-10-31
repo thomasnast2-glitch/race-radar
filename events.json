@@ -171,6 +171,21 @@
       "country": "FR"
     },
     {
+      "name": "Cross corpo Eiffage-Clemessy",
+      "city": "Zimmersheim",
+      "date": "2026-11-21",
+      "end": "2026-11-21",
+      "kind": "Cross",
+      "dist": [
+        6.0
+      ],
+      "zone": "sud",
+      "source": "https://www.crosscorpos68.fr/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "corpo-2c6eb989c4d9"
+    },
+    {
       "id": "r7",
       "name": "Cross du Sapin",
       "city": "Sélestat",
@@ -314,6 +329,21 @@
       "country": "FR"
     },
     {
+      "name": "Cross corpo Cryostar",
+      "city": "Hésingue",
+      "date": "2026-12-12",
+      "end": "2026-12-12",
+      "kind": "Cross",
+      "dist": [
+        6.8
+      ],
+      "zone": "sud",
+      "source": "https://www.crosscorpos68.fr/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "corpo-45136c20414c"
+    },
+    {
       "id": "r14",
       "name": "Corrida de Noël",
       "city": "Illkirch-Graffenstaden",
@@ -363,6 +393,19 @@
       "country": "FR"
     },
     {
+      "name": "Cross corpo Décathlon village",
+      "city": "Mulhouse",
+      "date": "2027-01-09",
+      "end": "2027-01-09",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "sud",
+      "source": "https://www.crosscorpos68.fr/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "corpo-87a836eb6df6"
+    },
+    {
       "id": "r16",
       "name": "La Slun",
       "city": "Bergheim",
@@ -379,6 +422,21 @@
       "country": "FR"
     },
     {
+      "name": "Cross corpo Amicale Ville de Mulhouse/M2A",
+      "city": "Riedisheim",
+      "date": "2027-01-16",
+      "end": "2027-01-16",
+      "kind": "Cross",
+      "dist": [
+        7.0
+      ],
+      "zone": "sud",
+      "source": "https://www.crosscorpos68.fr/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "corpo-23bcfb317e4d"
+    },
+    {
       "id": "r17",
       "name": "Trail du Grand Ballon — Hivernale",
       "city": "Jungholtz",
@@ -392,6 +450,36 @@
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
       "country": "FR"
+    },
+    {
+      "name": "Cross corpo Liebherr",
+      "city": "Herrlisheim",
+      "date": "2027-01-30",
+      "end": "2027-01-30",
+      "kind": "Cross",
+      "dist": [
+        7.2
+      ],
+      "zone": "centre",
+      "source": "https://www.crosscorpos68.fr/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "corpo-b0332aeee85f"
+    },
+    {
+      "name": "Cross corpo Schoenenberger",
+      "city": "Soultzmatt",
+      "date": "2027-02-06",
+      "end": "2027-02-06",
+      "kind": "Cross",
+      "dist": [
+        7.4
+      ],
+      "zone": "sud",
+      "source": "https://www.crosscorpos68.fr/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "corpo-c35f485e9e60"
     },
     {
       "id": "r18",
@@ -826,15 +914,23 @@
       "status": "ok",
       "checkedAt": "2026-10-31",
       "catalogueSize": 4,
-      "new": 4
+      "new": 0
+    },
+    {
+      "name": "Cross corpo 68",
+      "url": "https://www.crosscorpos68.fr/",
+      "checkedAt": "2026-10-31",
+      "status": "live",
+      "scheduled": 6,
+      "live": 6
     }
   ],
   "collectionSummary": {
     "date": "2026-10-31",
     "sourcesOk": 1,
     "sourcesTotal": 1,
-    "candidates": 25,
-    "added": 4,
+    "candidates": 32,
+    "added": 6,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
