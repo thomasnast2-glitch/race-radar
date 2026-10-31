@@ -48,18 +48,17 @@ jobs:
         run: python scripts/collect_events.py
 
       - name: Enregistrer les donnees
+        shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-       git add events.json
-
-if [ -f review_candidates.json ]; then
-  git add review_candidates.json
-fi
-
-if [ -f source_watch.json ]; then
-  git add source_watch.json
-fi
+          git add -- events.json
+          if [ -f review_candidates.json ]; then
+            git add -- review_candidates.json
+          fi
+          if [ -f source_watch.json ]; then
+            git add -- source_watch.json
+          fi
           if ! git diff --cached --quiet; then
             git commit -m 'RACE RADAR : synchronisation des donnees'
             git push
