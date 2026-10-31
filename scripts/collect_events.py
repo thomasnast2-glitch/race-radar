@@ -1,8 +1,8 @@
-"""RACE//RADAR: collecte FFA + veille des calendriers officiels 67/68.
+"""RACE//RADAR V6 : FFA par mois + veille officielle 67/68.
 
-Collecte FFA et inventaire des liens des commissions officielles 67 et 68.
-Vérifie robots.txt avant les requêtes aux sources complémentaires.
-Aucune date approximative n'est publiée comme date exacte.
+Exploration bornée des liens mensuels réellement publiés par la FFA.
+Pas de contournement de robots.txt, de date extrapolée ni de géolocalisation inventée.
+En cas de lien mensuel indisponible, la collecte principale reste fonctionnelle.
 """
 from __future__ import annotations
 
@@ -16,11 +16,12 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit, urldefrag
 from urllib.robotparser import RobotFileParser
 from datetime import timedelta
 import argparse
 import os
+import time
 import io
 import zipfile
 from xml.etree import ElementTree as ET
@@ -29,6 +30,10 @@ from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 
 SOURCE = 'https://www.athle.fr/base/calendrier'
+FFA_SEASON_HUB = 'https://www.athle.fr/contenu/tout-le-calendrier-2027/5255'
+# Scanner au maximum huit mois futurs (et non uniquement les prochains jours).
+HORIZON_MONTHS = 8
+MAX_FFA_PAGES = 8
 DATA = Path('events.json')
 # Communes retenues à titre indicatif, PAS d'isochrone routière à 30 minutes.
 CITIES = {
@@ -70,7 +75,7 @@ def normalized(s: str) -> str:
     return re.sub(r'[^a-z0-9]+', ' ', s).strip()
 
 
-def date_from_label(s: str, today: date) -> str | None:
+def date_from_label(s: str, today: date, year_hint: int | None = None) -> str | None:
     # Exemples : 01 novembre ; 01-02 novembre ; 08 août.
     m = re.search(r'\b(\d{1,2})(?:\s*[-–]\s*\d{1,2})?\s+([a-zA-Zéèêûôàùïëîç]+)\b', s, re.I)
     if not m:
@@ -78,9 +83,11 @@ def date_from_label(s: str, today: date) -> str | None:
     day, mo = int(m.group(1)), MONTHS.get(normalized(m.group(2)))
     if not mo:
         return None
-    # Calendrier courant : une course dont le mois est largement antérieur
-    # à aujourd'hui est très probablement en début d'année suivante.
-    year = today.year + (1 if mo < today.month - 3 else 0)
+    explicit = re.search(r'\b20\d{2}\b', s)
+    # La date de l'en-tête FFA (ex. « Mars 2027 ») prime. L'inférence
+    # précédente ne marche pas pour août 2027 quand nous sommes en oct. 2026.
+    year = int(explicit.group()) if explicit else (year_hint if year_hint else
+           today.year + (1 if mo < today.month - 3 else 0))
     try:
         d = date(year, mo, day)
     except ValueError:
@@ -88,7 +95,7 @@ def date_from_label(s: str, today: date) -> str | None:
     return d.isoformat() if d >= today else None
 
 
-def parse_ffa(html: str, today: date) -> tuple[list[dict], int]:
+def parse_ffa(html: str, today: date, year_hint: int | None = None) -> tuple[list[dict], int]:
     soup = BeautifulSoup(html, 'html.parser')
     out, seen = [], 0
     for tr in soup.select('tr'):
@@ -97,7 +104,13 @@ def parse_ffa(html: str, today: date) -> tuple[list[dict], int]:
             continue
         label = cells[0].get_text(' ', strip=True)
         raw_city = cells[2].get_text(' ', strip=True)
-        m_date = date_from_label(label, today)
+        # La plupart des pages FFA affichent des tableaux groupés par mois.
+        # Une année d'en-tête évite de dater une course au mauvais millésime.
+        header = tr.find_previous(['h2', 'h3', 'h4', 'caption'])
+        text_header = header.get_text(' ', strip=True) if header else ''
+        match_year = re.search(r'\b(20\d{2})\b', text_header) if any(m in normalized(text_header) for m in MONTHS) else None
+        row_year = int(match_year.group(1)) if match_year else year_hint
+        m_date = date_from_label(label, today, row_year)
         # Aucune interprétation à partir des autres tables du site.
         if not m_date or not re.search(r'\b0?(?:67|68)\b', raw_city):
             continue
@@ -487,6 +500,9 @@ def extract_official_candidates(watches: list[dict], today: date) -> list[dict]:
     for w in watches:
         if w['status']!='links_found':
             continue
+        if w['name'] == 'CDA68':
+            print('EXTRACTION CDA68 : desactivee (robots.txt), veille uniquement')
+            continue
         suitable=[]
         for link in w.get('links', []):
             u=link['url']
@@ -508,6 +524,108 @@ def extract_official_candidates(watches: list[dict], today: date) -> list[dict]:
                 print(f"::warning::EXTRACTION {w['name']} : {str(exc)[:180]}")
     return list(found.values())
 
+def month_distance(y: int, m: int, today: date) -> int:
+    return 12 * (y - today.year) + m - today.month
+
+
+def discover_ffa_month_urls(html: str, today: date) -> list[dict]:
+    """Découvre UNIQUEMENT les URLs mensuelles réelles présentes sur le site FFA.
+
+    Ne tente aucune URL inventée ni API privée. Sélectionne les liens dont la
+    carte/le titre mentionne un mois, une année et une famille Running/Cross.
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+    found: dict[str, dict] = {}
+    month_re = re.compile(r'\b(' + '|'.join(MONTHS) + r')\s+(20\d{2})\b', re.I)
+    for link in soup.select('a[href]'):
+        full = urljoin(FFA_SEASON_HUB, link['href'])
+        full, _ = urldefrag(full)
+        parts = urlsplit(full)
+        if parts.scheme != 'https' or parts.hostname not in ('www.athle.fr', 'athle.fr'):
+            continue
+        if '/base/calendrier' not in parts.path:
+            continue
+        # Le lien générique n'offre pas de période : il est déjà traité.
+        if full.rstrip('/') == SOURCE:
+            continue
+        card_date = None
+        card_text = ''
+        for parent in [link, *list(link.parents)[:5]]:
+            if not getattr(parent, 'get_text', None):
+                continue
+            snippet = re.sub(r'\s+', ' ', parent.get_text(' ', strip=True))
+            # Une carte ne doit pas réunir plusieurs mois : sinon ambiguïté.
+            mm = list(month_re.finditer(normalized(snippet)))
+            if len(snippet) <= 350 and len(mm) == 1:
+                card_date = (int(mm[0].group(2)), MONTHS[mm[0].group(1)])
+                card_text = snippet
+                break
+        if not card_date:
+            continue
+        year, month = card_date
+        if not (0 <= month_distance(year, month, today) < HORIZON_MONTHS):
+            continue
+        # Déterminer la famille par contexte et NON par simple présence du mot
+        # Running dans un tableau contenant toutes les disciplines.
+        prev_heading = link.find_previous(['h2', 'h3', 'h4', 'h5'])
+        discipline = None
+        h = prev_heading
+        for _ in range(6):
+            if h is None:
+                break
+            head = normalized(h.get_text(' ', strip=True))
+            for word in ('running', 'cross', 'piste', 'marche', 'salle'):
+                if re.search(rf'\b{word}\b', head):
+                    discipline = word
+                    break
+            if discipline:
+                break
+            h = h.find_previous(['h2', 'h3', 'h4', 'h5'])
+        if discipline not in ('running','cross'):
+            continue
+        found[full] = {'url': full, 'year': year, 'month': month}
+    return sorted(found.values(), key=lambda x: (x['year'], x['month'], x['url']))[:MAX_FFA_PAGES]
+
+
+def collect_ffa_months(today: date) -> tuple[list[dict], dict]:
+    """Collecte bornée, ne bloque jamais la collecte principale FFA."""
+    status = {'discovered': 0, 'read': 0, 'failed': 0, 'regionalRows': 0,
+              'candidates': 0, 'status': 'not_started', 'reason': ''}
+    try:
+        hub_html = fetch(FFA_SEASON_HUB, check_robots=True)
+        pages = discover_ffa_month_urls(hub_html, today)
+        status['discovered'] = len(pages)
+        if not pages:
+            status['status'] = 'unavailable'
+            status['reason'] = 'Aucun lien mensuel Running/Cross exploitable découvert : filtre FFA à valider'
+            print('FFA MOIS : 0 lien mensuel exploitable ; collecte principale conservee')
+            return [], status
+        all_candidates = {}
+        for page in pages:
+            try:
+                # Requêtes légères, espacées : ne pas saturer la FFA.
+                time.sleep(1.0)
+                page_html = fetch(page['url'], check_robots=True)
+                candidates, count = parse_ffa(page_html, today, year_hint=page['year'])
+                status['read'] += 1
+                status['regionalRows'] += count
+                for c in candidates:
+                    all_candidates[(normalized(c['name']), normalized(c['city']), c['date'])] = c
+            except Exception as exc:
+                status['failed'] += 1
+                print(f"::warning::FFA MOIS {page['month']:02d}/{page['year']} : {str(exc)[:140]}")
+        status['candidates'] = len(all_candidates)
+        status['status'] = ('empty' if status['regionalRows'] == 0 else
+                            'ok' if status['read'] == len(pages) else 'partial')
+        print(f"FFA MOIS : liens {status['discovered']}, pages lues {status['read']}, echecs {status['failed']}, lignes 67/68 {status['regionalRows']}, candidats {status['candidates']}")
+        return list(all_candidates.values()), status
+    except Exception as exc:
+        status['status'] = 'unavailable'
+        status['reason'] = str(exc)[:180]
+        print(f'::warning::FFA MOIS : exploration non disponible : {status["reason"]}')
+        return [], status
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
@@ -527,13 +645,25 @@ def main() -> int:
     except Exception as ex:
         print(f'::error::FFA inaccessible ou non reconnue : {ex}. Données conservées.')
         return 1
+    monthly, month_report = collect_ffa_months(today)
+    # Garder la source courante et la source mensuelle ; les doublons entre
+    # les pages FFA sont supprimés avant publication.
+    unique = {}
+    for item in candidates + monthly:
+        key = (normalized(item['name']), normalized(item['city']), item['date'])
+        unique[key] = item
+    candidates = list(unique.values())
     official = watch_official(today)
     official_candidates = extract_official_candidates(official, today)
     added, review = merge_candidates(existing, candidates)
     existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
     existing['runningCheckedAt'] = today.isoformat()
-    existing['collectionStatus'] = [{'name':'FFA','url':SOURCE,'status':'ok',
-                                     'checkedAt':today.isoformat(),'rows':rows,'inArea':len(candidates)}]
+    existing['collectionStatus'] = [
+        {'name':'FFA','url':SOURCE,'status':'ok', 'checkedAt':today.isoformat(),
+         'rows':rows,'inArea':len(candidates)},
+        {'name':'FFA calendrier mensuel','url':FFA_SEASON_HUB,
+         'checkedAt':today.isoformat(), **month_report},
+    ]
     existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
                                       'candidates':len(candidates),'added':added,
                                       'conflicts':len(review),
@@ -541,7 +671,7 @@ def main() -> int:
                                       'officialWatchTotal':len(official)}
     if added:
         existing['asOf'] = today.isoformat()
-    print(f'BILAN : FFA 1/1, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
+    print(f'BILAN : FFA 1/1, pages mensuelles {month_report["read"]}/{month_report["discovered"]}, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
     print(f"VEILLE : sources officielles {sum(x['status']=='links_found' for x in official)}/{len(official)} ; import officiel complémentaire en attente de validation")
     print(f'EXTRACTION : {len(official_candidates)} candidats officiels a valider ; aucun ajout automatique')
     print('Couverture 30 min en voiture : NON vérifiée. HYROX : pas encore automatisé.')
