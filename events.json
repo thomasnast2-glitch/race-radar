@@ -595,6 +595,18 @@
       "checkedAt": "2026-10-31",
       "rows": 6,
       "inArea": 4
+    },
+    {
+      "name": "FFA calendrier mensuel",
+      "url": "https://www.athle.fr/contenu/tout-le-calendrier-2027/5255",
+      "checkedAt": "2026-10-31",
+      "discovered": 0,
+      "read": 0,
+      "failed": 0,
+      "regionalRows": 0,
+      "candidates": 0,
+      "status": "unavailable",
+      "reason": "Aucun lien mensuel Running/Cross exploitable découvert : filtre FFA à valider"
     }
   ],
   "collectionSummary": {
