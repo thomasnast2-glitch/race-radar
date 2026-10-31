@@ -2,6 +2,41 @@
   "checkedAt": "2026-10-31",
   "conflicts": [],
   "officialCandidates": [],
+  "alsaceStatus": {
+    "status": "partial",
+    "years": {
+      "2026": {
+        "status": "ok",
+        "rows": 436,
+        "upcoming": 52,
+        "inArea": 31,
+        "excludedType": 21,
+        "unrecognizedCities": [
+          "Belmont",
+          "Gaschney",
+          "Gunsbach",
+          "Hirsingue",
+          "Houssen",
+          "Masevaux",
+          "Niederbronn-les-Bains",
+          "Reichshoffen",
+          "Saint-Louis",
+          "Wittelsheim"
+        ],
+        "skippedDates": 0,
+        "candidates": 17
+      },
+      "2027": {
+        "status": "error",
+        "error": "HTTP 300"
+      }
+    },
+    "pagesOk": 1,
+    "candidates": 17,
+    "checkedAt": "2026-10-31",
+    "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
+  },
+  "alsaceDateConflicts": [],
   "ffaSeasonPreview": [],
   "ffaSeasonStatus": {
     "source": "https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&frmpostback=true&frmsaisonffa=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=",

@@ -35,7 +35,11 @@
       "date": "2026-11-01",
       "end": "2026-11-01",
       "kind": "Cross",
-      "dist": [],
+      "dist": [
+        5.0,
+        10.0,
+        21.1
+      ],
       "zone": "nord",
       "source": "https://www.athle.fr/competitions/736846692840369849349840409849348849",
       "certainty": "à vérifier",
@@ -121,6 +125,52 @@
       "country": "FR"
     },
     {
+      "id": "aec-e98514f0995e",
+      "name": "Le Strasbourgeois",
+      "city": "Strasbourg",
+      "date": "2026-11-08",
+      "end": "2026-11-08",
+      "kind": "Route",
+      "dist": [
+        5.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=strasbourgeois",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-499337dcb2e0",
+      "name": "Les Foulées du Souvenir",
+      "city": "Orbey",
+      "date": "2026-11-14",
+      "end": "2026-11-14",
+      "kind": "Trail",
+      "dist": [
+        9.0,
+        27.5
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=souvenir10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-ff0422e9609c",
+      "name": "Le cross de Neuf-Brisach",
+      "city": "Neuf-Brisach",
+      "date": "2026-11-15",
+      "end": "2026-11-15",
+      "kind": "Cross",
+      "dist": [
+        8.3
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=crossneufbrisach",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r7",
       "name": "Cross du Sapin",
       "city": "Sélestat",
@@ -134,6 +184,19 @@
       "zone": "centre",
       "source": "https://sasdepart.fr/courses-pres-de/strasbourg/",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-141913904b71",
+      "name": "La Corrida du Vignoble",
+      "city": "Molsheim",
+      "date": "2026-11-21",
+      "end": "2026-11-21",
+      "kind": "Route",
+      "dist": [],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=corridavignoble90",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -200,6 +263,22 @@
       "country": "FR"
     },
     {
+      "id": "aec-3147535c3032",
+      "name": "Cross Hubert Steinmetz",
+      "city": "Brumath",
+      "date": "2026-12-06",
+      "end": "2026-12-06",
+      "kind": "Cross",
+      "dist": [
+        4.1,
+        7.71
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=crosssteinmetzlong",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r12",
       "name": "Trail du Téléthon de Buhl",
       "city": "Buhl",
@@ -223,7 +302,9 @@
       "end": "2026-12-06",
       "kind": "Trail",
       "dist": [
+        10.0,
         10.5,
+        17.0,
         17.5,
         24
       ],
@@ -257,11 +338,28 @@
       "end": "2026-12-27",
       "kind": "Route",
       "dist": [
+        3.3,
+        6.6,
         6.9
       ],
       "zone": "centre",
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-b9b3719618d0",
+      "name": "Relais Schangala",
+      "city": "Kientzheim",
+      "date": "2026-12-27",
+      "end": "2026-12-27",
+      "kind": "Nature",
+      "dist": [
+        6.9
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=corridakientzheimrelais",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -585,7 +683,7 @@
       "young": false
     }
   ],
-  "asOf": "2026-10-30",
+  "asOf": "2026-10-31",
   "runningCheckedAt": "2026-10-31",
   "collectionStatus": [
     {
@@ -618,14 +716,49 @@
       "areaCandidates": 0,
       "checkedAt": "2026-10-31",
       "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
+    },
+    {
+      "name": "Alsace en courant",
+      "status": "partial",
+      "years": {
+        "2026": {
+          "status": "ok",
+          "rows": 436,
+          "upcoming": 52,
+          "inArea": 31,
+          "excludedType": 21,
+          "unrecognizedCities": [
+            "Belmont",
+            "Gaschney",
+            "Gunsbach",
+            "Hirsingue",
+            "Houssen",
+            "Masevaux",
+            "Niederbronn-les-Bains",
+            "Reichshoffen",
+            "Saint-Louis",
+            "Wittelsheim"
+          ],
+          "skippedDates": 0,
+          "candidates": 17
+        },
+        "2027": {
+          "status": "error",
+          "error": "HTTP 300"
+        }
+      },
+      "pagesOk": 1,
+      "candidates": 17,
+      "checkedAt": "2026-10-31",
+      "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
     }
   ],
   "collectionSummary": {
     "date": "2026-10-31",
     "sourcesOk": 1,
     "sourcesTotal": 1,
-    "candidates": 4,
-    "added": 0,
+    "candidates": 21,
+    "added": 6,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
