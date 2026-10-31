@@ -61,7 +61,8 @@ jobs:
           fi
           if ! git diff --cached --quiet; then
             git commit -m 'RACE RADAR : synchronisation des donnees'
-            git push
+            git pull --rebase origin main
+git push origin HEAD:main
           else
             echo 'Aucune modification des donnees.'
           fi
