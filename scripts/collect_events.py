@@ -1,6 +1,6 @@
-"""RACE//RADAR: collecte FFA + calendriers Running/Trail 67/68.
+"""RACE//RADAR: collecte FFA + veille des calendriers officiels 67/68.
 
-Collecte de métadonnées événementielles et lien vers la source, sans texte descriptif.
+Collecte FFA et inventaire des liens des commissions officielles 67 et 68.
 Vérifie robots.txt avant les requêtes aux sources complémentaires.
 Aucune date approximative n'est publiée comme date exacte.
 """
@@ -15,6 +15,7 @@ from datetime import date, datetime
 from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError
 from urllib.parse import urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 from datetime import timedelta
@@ -135,11 +136,12 @@ def same_event(a: dict, b: dict) -> bool:
 
 # Calendriers complémentaires recensant running ET trail dans chaque département.
 # Ces pages sont des listes: publication automatique UNIQUEMENT pour les dates complètes.
-MILES_URLS = (
-    'https://fr.milesrepublic.com/running/bas-rhin',
-    'https://fr.milesrepublic.com/trail/bas-rhin',
-    'https://fr.milesrepublic.com/running/haut-rhin',
-    'https://fr.milesrepublic.com/trail/haut-rhin',
+# Miles Republic répond HTTP 429 à l'exécution sur GitHub : ne plus le solliciter.
+# La FFA reste la seule source de nouvelles courses publiées automatiquement
+# jusqu'à validation des formats et des droits des calendriers officiels.
+OFFICIAL_WATCH = (
+    ('CDR67', 'https://running67.fr/running.html'),
+    ('CDA68', 'https://cd68.athle.fr/asp.net/espaces.html/html.aspx?id=45230'),
 )
 AGENT = 'RaceRadar/1.1 (veille calendrier sportif personnel; contact via depot GitHub)'
 MAX_HTML = 4_000_000
@@ -179,6 +181,11 @@ def fetch(url: str, check_robots: bool = True) -> str:
                 raise PermissionError(f'robots.txt interdit la collecte : {url}')
         except PermissionError:
             raise
+        except HTTPError as exc:
+            # Absence de robots.txt = aucune interdiction publiée à cet emplacement.
+            # 401/403 indiquent en revanche un accès refusé.
+            if exc.code not in (404, 410):
+                raise RuntimeError(f'impossible de vérifier robots.txt : HTTP {exc.code}') from exc
         except Exception as exc:
             raise RuntimeError(f'impossible de vérifier robots.txt : {exc}') from exc
     req = Request(url, headers={
@@ -303,59 +310,89 @@ def merge_candidates(existing: dict, candidates: list[dict]) -> tuple[int, list[
     return added, review
 
 
+
+def discover_calendar_links(html: str, base_url: str) -> list[dict]:
+    """Trouve les liens vers calendriers officiels, sans prétendre lire les événements.
+
+    Ne télécharge pas les PDF/XLSX : l'extraction de leurs dates reste à valider.
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+    found = {}
+    for tag in soup.select('a[href],iframe[src]'):
+        raw = tag.get('href') or tag.get('src') or ''
+        url = urljoin(base_url, raw)
+        scheme = urlsplit(url).scheme
+        if scheme not in ('https', 'http'):
+            continue
+        label = tag.get_text(' ', strip=True)[:100]
+        surrounding = (label + ' ' + raw).lower()
+        good_ext = re.search(r'\.(pdf|xlsx?|csv|ics)(?:[?&#]|$)', raw, re.I)
+        calendar_word = any(word in normalized(surrounding) for word in ('calendrier', 'running', 'course', '2026', '2027'))
+        is_embed = tag.name == 'iframe'
+        if good_ext or calendar_word or is_embed:
+            found[url] = {'url':url, 'label':label or ('iframe' if is_embed else 'document'),
+                          'format': ('document' if good_ext else 'iframe' if is_embed else 'page')}
+    return list(found.values())[:40]
+
+
+def watch_official(today: date) -> list[dict]:
+    reports = []
+    for name, url in OFFICIAL_WATCH:
+        try:
+            html = fetch(url, check_robots=True)
+            links = discover_calendar_links(html, url)
+            if not links:
+                raise ValueError('aucun lien de calendrier détecté : structure à inspecter')
+            reports.append({'name':name,'url':url,'status':'links_found',
+                            'checkedAt':today.isoformat(), 'links':links})
+            print(f'VEILLE {name} : {len(links)} liens potentiels (pas encore de courses importées)')
+        except Exception as exc:
+            reports.append({'name':name,'url':url,'status':'error',
+                            'checkedAt':today.isoformat(), 'error':str(exc)[:180]})
+            print(f'::warning::VEILLE {name} : {exc}')
+    return reports
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dry-run', action='store_true', help='simuler la collecte sans écriture')
+    parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
     parser.add_argument('--data', type=Path, default=DATA)
     args = parser.parse_args()
     existing = json.loads(args.data.read_text(encoding='utf-8'))
     if not isinstance(existing.get('running'), list) or not isinstance(existing.get('hyrox'), list):
         raise ValueError('events.json invalide : running et hyrox doivent être des listes')
     today = datetime.now(ZoneInfo('Europe/Paris')).date()
-    sources = [{'name':'FFA', 'url':SOURCE, 'parser':'ffa'}] + [
-        {'name':urlsplit(u).path.replace('/', ' ').strip(), 'url':u, 'parser':'miles'} for u in MILES_URLS
-    ]
-    status = []
-    candidates: list[dict] = []
-    successes = 0
-    for src in sources:
-        try:
-            html = fetch(src['url'], check_robots=(src['parser'] != 'ffa'))
-            if src['parser'] == 'ffa':
-                matches, rows = parse_ffa(html, today)
-            else:
-                matches, rows = parse_miles(html, src['url'], today)
-            if rows == 0:
-                raise ValueError('aucune fiche exploitable (page ou structure modifiée)')
-            candidates.extend(matches)
-            successes += 1
-            status.append({'name':src['name'], 'url':src['url'], 'status':'ok',
-                           'checkedAt':today.isoformat(), 'rows':rows, 'inArea':len(matches)})
-            print(f"{src['name']} : {rows} fiches, {len(matches)} courses datées en zone indicative")
-        except Exception as ex:
-            status.append({'name':src['name'], 'url':src['url'], 'status':'error',
-                           'checkedAt':today.isoformat(), 'error':str(ex)[:180]})
-            print(f"::warning::{src['name']} : {ex}")
-    if not successes:
-        print('::error::Toutes les sources sont inaccessibles ou non reconnues : aucune modification.')
+    # Ne pas compter comme « sources collectées » les calendriers seulement surveillés.
+    try:
+        html = fetch(SOURCE, check_robots=False)
+        candidates, rows = parse_ffa(html, today)
+        if rows == 0:
+            raise ValueError('FFA : aucune ligne régionale trouvée, format à contrôler')
+        print(f'FFA : {rows} lignes régionales, {len(candidates)} dans la zone indicative')
+    except Exception as ex:
+        print(f'::error::FFA inaccessible ou non reconnue : {ex}. Données conservées.')
         return 1
-    # Priorité à la FFA pour les nouvelles courses : traiter dans l'ordre.
+    official = watch_official(today)
     added, review = merge_candidates(existing, candidates)
     existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
     existing['runningCheckedAt'] = today.isoformat()
-    existing['collectionStatus'] = status
-    existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':successes,
-                                      'sourcesTotal':len(sources), 'candidates':len(candidates),
-                                      'added':added, 'conflicts':len(review)}
+    existing['collectionStatus'] = [{'name':'FFA','url':SOURCE,'status':'ok',
+                                     'checkedAt':today.isoformat(),'rows':rows,'inArea':len(candidates)}]
+    existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
+                                      'candidates':len(candidates),'added':added,
+                                      'conflicts':len(review),
+                                      'officialWatchOk':sum(x['status']=='links_found' for x in official),
+                                      'officialWatchTotal':len(official)}
     if added:
         existing['asOf'] = today.isoformat()
-    print(f'BILAN : sources {successes}/{len(sources)}, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
+    print(f'BILAN : FFA 1/1, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
+    print(f"VEILLE : sources officielles {sum(x['status']=='links_found' for x in official)}/{len(official)} ; import officiel complémentaire en attente de validation")
     print('Couverture 30 min en voiture : NON vérifiée. HYROX : pas encore automatisé.')
     if args.dry_run:
         print('MODE TEST : aucun fichier modifié.')
         return 0
     args.data.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    Path('source_watch.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'sources':official}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     return 0
 
 
