@@ -607,6 +607,17 @@
       "candidates": 0,
       "status": "unavailable",
       "reason": "Aucun lien mensuel Running/Cross exploitable découvert : filtre FFA à valider"
+    },
+    {
+      "name": "FFA liste saisonniere (test)",
+      "url": "https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&frmpostback=true&frmsaisonffa=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=",
+      "source": "https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&frmpostback=true&frmsaisonffa=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=",
+      "season": 2027,
+      "status": "unavailable",
+      "regionalRows": 0,
+      "areaCandidates": 0,
+      "checkedAt": "2026-10-31",
+      "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
     }
   ],
   "collectionSummary": {
