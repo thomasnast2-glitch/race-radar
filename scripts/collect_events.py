@@ -935,6 +935,156 @@ def merge_verified_2027(existing: dict, today: date) -> tuple[int, int, list[dic
 
 
 
+# V10 — source specifique aux cross corporatifs du Haut-Rhin.
+# Dates 2026-2027 annoncees par https://www.crosscorpos68.fr/ (31/10/2026).
+# Programme préliminaire: les distances inconnues ne sont pas inventees.
+# Le circuit des cross corpo 68 est ajoute en tant que demande explicite,
+# sans modifier la liste des communes de la collecte running/trail.
+CROSS_CORPO_URL = 'https://www.crosscorpos68.fr/'
+CROSS_CORPO_ZONES = {
+    'zimmersheim': 'sud', 'hesingue': 'sud', 'mulhouse': 'sud',
+    'riedisheim': 'sud', 'herrlisheim': 'centre', 'soultzmatt': 'sud',
+}
+CORPO_2627_OFFICIAL = (
+    ('Cross corpo Eiffage-Clemessy', 'Zimmersheim', '2026-11-21', [6.0], 'sud'),
+    ('Cross corpo Cryostar', 'Hésingue', '2026-12-12', [6.8], 'sud'),
+    ('Cross corpo Décathlon Village', 'Mulhouse', '2027-01-09', [], 'sud'),
+    ('Cross corpo Amicale Ville de Mulhouse/M2A', 'Riedisheim', '2027-01-16', [7.0], 'sud'),
+    ('Cross corpo Liebherr', 'Herrlisheim', '2027-01-30', [7.2], 'centre'),
+    ('Cross corpo Schoenenberger', 'Soultzmatt', '2027-02-06', [7.4], 'sud'),
+)
+# Neuf-Brisach ne fait PAS partie du challenge corpo : c'est un cross FFA.
+NEUF_BRISACH_FFA = {
+    'name': 'Cross des Remparts de Neuf-Brisach', 'city': 'Neuf-Brisach',
+    'date': '2026-11-15', 'end': '2026-11-15', 'kind': 'Cross',
+    'dist': [], 'zone': 'centre', 'country': 'FR',
+    'source': 'https://www.athle.fr/competitions/357846209846482828354855345834164831',
+    'certainty': 'confirmée',
+}
+
+CORPO_MONTHS = {
+    'jan':1, 'fev':2, 'mar':3, 'avr':4, 'mai':5, 'juin':6,
+    'juil':7, 'aou':8, 'sep':9, 'oct':10, 'nov':11, 'dec':12,
+}
+
+
+def parse_corpo_calendar(html: str, today: date) -> list[dict]:
+    """Lit uniquement les annonces avec dates explicites, jamais d'extrapolation.
+
+    La saison peut changer. Si le format n'est pas reconnu, on ne devine rien.
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+    text_lines = [re.sub(r'\s+', ' ', x).strip() for x in soup.get_text('\n').splitlines()]
+    text_lines = [x for x in text_lines if x]
+    # section 'LES COURSES 26-27' ou 'LES COURSES 27-28', sans archives
+    start = next((i for i, line in enumerate(text_lines)
+                  if re.search(r'^les courses\s+\d{2}\s+\d{2}$', normalized(line))), None)
+    if start is None:
+        return []
+    end = next((i for i in range(start+1, len(text_lines))
+                if normalized(text_lines[i]).startswith(('les classements', 'l esprit'))), len(text_lines))
+    rows = text_lines[start+1:end]
+    result = []
+    for i,line in enumerate(rows):
+        if '//' not in line or len(line) > 140:
+            continue
+        city, org = [s.strip() for s in line.split('//',1)]
+        zone = CROSS_CORPO_ZONES.get(normalized(city))
+        if not zone or not org:
+            continue
+        window = []
+        for x in rows[i+1:i+15]:
+            if '//' in x:
+                break
+            window.append(x)
+        date_match = None
+        for x in window:
+            date_match = re.search(r'\b(?:sam|dim)\s+(\d{1,2})\s+([A-Za-zÀ-ÿ.]+)\s+(20\d{2})\b', x, re.I)
+            if date_match: break
+        if not date_match:
+            continue
+        mo = CORPO_MONTHS.get(normalized(date_match.group(2))[:3])
+        if not mo:
+            continue
+        try:
+            dt = date(int(date_match.group(3)), mo, int(date_match.group(1)))
+        except ValueError:
+            continue
+        if dt < today:
+            continue
+        dist=[]
+        for x in window:
+            m=re.fullmatch(r'(\d+(?:[,.]\d+)?)\s*km', x, re.I)
+            if m:
+                dist=[float(m.group(1).replace(',','.'))]
+                break
+        name = ('Cross corpo ' + org).replace('Eiffage-Clemessy', 'Eiffage-Clemessy')
+        result.append(dict(name=name, city=city, date=dt.isoformat(), end=dt.isoformat(),
+                           kind='Cross', dist=dist, zone=zone, source=CROSS_CORPO_URL,
+                           certainty='à vérifier', country='FR'))
+    return result
+
+
+def official_corpo_candidates(today: date) -> tuple[list[dict], dict]:
+    """Tente le programme vivant (robots.txt vérifié), sinon garde les annonces datées.
+
+    La source officielle annonce en avant-première la saison; on signale que
+    les dates pourront évoluer. Aucune course Peugeot 2027 n'est inventée.
+    """
+    scheduled = [dict(name=name, city=city, date=when, end=when, kind='Cross',
+                      dist=list(dist), zone=zone, source=CROSS_CORPO_URL,
+                      certainty='à vérifier', country='FR')
+                 for name,city,when,dist,zone in CORPO_2627_OFFICIAL
+                 if date.fromisoformat(when) >= today]
+    status={'name':'Cross corpo 68', 'url':CROSS_CORPO_URL,
+            'checkedAt':today.isoformat(), 'status':'programme_preliminaire',
+            'scheduled':len(scheduled), 'live':0}
+    try:
+        html = fetch(CROSS_CORPO_URL, check_robots=True)
+        live = parse_corpo_calendar(html,today)
+        if live:
+            # La liste officielle à jour prime sur le programme initial;
+            # ne pas réintroduire une date obsolète en cas de changement.
+            scheduled = live
+            status.update({'status':'live', 'live':len(live)})
+        else:
+            status.update({'status':'structure_a_verifier'})
+    except Exception as ex:
+        status['error'] = str(ex)[:180]
+        print(f'::warning::CROSS CORPO 68 : lecture directe indisponible ({str(ex)[:120]}) ; annonces datees conservees')
+    if date.fromisoformat(NEUF_BRISACH_FFA['date']) >= today:
+        scheduled.append(dict(NEUF_BRISACH_FFA))
+    return scheduled,status
+
+
+def merge_corpo(existing: dict, candidates: list[dict]) -> tuple[int,list[dict]]:
+    """Pas de doublons pour les cross du même jour et de la même commune.
+
+    Les changements de dates proches pour un même cross passent en revue.
+    """
+    added=0
+    review=[]
+    for item in candidates:
+        key=(item['date'], normalized(item['city']))
+        # Empêche une double ligne "Cross de Neuf-Brisach" / "Cross des Remparts".
+        already = any((e.get('date'), normalized(e.get('city',''))) == key
+                      and e.get('kind') == 'Cross' for e in existing['running'])
+        if already:
+            continue
+        clash=next((e for e in existing['running'] if is_conflicting_date(e,item)),None)
+        if clash:
+            review.append({'candidate': item, 'existing_id': clash['id'],
+                           'reason':'Date du cross corpo differente: validation necessaire'})
+            continue
+        value=dict(item)
+        value['id']='corpo-' + hashlib.sha256(
+            (normalized(value['name'])+'|'+normalized(value['city'])+'|'+value['date']).encode()
+        ).hexdigest()[:12]
+        existing['running'].append(value)
+        added+=1
+    return added,review
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
@@ -972,6 +1122,9 @@ def main() -> int:
     review.extend(alsace_review)
     verified_added, verified_updated, verified_review = merge_verified_2027(existing, today)
     review.extend(verified_review)
+    corpo_candidates, corpo_status = official_corpo_candidates(today)
+    corpo_added, corpo_review = merge_corpo(existing, corpo_candidates)
+    review.extend(corpo_review)
     existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
     existing['runningCheckedAt'] = today.isoformat()
     existing['collectionStatus'] = [
@@ -984,15 +1137,17 @@ def main() -> int:
         {'name':'Alsace en courant', **alsace_report},
         {'name':'Courses 2027 documentees', 'status':'ok', 'checkedAt':today.isoformat(),
          'catalogueSize':len(VERIFIED_2027), 'new':verified_added},
+        corpo_status,
     ]
     existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
-                                      'candidates':len(candidates) + len(alsace_candidates) + len(VERIFIED_2027),'added':added + alsace_added + verified_added,
+                                      'candidates':len(candidates) + len(alsace_candidates) + len(VERIFIED_2027) + len(corpo_candidates),'added':added + alsace_added + verified_added + corpo_added,
                                       'conflicts':len(review),
                                       'officialWatchOk':sum(x['status']=='links_found' for x in official),
                                       'officialWatchTotal':len(official)}
-    if added or alsace_added or alsace_updated or verified_added or verified_updated:
+    if added or alsace_added or alsace_updated or verified_added or verified_updated or corpo_added:
         existing['asOf'] = today.isoformat()
     print(f'2027 VERIFIE : fiches {len(VERIFIED_2027)}, nouveaux {verified_added}, distances completees {verified_updated}, conflits {len(verified_review)}')
+    print(f'CROSS CORPO 68 : candidats {len(corpo_candidates)}, nouveaux {corpo_added}, conflits {len(corpo_review)}, statut {corpo_status["status"]}')
     print(f'ALSACE BILAN : pages {alsace_report["pagesOk"]}, candidates {len(alsace_candidates)}, nouveaux {alsace_added}, distances completees {alsace_updated}, conflits {len(alsace_review)}')
     print(f'BILAN : FFA 1/1, pages mensuelles {month_report["read"]}/{month_report["discovered"]}, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
     print(f"VEILLE : sources officielles {sum(x['status']=='links_found' for x in official)}/{len(official)} ; import officiel complémentaire en attente de validation")
@@ -1004,7 +1159,7 @@ def main() -> int:
     args.data.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review,
        'officialCandidates':official_candidates, 'alsaceStatus':alsace_report,
-       'alsaceDateConflicts':alsace_review, 'verified2027Conflicts':verified_review, 'ffaSeasonPreview':season_candidates,
+       'alsaceDateConflicts':alsace_review, 'verified2027Conflicts':verified_review, 'corpoConflicts':corpo_review, 'ffaSeasonPreview':season_candidates,
        'ffaSeasonStatus':season_report}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     Path('source_watch.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'sources':official}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     return 0
