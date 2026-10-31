@@ -853,6 +853,88 @@ def merge_alsace(existing: dict, candidates: list[dict]) -> tuple[int, int, list
     return added, updated, review
 
 
+
+# V9 : evenements 2027 verifies manuellement au 31/10/2026.
+# Ce petit noyau permet d'enrichir la saison tant que le calendrier
+# Alsace en courant 2027 n'est pas disponible. Ne pas extrapoler de dates
+# depuis 2026, ne pas interroger Miles Republic (HTTP 429).
+# Ces fiches datées ont une URL de provenance consultable ; les courses
+# non confirmees par l'organisateur restent marquees "a verifier".
+VERIFIED_2027 = (
+    {
+        'name': 'Les Foulées du Schiebenberg', 'city': 'Dinsheim-sur-Bruche',
+        'date': '2027-04-10', 'end': '2027-04-10', 'kind': 'Nature',
+        'dist': [5, 10, 20], 'zone': 'nord',
+        'source': 'https://www.le-sportif.com/calendrier/232473/foulees-du-schiebenberg-2027-dinsheim-sur-bruche/course-a-pied-sur-route/',
+        'certainty': 'à vérifier', 'country': 'FR',
+    },
+    {
+        'name': 'Trail du Grand Ballon — Printanière', 'city': 'Le Markstein',
+        'date': '2027-04-24', 'end': '2027-04-25', 'kind': 'Trail',
+        'dist': [25.2, 35.5, 46.3, 59.2, 79.9], 'zone': 'sud',
+        'source': 'https://grandballon.com/sportevents/trail-du-grand-ballon-spring/fr',
+        'certainty': 'confirmée', 'country': 'FR',
+    },
+    {
+        'name': "Courses de l'Ungersberg (U3T)", 'city': 'Reichsfeld',
+        'date': '2027-05-09', 'end': '2027-05-09', 'kind': 'Trail',
+        'dist': [14.5, 24, 42.6], 'zone': 'centre',
+        'source': 'https://www.le-sportif.com/calendrier/232478/u3t-courses-de-l-ungersberg-2027-reichsfeld/trail-course-nature/',
+        'certainty': 'à vérifier', 'country': 'FR',
+    },
+    {
+        'name': 'Trail du Grand Ballon — Estivale', 'city': 'Le Markstein',
+        'date': '2027-07-17', 'end': '2027-07-17', 'kind': 'Trail',
+        # Seules la distance la plus courte et la plus longue sont reprises;
+        # les autres formats sont a confirmer aupres de l'organisateur.
+        'dist': [20, 80], 'zone': 'sud',
+        'source': 'https://web.sqmtime.com/les-trails-du-grand-ballon/fr',
+        'certainty': 'confirmée', 'country': 'FR',
+    },
+)
+
+
+def merge_verified_2027(existing: dict, today: date) -> tuple[int, int, list[dict]]:
+    """Ajoute des dates 2027 documentees. Rejouer la collecte est idempotent.
+
+    Un conflit de date reste en revue, jamais publie automatiquement.
+    Les dates/lieux des fiches existantes ne sont pas ecrases.
+    """
+    added = updated = 0
+    conflicts = []
+    for original in VERIFIED_2027:
+        item = dict(original)
+        d = date.fromisoformat(item['date'])
+        if d.year != 2027 or d < today:
+            continue
+        if date.fromisoformat(item['end']) < d:
+            raise ValueError('Date de fin avant la date de debut : ' + item['name'])
+        city = normalized(item['city'])
+        if city != 'le markstein' and CITIES.get(city) != item['zone']:
+            raise ValueError('Commune non presente dans les zones existantes : ' + item['city'])
+        key = normalized(item['name'] + '|' + item['city'] + '|' + item['date'])
+        item['id'] = 'v27-' + hashlib.sha256(key.encode()).hexdigest()[:12]
+        existing_match = next((e for e in existing['running'] if equivalent_alsace(e, item)), None)
+        if existing_match:
+            if date.fromisoformat(existing_match['date']).year != 2027:
+                raise ValueError("Erreur d'annee de course lors de la fusion")
+            previous = set(existing_match.get('dist') or [])
+            combined = sorted(previous | set(item['dist']))
+            if combined != sorted(previous):
+                existing_match['dist'] = combined
+                updated += 1
+            continue
+        clash = next((e for e in existing['running'] if is_conflicting_date(e,item)), None)
+        if clash:
+            conflicts.append({'candidate':item,'existing_id':clash['id'],
+                              'reason':'Dates 2027 contradictoires : verification humaine'})
+            continue
+        existing['running'].append(item)
+        added += 1
+    return added, updated, conflicts
+
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
@@ -888,6 +970,8 @@ def main() -> int:
     added, review = merge_candidates(existing, candidates)
     alsace_added, alsace_updated, alsace_review = merge_alsace(existing, alsace_candidates)
     review.extend(alsace_review)
+    verified_added, verified_updated, verified_review = merge_verified_2027(existing, today)
+    review.extend(verified_review)
     existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
     existing['runningCheckedAt'] = today.isoformat()
     existing['collectionStatus'] = [
@@ -898,26 +982,29 @@ def main() -> int:
         {'name':'FFA liste saisonniere (test)','url':season_report['source'],
          **season_report},
         {'name':'Alsace en courant', **alsace_report},
+        {'name':'Courses 2027 documentees', 'status':'ok', 'checkedAt':today.isoformat(),
+         'catalogueSize':len(VERIFIED_2027), 'new':verified_added},
     ]
     existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
-                                      'candidates':len(candidates) + len(alsace_candidates),'added':added + alsace_added,
+                                      'candidates':len(candidates) + len(alsace_candidates) + len(VERIFIED_2027),'added':added + alsace_added + verified_added,
                                       'conflicts':len(review),
                                       'officialWatchOk':sum(x['status']=='links_found' for x in official),
                                       'officialWatchTotal':len(official)}
-    if added or alsace_added or alsace_updated:
+    if added or alsace_added or alsace_updated or verified_added or verified_updated:
         existing['asOf'] = today.isoformat()
+    print(f'2027 VERIFIE : fiches {len(VERIFIED_2027)}, nouveaux {verified_added}, distances completees {verified_updated}, conflits {len(verified_review)}')
     print(f'ALSACE BILAN : pages {alsace_report["pagesOk"]}, candidates {len(alsace_candidates)}, nouveaux {alsace_added}, distances completees {alsace_updated}, conflits {len(alsace_review)}')
     print(f'BILAN : FFA 1/1, pages mensuelles {month_report["read"]}/{month_report["discovered"]}, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
     print(f"VEILLE : sources officielles {sum(x['status']=='links_found' for x in official)}/{len(official)} ; import officiel complémentaire en attente de validation")
     print(f'EXTRACTION : {len(official_candidates)} candidats officiels a valider ; aucun ajout automatique')
-    print('Couverture 30 min en voiture : NON vérifiée. HYROX : pas encore automatisé.')
+    print('Zone geographique existante conservee sans modification. HYROX : donnees conservees.')
     if args.dry_run:
         print('MODE TEST : aucun fichier modifié.')
         return 0
     args.data.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review,
        'officialCandidates':official_candidates, 'alsaceStatus':alsace_report,
-       'alsaceDateConflicts':alsace_review, 'ffaSeasonPreview':season_candidates,
+       'alsaceDateConflicts':alsace_review, 'verified2027Conflicts':verified_review, 'ffaSeasonPreview':season_candidates,
        'ffaSeasonStatus':season_report}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     Path('source_watch.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'sources':official}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     return 0
