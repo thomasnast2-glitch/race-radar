@@ -21,6 +21,9 @@ from urllib.robotparser import RobotFileParser
 from datetime import timedelta
 import argparse
 import os
+import io
+import zipfile
+from xml.etree import ElementTree as ET
 from zoneinfo import ZoneInfo
 
 from bs4 import BeautifulSoup
@@ -352,6 +355,159 @@ def watch_official(today: date) -> list[dict]:
             print(f'::warning::VEILLE {name} : {exc}')
     return reports
 
+
+# V5 : extraction exploratoire de calendriers officiels vers une liste de validation.
+# N'ajoute jamais ces candidats directement au site tant que leur structure
+# n'a pas été vérifiée sur les sources réelles.
+DATE_EXPLICIT = re.compile(
+    r"\b(?P<iso>20\d{2}[-/]\d{1,2}[-/]\d{1,2})\b|"
+    r"\b(?P<day>\d{1,2})[./](?P<month_num>\d{1,2})[./](?P<year_num>20\d{2})\b|"
+    r"\b(?P<day_fr>\d{1,2})\s+(?P<month_fr>" + FRENCH_MONTH_PATTERN + r")\s+(?P<year_fr>20\d{2})\b", re.I)
+
+
+def explicit_date(value: str, today: date) -> str | None:
+    for m in DATE_EXPLICIT.finditer(value):
+        try:
+            if m.group('iso'):
+                d = date.fromisoformat(m.group('iso').replace('/', '-'))
+            elif m.group('day'):
+                d = date(int(m.group('year_num')), int(m.group('month_num')), int(m.group('day')))
+            else:
+                d = date(int(m.group('year_fr')), MONTHS[normalized(m.group('month_fr'))], int(m.group('day_fr')))
+        except (ValueError, KeyError):
+            continue
+        if today <= d <= today + timedelta(days=550):
+            return d.isoformat()
+    return None
+
+
+def download_binary(url: str) -> bytes:
+    """Respecte robots.txt et refuse les documents volumineux."""
+    parts = urlsplit(url)
+    robots_url = f'{parts.scheme}://{parts.netloc}/robots.txt'
+    rp = RobotFileParser()
+    try:
+        with urlopen(Request(robots_url, headers={'User-Agent': AGENT}), timeout=12) as response:
+            rp.parse(response.read(300_000).decode('utf-8', 'replace').splitlines())
+        if not rp.can_fetch(AGENT, url):
+            raise PermissionError('Accès interdit par robots.txt')
+    except HTTPError as exc:
+        if exc.code not in (404, 410):
+            raise
+    with urlopen(Request(url, headers={'User-Agent': AGENT}), timeout=20) as response:
+        payload = response.read(5_000_001)
+    if len(payload) > 5_000_000:
+        raise ValueError('Fichier trop volumineux')
+    return payload
+
+
+def parse_official_rows(rows: list[list[str]], url: str, today: date) -> list[dict]:
+    """Sélection conservatrice : date comportant l'année et commune reconnue."""
+    candidates = []
+    already = set()
+    for row in rows:
+        cells = [re.sub(r'\s+', ' ', str(v or '')).strip() for v in row]
+        if not cells or len(' '.join(cells)) > 850:
+            continue
+        dt = next((explicit_date(x, today) for x in cells if explicit_date(x, today)), None)
+        if not dt:
+            continue
+        places = [(cell, CITIES.get(normalized(cell))) for cell in cells]
+        matching = [(city,zone) for city,zone in places if zone]
+        if not matching:
+            continue
+        city, zone = matching[0]
+        names = [x for x in cells if 5 <= len(x) <= 125 and not explicit_date(x,today)
+                 and normalized(x) != normalized(city)
+                 and not x.isnumeric() and not x.lower().startswith(('http:', 'https:'))]
+        if not names:
+            continue
+        name = max(names, key=lambda x: len(x))
+        if normalized(name) in ('calendrier running', 'nom de la course', 'nom competition'):
+            continue
+        key = normalized(f'{name} {city} {dt}')
+        if key in already:
+            continue
+        already.add(key)
+        kind = 'Trail' if 'trail' in normalized(name) else 'Cross' if 'cross' in normalized(name) else 'Nature' if 'nature' in normalized(name) else 'Route'
+        candidates.append({'id': 'off-'+hashlib.sha256(key.encode()).hexdigest()[:12],
+                           'name': name, 'city': city, 'date': dt, 'end': dt,
+                           'kind': kind, 'dist': [], 'zone': zone, 'source': url,
+                           'certainty': 'à vérifier', 'country': 'FR',
+                           'reviewReason':'Détecté dans un calendrier officiel : colonnes à vérifier'})
+    return candidates
+
+
+def official_html_candidates(html: str, url: str, today: date) -> list[dict]:
+    soup = BeautifulSoup(html, 'html.parser')
+    rows = [[c.get_text(' ', strip=True) for c in tr.find_all(['th','td'])]
+            for tr in soup.select('tr')]
+    return parse_official_rows(rows, url, today)
+
+
+def official_xlsx_candidates(data: bytes, url: str, today: date) -> list[dict]:
+    """Lecteur XLSX léger standardlib, dates de cellule converties si nécessaire."""
+    NS='{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        shared=[]
+        if 'xl/sharedStrings.xml' in archive.namelist():
+            root=ET.fromstring(archive.read('xl/sharedStrings.xml'))
+            shared=[''.join(t.text or '' for t in si.iter(NS+'t')) for si in root.findall(NS+'si')]
+        allrows=[]
+        sheet_paths=sorted(x for x in archive.namelist() if re.match(r'xl/worksheets/sheet\d+\.xml$', x))[:5]
+        for sheet in sheet_paths:
+            xml=ET.fromstring(archive.read(sheet))
+            for row in xml.iter(NS+'row'):
+                vals=[]
+                for c in row.findall(NS+'c'):
+                    t=c.get('t','')
+                    v=c.find(NS+'v')
+                    value=v.text if v is not None else ''
+                    if t=='s' and value:
+                        value=shared[int(value)]
+                    elif t=='inlineStr':
+                        value=''.join(n.text or '' for n in c.iter(NS+'t'))
+                    elif t not in ('s', 'str') and value and c.get('s') is not None:
+                        # Dates Excel en format serial (cellules stylées).
+                        try:
+                            serial = float(value)
+                            if 46_000 <= serial <= 50_000:
+                                value = (date(1899, 12, 30) + timedelta(days=int(serial))).isoformat()
+                        except ValueError:
+                            pass
+                    vals.append(value or '')
+                if vals:
+                    allrows.append(vals)
+    return parse_official_rows(allrows, url, today)
+
+
+def extract_official_candidates(watches: list[dict], today: date) -> list[dict]:
+    """V5 : extrait quelques documents fiables, mais met les résultats en revue."""
+    found={}
+    for w in watches:
+        if w['status']!='links_found':
+            continue
+        suitable=[]
+        for link in w.get('links', []):
+            u=link['url']
+            if re.search(r'\.xlsx(?:[?#]|$)',u,re.I) and 'running' in normalized(u+' '+link.get('label','')):
+                suitable.append(('xlsx',u))
+            elif link.get('format')=='iframe' and ('docs.google.com' in urlsplit(u).netloc or 'running67.fr' in urlsplit(u).netloc):
+                suitable.append(('html',u))
+        for fmt,u in suitable[:2]:
+            try:
+                if fmt=='xlsx':
+                    items=official_xlsx_candidates(download_binary(u),u,today)
+                else:
+                    items=official_html_candidates(fetch(u,check_robots=True),u,today)
+                for e in items:
+                    key=normalized(f"{e['name']} {e['city']} {e['date']}")
+                    found[key]=e
+                print(f"EXTRACTION {w['name']} : {len(items)} candidats a verifier ({fmt})")
+            except Exception as exc:
+                print(f"::warning::EXTRACTION {w['name']} : {str(exc)[:180]}")
+    return list(found.values())
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
@@ -372,6 +528,7 @@ def main() -> int:
         print(f'::error::FFA inaccessible ou non reconnue : {ex}. Données conservées.')
         return 1
     official = watch_official(today)
+    official_candidates = extract_official_candidates(official, today)
     added, review = merge_candidates(existing, candidates)
     existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
     existing['runningCheckedAt'] = today.isoformat()
@@ -386,12 +543,13 @@ def main() -> int:
         existing['asOf'] = today.isoformat()
     print(f'BILAN : FFA 1/1, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
     print(f"VEILLE : sources officielles {sum(x['status']=='links_found' for x in official)}/{len(official)} ; import officiel complémentaire en attente de validation")
+    print(f'EXTRACTION : {len(official_candidates)} candidats officiels a valider ; aucun ajout automatique')
     print('Couverture 30 min en voiture : NON vérifiée. HYROX : pas encore automatisé.')
     if args.dry_run:
         print('MODE TEST : aucun fichier modifié.')
         return 0
     args.data.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review, 'officialCandidates':official_candidates}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     Path('source_watch.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'sources':official}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     return 0
 
