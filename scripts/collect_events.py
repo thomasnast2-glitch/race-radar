@@ -1,4 +1,4 @@
-"""RACE//RADAR V6 : FFA par mois + veille officielle 67/68.
+"""RACE//RADAR V8 : calendrier Alsace en courant + FFA + veille officielle 67/68.
 
 Exploration bornée des liens mensuels réellement publiés par la FFA.
 Pas de contournement de robots.txt, de date extrapolée ni de géolocalisation inventée.
@@ -681,6 +681,178 @@ def probe_ffa_season(today: date) -> tuple[list[dict], dict]:
         print(f'::warning::FFA SAISON {season} : non exploitable ({status["error"]})')
         return [], status
 
+
+# V8 : "L'Alsace en courant" : source complémentaire structurée.
+# Les calendriers sont indicatifs : ne pas inventer les années futures,
+# ni affirmer que nos zones indicatives sont à <= 30 minutes de route.
+ALSACE_URL = 'https://www.alsace-en-courant.com/courses/index_{year}.php'
+ALSACE_ALLOWED_TYPES = {
+    'route': 'Route', 'nature':'Nature', 'trail':'Trail', 'ultra trail':'Trail',
+    'montagne':'Trail', 'cross':'Cross', 'urbain':'Nature',
+    'nocturne':'Trail', 'relais':'Nature',
+}
+ALSACE_HEADER = ('type','jour','date','course','distance','d','dep','depart')
+
+
+def alsace_base_name(name: str) -> str:
+    """Regrouper les variantes d'une course (5, 10 km, semi) sans perdre leurs distances."""
+    base = re.sub(r'\s*\([^()]{1,90}\)\s*$', '', name).strip()
+    return base if len(base) >= 5 else name.strip()
+
+
+def parse_alsace(html: str, year: int, today: date) -> tuple[list[dict], dict]:
+    """Extrait les lignes du tableau explicite de l'année; échec fermé si structure inattendue."""
+    soup = BeautifulSoup(html, 'html.parser')
+    table = None
+    for candidate in soup.select('table'):
+        for tr in candidate.select('tr')[:6]:
+            cols = [normalized(td.get_text(' ', strip=True)) for td in tr.find_all(['td','th'], recursive=False)]
+            if len(cols) >= 8 and cols[0] == 'type' and cols[2] == 'date' and cols[3] == 'course' and cols[7] in ('depart','lieu de depart'):
+                table = candidate
+                break
+        if table is not None:
+            break
+    if table is None:
+        raise ValueError('Tableau Type/Jour/Date/Course/Distance/Dep/Depart introuvable : format changé')
+    stats = {'rows':0, 'upcoming':0, 'inArea':0, 'excludedType':0,
+             'unrecognizedCities': set(), 'skippedDates':0}
+    grouped: dict[tuple, dict] = {}
+    for tr in table.select('tr'):
+        cols = tr.find_all('td', recursive=False)
+        if len(cols) < 8:
+            continue
+        stats['rows'] += 1
+        typ = normalized(cols[0].get_text(' ', strip=True))
+        kind = ALSACE_ALLOWED_TYPES.get(typ)
+        if not kind:
+            stats['excludedType'] += 1
+            continue
+        raw = cols[2].get_text(' ', strip=True)
+        m = re.fullmatch(r'(\d{1,2})/(\d{1,2})/(20\d{2})', raw)
+        if not m:
+            stats['skippedDates'] += 1
+            continue
+        try:
+            race_date = date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+        except ValueError:
+            stats['skippedDates'] += 1
+            continue
+        # Ne jamais deviner la date de 2027 à partir d'une course 2026.
+        if race_date.year != year or not (today <= race_date <= today + timedelta(days=550)):
+            continue
+        stats['upcoming'] += 1
+        dep = cols[6].get_text(' ', strip=True)
+        if dep not in ('67','68'):
+            continue
+        city = re.sub(r'\s+', ' ', cols[7].get_text(' ', strip=True)).strip()
+        zone = CITIES.get(normalized(city))
+        if zone is None:
+            stats['unrecognizedCities'].add(city)
+            continue
+        name = re.sub(r'\s+', ' ', cols[3].get_text(' ', strip=True)).strip()
+        if not 5 <= len(name) <= 155 or 'annul' in normalized(name):
+            continue
+        stats['inArea'] += 1
+        dist_raw = cols[4].get_text(' ', strip=True).replace(',', '.')
+        try:
+            dist = float(dist_raw) if re.fullmatch(r'\d+(?:\.\d+)?', dist_raw) else None
+        except ValueError:
+            dist = None
+        if dist is not None and not (0.1 <= dist <= 350):
+            dist = None
+        link = cols[3].find('a', href=True)
+        href = urljoin(ALSACE_URL.format(year=year), link['href']) if link else ALSACE_URL.format(year=year)
+        if urlsplit(href).scheme not in ('http','https'):
+            href = ALSACE_URL.format(year=year)
+        basename = alsace_base_name(name)
+        key = (normalized(basename), normalized(city), race_date.isoformat())
+        if key not in grouped:
+            digest = hashlib.sha256('|'.join(key).encode()).hexdigest()[:12]
+            grouped[key] = {
+                'id':'aec-'+digest, 'name':basename, 'city':city,
+                'date':race_date.isoformat(), 'end':race_date.isoformat(),
+                'kind':kind, 'dist':[], 'zone':zone, 'source':href,
+                'certainty':'à vérifier', 'country':'FR',
+            }
+        current = grouped[key]
+        if dist is not None and dist not in current['dist']:
+            current['dist'].append(dist)
+        # Si au moins un des formats est trail, privilégier cette catégorie.
+        if kind == 'Trail':
+            current['kind'] = 'Trail'
+    for item in grouped.values():
+        item['dist'].sort()
+    stats['candidates'] = len(grouped)
+    stats['unrecognizedCities'] = sorted(stats['unrecognizedCities'])[:30]
+    return list(grouped.values()), stats
+
+
+def collect_alsace(today: date) -> tuple[list[dict], dict]:
+    """Maximum deux pages par jour, robots.txt contrôlé via fetch() : pas de contournement."""
+    years = [today.year]
+    if today.month >= 9:
+        years.append(today.year + 1)
+    report = {'status':'unavailable', 'years':{}, 'pagesOk':0,
+              'candidates':0, 'checkedAt':today.isoformat(),
+              'url':ALSACE_URL.format(year=today.year)}
+    out = {}
+    for year in years:
+        url = ALSACE_URL.format(year=year)
+        try:
+            html = fetch(url, check_robots=True)
+            items, stats = parse_alsace(html, year, today)
+            report['years'][str(year)] = {'status':'ok', **stats}
+            report['pagesOk'] += 1
+            for item in items:
+                out[(normalized(item['name']),normalized(item['city']),item['date'])] = item
+            print(f"ALSACE {year} : lignes {stats['rows']}, a venir {stats['upcoming']}, zone indicative {stats['inArea']}, evenements {stats['candidates']}")
+        except HTTPError as exc:
+            # Le calendrier de l'année suivante peut ne pas être encore publié.
+            status = 'non_published' if exc.code in (404,410) else 'error'
+            report['years'][str(year)] = {'status': status, 'error': f'HTTP {exc.code}'}
+            print(f"ALSACE {year} : {status} (HTTP {exc.code}), aucune date extrapolee")
+        except Exception as exc:
+            report['years'][str(year)] = {'status':'error','error':str(exc)[:200]}
+            print(f'::warning::ALSACE {year} : {str(exc)[:170]}')
+    report['candidates'] = len(out)
+    report['status'] = 'ok' if report['pagesOk'] == len(years) else 'partial' if report['pagesOk'] else 'unavailable'
+    return list(out.values()), report
+
+
+def equivalent_alsace(a: dict, b: dict) -> bool:
+    """Une course existante le même jour et dans la même ville peut regrouper les formats."""
+    if a.get('date') != b.get('date') or normalized(a.get('city','')) != normalized(b.get('city','')):
+        return False
+    an = re.sub(r'^(?:le|la|les|l) ', '', normalized(alsace_base_name(a.get('name',''))))
+    bn = re.sub(r'^(?:le|la|les|l) ', '', normalized(alsace_base_name(b.get('name',''))))
+    if an == bn:
+        return True
+    if min(len(an), len(bn)) >= 9 and (an.startswith(bn) or bn.startswith(an)):
+        return True
+    return SequenceMatcher(None, an, bn).ratio() >= 0.77
+
+
+def merge_alsace(existing: dict, candidates: list[dict]) -> tuple[int, int, list[dict]]:
+    """Ne pas écraser une course existante ; dates contradictoires mises en revue."""
+    added, updated = 0, 0
+    review = []
+    for item in candidates:
+        match = next((e for e in existing['running'] if equivalent_alsace(e,item)), None)
+        if match:
+            before = set(match.get('dist') or [])
+            match['dist'] = sorted(before | set(item['dist']))
+            if set(match['dist']) != before:
+                updated += 1
+            continue
+        clash = next((e for e in existing['running'] if is_conflicting_date(e,item)), None)
+        if clash:
+            review.append({'candidate':item, 'existing_id':clash['id'], 'reason':'dates contradictoires'})
+            continue
+        existing['running'].append(item)
+        added += 1
+    return added, updated, review
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
@@ -710,9 +882,12 @@ def main() -> int:
         key = (normalized(item['name']), normalized(item['city']), item['date'])
         unique[key] = item
     candidates = list(unique.values())
+    alsace_candidates, alsace_report = collect_alsace(today)
     official = watch_official(today)
     official_candidates = extract_official_candidates(official, today)
     added, review = merge_candidates(existing, candidates)
+    alsace_added, alsace_updated, alsace_review = merge_alsace(existing, alsace_candidates)
+    review.extend(alsace_review)
     existing['running'].sort(key=lambda x: (x['date'], x['name'].lower()))
     existing['runningCheckedAt'] = today.isoformat()
     existing['collectionStatus'] = [
@@ -722,14 +897,16 @@ def main() -> int:
          'checkedAt':today.isoformat(), **month_report},
         {'name':'FFA liste saisonniere (test)','url':season_report['source'],
          **season_report},
+        {'name':'Alsace en courant', **alsace_report},
     ]
     existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
-                                      'candidates':len(candidates),'added':added,
+                                      'candidates':len(candidates) + len(alsace_candidates),'added':added + alsace_added,
                                       'conflicts':len(review),
                                       'officialWatchOk':sum(x['status']=='links_found' for x in official),
                                       'officialWatchTotal':len(official)}
-    if added:
+    if added or alsace_added or alsace_updated:
         existing['asOf'] = today.isoformat()
+    print(f'ALSACE BILAN : pages {alsace_report["pagesOk"]}, candidates {len(alsace_candidates)}, nouveaux {alsace_added}, distances completees {alsace_updated}, conflits {len(alsace_review)}')
     print(f'BILAN : FFA 1/1, pages mensuelles {month_report["read"]}/{month_report["discovered"]}, candidates {len(candidates)}, nouvelles {added}, conflits {len(review)}')
     print(f"VEILLE : sources officielles {sum(x['status']=='links_found' for x in official)}/{len(official)} ; import officiel complémentaire en attente de validation")
     print(f'EXTRACTION : {len(official_candidates)} candidats officiels a valider ; aucun ajout automatique')
@@ -739,7 +916,8 @@ def main() -> int:
         return 0
     args.data.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review,
-       'officialCandidates':official_candidates, 'ffaSeasonPreview':season_candidates,
+       'officialCandidates':official_candidates, 'alsaceStatus':alsace_report,
+       'alsaceDateConflicts':alsace_review, 'ffaSeasonPreview':season_candidates,
        'ffaSeasonStatus':season_report}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     Path('source_watch.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'sources':official}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     return 0
