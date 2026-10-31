@@ -16,7 +16,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
-from urllib.parse import urljoin, urlsplit, urldefrag
+from urllib.parse import urljoin, urlsplit, urldefrag, urlencode
 from urllib.robotparser import RobotFileParser
 from datetime import timedelta
 import argparse
@@ -95,7 +95,7 @@ def date_from_label(s: str, today: date, year_hint: int | None = None) -> str | 
     return d.isoformat() if d >= today else None
 
 
-def parse_ffa(html: str, today: date, year_hint: int | None = None) -> tuple[list[dict], int]:
+def parse_ffa(html: str, today: date, year_hint: int | None = None, season: int | None = None) -> tuple[list[dict], int]:
     soup = BeautifulSoup(html, 'html.parser')
     out, seen = [], 0
     for tr in soup.select('tr'):
@@ -110,6 +110,13 @@ def parse_ffa(html: str, today: date, year_hint: int | None = None) -> tuple[lis
         text_header = header.get_text(' ', strip=True) if header else ''
         match_year = re.search(r'\b(20\d{2})\b', text_header) if any(m in normalized(text_header) for m in MONTHS) else None
         row_year = int(match_year.group(1)) if match_year else year_hint
+        # Les saisons FFA couvrent septembre (N-1) a aout (N).
+        # Ne pas extrapoler l'annee avec la date du jour pour ce calendrier.
+        if season is not None and row_year is None:
+            month_token = re.search(r'\b\d{1,2}(?:\s*[-–]\s*\d{1,2})?\s+([a-zA-Zéèêûôàùïëîç]+)\b', label, re.I)
+            mo = MONTHS.get(normalized(month_token.group(1))) if month_token else None
+            if mo:
+                row_year = season-1 if mo >= 9 else season
         m_date = date_from_label(label, today, row_year)
         # Aucune interprétation à partir des autres tables du site.
         if not m_date or not re.search(r'\b0?(?:67|68)\b', raw_city):
@@ -118,7 +125,8 @@ def parse_ffa(html: str, today: date, year_hint: int | None = None) -> tuple[lis
         if not ('running' in kind_raw or 'cross' in kind_raw):
             continue
         seen += 1
-        city = next(cells[2].stripped_strings, '').strip()
+        # La ville et le departement peuvent etre dans un meme td ou deux sous-elements.
+        city = re.split(r'\b0?(?:67|68)\s*[-–]\s*G-E\b', raw_city, maxsplit=1, flags=re.I)[0].strip(' |,-')
         zone = CITIES.get(normalized(city))
         if not zone:
             continue
@@ -626,6 +634,53 @@ def collect_ffa_months(today: date) -> tuple[list[dict], dict]:
         return [], status
 
 
+
+# V7 : test de la liste officielle FFA par saison. Cette methode a ete
+# observee sur une page du CDA67 renvoyant a la FFA (saison 2026).
+# Nous testons la saison 2027 sur GitHub avant toute publication automatique.
+FFA_LEGACY_ENDPOINT = 'https://www.athle.fr/bases/liste.aspx'
+
+def ffa_legacy_url(season: int) -> str:
+    fields = [
+        ('frmbase', 'calendrier'), ('frmdate1', ''), ('frmdate2', ''),
+        ('frmdepartement', ''), ('frmepreuve', ''), ('frmespace', '0'),
+        ('frmligue', 'G-E'), ('frmmode', '1'), ('frmniveau', ''),
+        ('frmniveaulab', ''), ('frmpostback', 'true'),
+        ('frmsaisonffa', str(season)), ('frmtype1', 'Hors Stade'),
+        ('frmtype2', ''), ('frmtype3', ''), ('frmtype4', ''),
+    ]
+    return FFA_LEGACY_ENDPOINT + '?' + urlencode(fields)
+
+
+def probe_ffa_season(today: date) -> tuple[list[dict], dict]:
+    # Une seule page de Grand-Est, pas de rafale de requetes par commune.
+    # Le controle robots.txt est obligatoire ; aucune tentative de contournement.
+    season = today.year + 1 if today.month >= 9 else today.year
+    url = ffa_legacy_url(season)
+    status = {'source': url, 'season': season, 'status': 'unavailable',
+              'regionalRows': 0, 'areaCandidates': 0, 'checkedAt':today.isoformat()}
+    try:
+        html = fetch(url, check_robots=True)
+        # Eviter d'interpreter une redirection ou une page de recherche vide
+        # comme un calendrier exploitable.
+        if 'calendrier' not in normalized(html):
+            raise ValueError('reponse FFA non reconnue')
+        candidates, count = parse_ffa(html, today, season=season)
+        for item in candidates:
+            item['source'] = url
+            item['reviewReason'] = 'Calendrier saisonnier FFA : extraction a confirmer avant publication'
+        status.update({'regionalRows':count, 'areaCandidates':len(candidates),
+                       'status': 'ok' if count else 'empty'})
+        preview = ', '.join(f"{x['date']} {x['city']}" for x in candidates[:3]) or 'aucun candidat'
+        print(f'FFA SAISON {season} : lignes 67/68 {count}, zone indicative {len(candidates)}, exemples : {preview}')
+        if not count:
+            print('::warning::FFA SAISON : aucune ligne reconnue ; aucun import.')
+        return candidates, status
+    except Exception as exc:
+        status['error'] = str(exc)[:200]
+        print(f'::warning::FFA SAISON {season} : non exploitable ({status["error"]})')
+        return [], status
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='simuler sans écriture')
@@ -646,6 +701,8 @@ def main() -> int:
         print(f'::error::FFA inaccessible ou non reconnue : {ex}. Données conservées.')
         return 1
     monthly, month_report = collect_ffa_months(today)
+    # Sonde la source FFA officielle longue sans changer les courses du site.
+    season_candidates, season_report = probe_ffa_season(today)
     # Garder la source courante et la source mensuelle ; les doublons entre
     # les pages FFA sont supprimés avant publication.
     unique = {}
@@ -663,6 +720,8 @@ def main() -> int:
          'rows':rows,'inArea':len(candidates)},
         {'name':'FFA calendrier mensuel','url':FFA_SEASON_HUB,
          'checkedAt':today.isoformat(), **month_report},
+        {'name':'FFA liste saisonniere (test)','url':season_report['source'],
+         **season_report},
     ]
     existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
                                       'candidates':len(candidates),'added':added,
@@ -679,7 +738,9 @@ def main() -> int:
         print('MODE TEST : aucun fichier modifié.')
         return 0
     args.data.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review, 'officialCandidates':official_candidates}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    Path('review_candidates.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'conflicts':review,
+       'officialCandidates':official_candidates, 'ffaSeasonPreview':season_candidates,
+       'ffaSeasonStatus':season_report}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     Path('source_watch.json').write_text(json.dumps({'checkedAt':today.isoformat(), 'sources':official}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     return 0
 
