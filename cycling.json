@@ -1,0 +1,323 @@
+{
+  "asOf": "2026-10-31",
+  "cycling": [
+    {
+      "id": "cyc-babybel-gravel-2027",
+      "name": "Cyclosportive Babybel — Gravel",
+      "city": "Évron (53)",
+      "region": "Babybel",
+      "kind": "Gravel",
+      "date": "2027-05-15",
+      "end": "2027-05-15",
+      "sort": "2027-05-15",
+      "date_hint": "15 mai 2027",
+      "dist": [
+        41,
+        63,
+        106
+      ],
+      "elevation": "328–1 428 m D+ selon parcours",
+      "status": "Date confirmée",
+      "source": "https://cyclosportive-babybel.fr/",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-babybel-route-2027",
+      "name": "Cyclosportive Babybel — Route",
+      "city": "Évron (53)",
+      "region": "Babybel",
+      "kind": "Route",
+      "date": "2027-05-16",
+      "end": "2027-05-16",
+      "sort": "2027-05-16",
+      "date_hint": "16 mai 2027",
+      "dist": [
+        41,
+        75,
+        111,
+        139
+      ],
+      "elevation": "563–1 664 m D+ selon parcours",
+      "status": "Date confirmée",
+      "source": "https://cyclosportive-babybel.fr/journee/route/",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-tricolore-2027",
+      "name": "La Tricolore par la Sundgauvienne",
+      "city": "Altkirch / Sud Alsace (68)",
+      "region": "Alsace",
+      "kind": "Route",
+      "date": "2027-06-26",
+      "end": "2027-06-26",
+      "sort": "2027-06-26",
+      "date_hint": "26 juin 2027",
+      "dist": [
+        60,
+        120
+      ],
+      "elevation": "800 / 2 000 m D+ (indicatif)",
+      "status": "Date confirmée · Inscriptions ouvertes",
+      "open_date": "2026-10-30",
+      "source": "https://lasundgauvienne.fr/inscriptions/",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-alsacienne-2027",
+      "name": "L’Alsacienne Cyclo",
+      "city": "Kruth (68)",
+      "region": "Alsace",
+      "kind": "Route",
+      "date": "2027-06-27",
+      "end": "2027-06-27",
+      "sort": "2027-06-27",
+      "date_hint": "27 juin 2027",
+      "dist": [
+        56,
+        75,
+        120,
+        150,
+        195
+      ],
+      "elevation": "Cols des Vosges · selon parcours",
+      "status": "Date confirmée",
+      "source": "https://www.alsacienne-cyclo.org/fr/",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-gfny-2027",
+      "name": "GFNY Grand Ballon",
+      "city": "Thann (68)",
+      "region": "Alsace",
+      "kind": "Route",
+      "date": null,
+      "end": null,
+      "sort": "2027-07-15",
+      "date_hint": "Mi-juillet 2027 (jour à confirmer)",
+      "dist": [
+        70,
+        146
+      ],
+      "elevation": "Montagne / Vosges",
+      "status": "Date exacte à confirmer",
+      "source": "https://grandballon.gfny.com/",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-ultrabike-2027",
+      "name": "Ultra Bike France — Vosges",
+      "city": "Colmar (68)",
+      "region": "Alsace",
+      "kind": "Ultra",
+      "date": null,
+      "end": null,
+      "sort": "2027-09-15",
+      "date_hint": "Septembre 2027 (jour à confirmer)",
+      "dist": [
+        200,
+        300,
+        500
+      ],
+      "elevation": "Ultra-distance · selon parcours",
+      "status": "Date exacte à confirmer",
+      "source": "https://www.finishers.com/disciplines/cyclosportives/cyclosportives-en-france/cyclosportives-dans-le-grand-est",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-outdoor-2027",
+      "name": "Outdoor Cycling Series — Vosges du Nord",
+      "city": "Secteur Saverne (67)",
+      "region": "Alsace",
+      "kind": "Ultra",
+      "date": null,
+      "end": null,
+      "sort": "2027-04-15",
+      "date_hint": "Avril 2027 (jour à confirmer)",
+      "dist": [
+        150,
+        350
+      ],
+      "elevation": "Route / Gravel selon parcours",
+      "status": "Date exacte à confirmer",
+      "source": "https://www.finishers.com/disciplines/cyclosportives/cyclosportives-en-france/cyclosportives-dans-le-grand-est",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-bresse-2027",
+      "name": "UCI Gran Fondo Vosges",
+      "city": "La Bresse (88)",
+      "region": "Alsace",
+      "kind": "Route",
+      "date": null,
+      "end": null,
+      "sort": "2027-05-15",
+      "date_hint": "Mai 2027 (jour à confirmer)",
+      "dist": [
+        60,
+        120,
+        170
+      ],
+      "elevation": "Montagne / Vosges",
+      "status": "Date exacte à confirmer",
+      "source": "https://www.finishers.com/disciplines/cyclosportives/cyclosportives-en-france/cyclosportives-dans-le-grand-est",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-cimes-2027",
+      "name": "Cimes du lac d’Annecy",
+      "city": "Saint-Jorioz (74)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": null,
+      "end": null,
+      "sort": "2027-12-31",
+      "date_hint": "Édition 2027 : date non annoncée",
+      "dist": [
+        100,
+        130
+      ],
+      "elevation": "1 900 / 2 950 m D+ (formats précédents)",
+      "status": "Édition à confirmer",
+      "source": "https://lescyclos.fr/departements/74-haute-savoie",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-faucigny-2027",
+      "name": "La Faucigny-Glières",
+      "city": "Bonneville (74)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": "2027-06-06",
+      "end": "2027-06-06",
+      "sort": "2027-06-06",
+      "date_hint": "6 juin 2027",
+      "dist": [
+        90
+      ],
+      "elevation": "Environ 2 000 m D+",
+      "status": "Date annoncée par calendrier FFC",
+      "source": "https://pelotonfr.com/departement/74",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-jpp-2027",
+      "name": "Cyclo JPP — Neuf de Cœur",
+      "city": "Les Carroz (74)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": "2027-07-04",
+      "end": "2027-07-04",
+      "sort": "2027-07-04",
+      "date_hint": "4 juillet 2027",
+      "dist": [
+        70,
+        100,
+        130
+      ],
+      "elevation": "Parcours 2027 à confirmer",
+      "status": "Date confirmée",
+      "source": "https://www.cyclo-jpp.com/",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-etape-2027",
+      "name": "L’Étape du Tour de France",
+      "city": "Cluses → Les Saisies (74/73)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": "2027-07-11",
+      "end": "2027-07-11",
+      "sort": "2027-07-11",
+      "date_hint": "11 juillet 2027",
+      "dist": [
+        154
+      ],
+      "elevation": "4 850 m D+",
+      "status": "Date confirmée · Ouverture 2 novembre 2026 à 14h",
+      "open_date": "2026-11-02",
+      "source": "https://www.letapedutourdefrance.com/fr/la-course/s-inscrire",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-thonon-2027",
+      "name": "Thonon Cycling Race",
+      "city": "Thonon-les-Bains (74)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": "2027-04-24",
+      "end": "2027-04-24",
+      "sort": "2027-04-24",
+      "date_hint": "24 avril 2027",
+      "dist": [
+        60,
+        90,
+        111
+      ],
+      "elevation": "Selon parcours",
+      "status": "Date annoncée par calendrier spécialisé",
+      "source": "https://lescyclos.fr/departements/74-haute-savoie",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-geants-2027",
+      "name": "Les Géants Ultra Cycling Race",
+      "city": "Annecy (74)",
+      "region": "Annecy",
+      "kind": "Ultra",
+      "date": null,
+      "end": null,
+      "sort": "2027-08-15",
+      "date_hint": "Août 2027 (jour à confirmer)",
+      "dist": [
+        250,
+        300,
+        600,
+        700
+      ],
+      "elevation": "Ultra-distance",
+      "status": "Date exacte à confirmer",
+      "source": "https://fr.milesrepublic.com/cyclosportive/haute-savoie",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-dvelos-2027",
+      "name": "dVélos Lac d’Annecy",
+      "city": "Annecy (74)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": null,
+      "end": null,
+      "sort": "2027-10-15",
+      "date_hint": "Octobre 2027 (jour à confirmer)",
+      "dist": [
+        24,
+        58,
+        100,
+        130
+      ],
+      "elevation": "Route & montée du Semnoz",
+      "status": "Date exacte à confirmer",
+      "source": "https://fr.milesrepublic.com/event/dvelos-lac-dannecy-11629",
+      "verified": "2026-10-31"
+    },
+    {
+      "id": "cyc-megeve-2027",
+      "name": "Megève Mont-Blanc",
+      "city": "Megève (74)",
+      "region": "Annecy",
+      "kind": "Route",
+      "date": null,
+      "end": null,
+      "sort": "2027-12-31",
+      "date_hint": "Édition 2027 : date non annoncée",
+      "dist": [
+        105,
+        139
+      ],
+      "elevation": "Parcours antérieurs 2 837–4 154 m D+",
+      "status": "Édition à confirmer",
+      "source": "https://lescyclos.fr/departements/74-haute-savoie",
+      "verified": "2026-10-31"
+    }
+  ]
+}
