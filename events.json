@@ -586,50 +586,50 @@
     }
   ],
   "asOf": "2026-10-30",
-  "runningCheckedAt": "2026-10-30",
+  "runningCheckedAt": "2026-10-31",
   "collectionStatus": [
     {
       "name": "FFA",
       "url": "https://www.athle.fr/base/calendrier",
       "status": "ok",
-      "checkedAt": "2026-10-30",
-      "rows": 5,
-      "inArea": 3
+      "checkedAt": "2026-10-31",
+      "rows": 6,
+      "inArea": 4
     },
     {
       "name": "running bas-rhin",
       "url": "https://fr.milesrepublic.com/running/bas-rhin",
       "status": "error",
-      "checkedAt": "2026-10-30",
+      "checkedAt": "2026-10-31",
       "error": "HTTP Error 429: Too Many Requests"
     },
     {
       "name": "trail bas-rhin",
       "url": "https://fr.milesrepublic.com/trail/bas-rhin",
       "status": "error",
-      "checkedAt": "2026-10-30",
+      "checkedAt": "2026-10-31",
       "error": "HTTP Error 429: Too Many Requests"
     },
     {
       "name": "running haut-rhin",
       "url": "https://fr.milesrepublic.com/running/haut-rhin",
       "status": "error",
-      "checkedAt": "2026-10-30",
+      "checkedAt": "2026-10-31",
       "error": "HTTP Error 429: Too Many Requests"
     },
     {
       "name": "trail haut-rhin",
       "url": "https://fr.milesrepublic.com/trail/haut-rhin",
       "status": "error",
-      "checkedAt": "2026-10-30",
+      "checkedAt": "2026-10-31",
       "error": "HTTP Error 429: Too Many Requests"
     }
   ],
   "collectionSummary": {
-    "date": "2026-10-30",
+    "date": "2026-10-31",
     "sourcesOk": 1,
     "sourcesTotal": 5,
-    "candidates": 3,
+    "candidates": 4,
     "added": 0,
     "conflicts": 0
   }
