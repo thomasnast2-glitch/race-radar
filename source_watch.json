@@ -1,0 +1,156 @@
+{
+  "checkedAt": "2026-10-31",
+  "sources": [
+    {
+      "name": "CDR67",
+      "url": "https://running67.fr/running.html",
+      "status": "links_found",
+      "checkedAt": "2026-10-31",
+      "links": [
+        {
+          "url": "https://running67.fr/running.html",
+          "label": "Les résultats running",
+          "format": "page"
+        },
+        {
+          "url": "https://bases.athle.fr/asp.net/liste.aspx?frmpostback=true&frmbase=calendrier&frmmode=1&frmespace=0&frmsaison=2026&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=&frmniveau=&frmniveaulab=&frmligue=&frmdepartement=067&frmepreuve=&frmdate_j1=&frmdate_m1=&frmdate_a1=&frmdate_j2=&frmdate_m2=&frmdate_a2=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://bases.athle.fr/asp.net/liste.aspx?frmpostback=true&frmbase=calendrier&frmmode=1&frmespace=0&frmsaison=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=&frmniveau=&frmniveaulab=&frmligue=&frmdepartement=067&frmepreuve=&frmdate_j1=&frmdate_m1=&frmdate_a1=&frmdate_j2=&frmdate_m2=&frmdate_a2=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://bases.athle.fr/asp.net/liste.aspx?frmpostback=true&frmbase=calendrier&frmmode=1&frmespace=0&frmsaison=2025&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=&frmniveau=&frmniveaulab=&frmligue=&frmdepartement=067&frmepreuve=&frmdate_j1=&frmdate_m1=&frmdate_a1=&frmdate_j2=&frmdate_m2=&frmdate_a2=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://www.athle.fr/bases/liste.aspx?frmpostback=true&frmbase=resultats&frmmode=2&frmespace=0&frmsaison=2026&frmdate1=&frmdate2=&frmtype1=Hors+Stade&frmniveau=&frmligue=&frmdepartement=067&frmniveaulab=&frmeprrch=&frmtype2=&frmtype3=&frmtype4=&frmclub=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://www.athle.fr/bases/liste.aspx?frmpostback=true&frmbase=resultats&frmmode=2&frmespace=0&frmsaison=2025&frmdate1=&frmdate2=&frmtype1=Hors+Stade&frmniveau=&frmligue=&frmdepartement=067&frmniveaulab=&frmeprrch=&frmtype2=&frmtype3=&frmtype4=&frmclub=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://www.athle.fr/bases/liste.aspx?frmpostback=true&frmbase=resultats&frmmode=2&frmespace=0&frmsaison=2024&frmdate1=&frmdate2=&frmtype1=Hors+Stade&frmniveau=&frmligue=&frmdepartement=067&frmniveaulab=&frmeprrch=&frmtype2=&frmtype3=&frmtype4=&frmclub=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://www.athle.fr/bases/liste.aspx?frmpostback=true&frmbase=resultats&frmmode=2&frmespace=0&frmsaison=2023&frmdate1=&frmdate2=&frmtype1=Hors+Stade&frmniveau=&frmligue=&frmdepartement=067&frmniveaulab=&frmeprrch=&frmtype2=&frmtype3=&frmtype4=&frmclub=",
+          "label": "iframe",
+          "format": "iframe"
+        },
+        {
+          "url": "https://running67.fr/courses.html",
+          "label": "Les courses",
+          "format": "page"
+        },
+        {
+          "url": "https://running67.fr/flyer.html",
+          "label": "Les courses",
+          "format": "page"
+        }
+      ]
+    },
+    {
+      "name": "CDA68",
+      "url": "https://cd68.athle.fr/asp.net/espaces.html/html.aspx?id=45230",
+      "status": "links_found",
+      "checkedAt": "2026-10-31",
+      "links": [
+        {
+          "url": "http://cd68.athle.fr/asp.net/espaces.html/html.aspx?id=48155",
+          "label": "ASSEMBLEE GENERALE 2026",
+          "format": "page"
+        },
+        {
+          "url": "http://cd68.athle.fr/asp.net/espaces.html/html.aspx?id=45230",
+          "label": "CALENDRIER DES COMPÉTITIONS - TÉLÉCHARGEMENTS",
+          "format": "page"
+        },
+        {
+          "url": "https://www.athle.fr/bases/liste.aspx?frmpostback=true&frmbase=bilans&frmmode=1&frmespace=0&frmannee=2026&frmepreuve=&frmcategorie=&frmsexe=&frmnationalite=&frmamini=&frmamaxi=&frmligue=&frmdepartement=068&frmclub=&frmvent=&frmathlerama=&frmfcompetition=PI&frmfepreuve=&frmplaces=",
+          "label": "2026 STADE ET PISTE COURTE",
+          "format": "page"
+        },
+        {
+          "url": "https://large.athle.fr/wp-content/uploads/2023/01/Perf-etranger.pdf",
+          "label": "SAISIE DES RÉSULTATS COMPÉTITIONS HORS FRANCE",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/cda68_calendrier_2025__.xlsx",
+          "label": "document",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/cda68_calendrier_2026_2027.xlsx",
+          "label": "EXCEL",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/cda68_calendrier_2026.xlsx.pdf",
+          "label": "document",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/cda68_calendrier_2026_2027_.pdf",
+          "label": "PDF",
+          "format": "document"
+        },
+        {
+          "url": "https://www.athles.org/calendrier-1",
+          "label": "CDA 67",
+          "format": "page"
+        },
+        {
+          "url": "https://large.athle.fr/competitions/calendrier/",
+          "label": "LARGE",
+          "format": "page"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/calendrier_2025courses_hors_stade_haut-rhin.pdf",
+          "label": "document",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/calendrier_hors_stade.xlsx",
+          "label": "document",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/calendrier_running_2026.xlsx",
+          "label": "document",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/competitions/calendrier_2027_courses_hors_stade_haut-rhin.pdf",
+          "label": "Calendrier running au 22/10/2026",
+          "format": "document"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/running/champions_running_cda_haut_rhin_2025.pdf",
+          "label": "Les champions Running 2025",
+          "format": "document"
+        },
+        {
+          "url": "https://www.athle.fr/base/evenements",
+          "label": "Calendrier des formations",
+          "format": "page"
+        },
+        {
+          "url": "https://cd68.athle.fr/upload/ssites/001499/stages/stage_lancers_large_toussaint_2026.pdf",
+          "label": "Stage LANCERS Colmar 29 octobre au 1 novembre 2026",
+          "format": "document"
+        }
+      ]
+    }
+  ]
+}
