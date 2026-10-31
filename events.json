@@ -427,6 +427,23 @@
       "country": "FR"
     },
     {
+      "name": "Les Foulées du Schiebenberg",
+      "city": "Dinsheim-sur-Bruche",
+      "date": "2027-04-10",
+      "end": "2027-04-10",
+      "kind": "Nature",
+      "dist": [
+        5,
+        10,
+        20
+      ],
+      "zone": "nord",
+      "source": "https://www.le-sportif.com/calendrier/232473/foulees-du-schiebenberg-2027-dinsheim-sur-bruche/course-a-pied-sur-route/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "v27-5245edf198a1"
+    },
+    {
       "id": "r20",
       "name": "Trail des Elfes & Druides",
       "city": "Pfaffenheim",
@@ -441,6 +458,25 @@
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
       "country": "FR"
+    },
+    {
+      "name": "Trail du Grand Ballon — Printanière",
+      "city": "Le Markstein",
+      "date": "2027-04-24",
+      "end": "2027-04-25",
+      "kind": "Trail",
+      "dist": [
+        25.2,
+        35.5,
+        46.3,
+        59.2,
+        79.9
+      ],
+      "zone": "sud",
+      "source": "https://grandballon.com/sportevents/trail-du-grand-ballon-spring/fr",
+      "certainty": "confirmée",
+      "country": "FR",
+      "id": "v27-a54d3d05cc4c"
     },
     {
       "id": "r21",
@@ -474,6 +510,23 @@
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
       "country": "FR"
+    },
+    {
+      "name": "Courses de l'Ungersberg (U3T)",
+      "city": "Reichsfeld",
+      "date": "2027-05-09",
+      "end": "2027-05-09",
+      "kind": "Trail",
+      "dist": [
+        14.5,
+        24,
+        42.6
+      ],
+      "zone": "centre",
+      "source": "https://www.le-sportif.com/calendrier/232478/u3t-courses-de-l-ungersberg-2027-reichsfeld/trail-course-nature/",
+      "certainty": "à vérifier",
+      "country": "FR",
+      "id": "v27-d101619cde1e"
     },
     {
       "id": "r23",
@@ -562,6 +615,22 @@
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
       "country": "FR"
+    },
+    {
+      "name": "Trail du Grand Ballon — Estivale",
+      "city": "Le Markstein",
+      "date": "2027-07-17",
+      "end": "2027-07-17",
+      "kind": "Trail",
+      "dist": [
+        20,
+        80
+      ],
+      "zone": "sud",
+      "source": "https://web.sqmtime.com/les-trails-du-grand-ballon/fr",
+      "certainty": "confirmée",
+      "country": "FR",
+      "id": "v27-d4f243231f12"
     }
   ],
   "hyrox": [
@@ -751,14 +820,21 @@
       "candidates": 17,
       "checkedAt": "2026-10-31",
       "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
+    },
+    {
+      "name": "Courses 2027 documentees",
+      "status": "ok",
+      "checkedAt": "2026-10-31",
+      "catalogueSize": 4,
+      "new": 4
     }
   ],
   "collectionSummary": {
     "date": "2026-10-31",
     "sourcesOk": 1,
     "sourcesTotal": 1,
-    "candidates": 21,
-    "added": 6,
+    "candidates": 25,
+    "added": 4,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
