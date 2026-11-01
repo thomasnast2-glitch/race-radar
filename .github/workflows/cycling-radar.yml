@@ -1,0 +1,68 @@
+name: RACE RADAR - Veille cyclo quotidienne
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 7 * * *'
+      timezone: 'Europe/Paris'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_cycling.py'
+      - '.github/workflows/cycling-radar.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: race-radar-pages
+  cancel-in-progress: false
+
+jobs:
+  cyclo-et-publication:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Recuperer le site
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verifier le programme cyclo
+        run: python scripts/update_cycling.py --self-test
+
+      - name: Verifier les organisateurs cyclo
+        run: python scripts/update_cycling.py
+
+      - name: Enregistrer les donnees cyclo
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- cycling.json cycling_watch.json cycling_review.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'RACE RADAR : veille cyclo quotidienne'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'Aucune modification cyclo.'
+          fi
+
+      - name: Configurer Pages
+        uses: actions/configure-pages@v5
+
+      - name: Charger le site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Publier le site
+        id: deployment
+        uses: actions/deploy-pages@v4
