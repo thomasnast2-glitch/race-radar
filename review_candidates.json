@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-31",
+  "checkedAt": "2026-11-01",
   "conflicts": [],
   "officialCandidates": [],
   "alsaceStatus": {
@@ -33,7 +33,7 @@
     },
     "pagesOk": 1,
     "candidates": 17,
-    "checkedAt": "2026-10-31",
+    "checkedAt": "2026-11-01",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
   "alsaceDateConflicts": [],
@@ -46,7 +46,7 @@
     "status": "unavailable",
     "regionalRows": 0,
     "areaCandidates": 0,
-    "checkedAt": "2026-10-31",
+    "checkedAt": "2026-11-01",
     "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
   }
 }
