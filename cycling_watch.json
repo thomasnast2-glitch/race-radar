@@ -1,0 +1,76 @@
+{
+  "lastCheckedAt": "2026-11-01T07:12:43+00:00",
+  "sources": [
+    {
+      "event_id": "cyc-babybel-route-2027",
+      "url": "https://cyclosportive-babybel.fr/journee/route/",
+      "result": "OK",
+      "sha256": "7048050da2557bd9ffb4a8626c2a39b10096620426d69d8a1e048376d6c68782",
+      "dates_2027_detectees": [
+        "2027-05-16"
+      ],
+      "modifications": []
+    },
+    {
+      "event_id": "cyc-babybel-gravel-2027",
+      "url": "https://cyclosportive-babybel.fr/",
+      "result": "OK",
+      "sha256": "08f2874469875a089a8e40d70de2982f0e2803e909fa3be3d1827fdcce8c3ad6",
+      "dates_2027_detectees": [
+        "2027-03-15",
+        "2027-05-16"
+      ],
+      "modifications": []
+    },
+    {
+      "event_id": "cyc-tricolore-2027",
+      "url": "https://lasundgauvienne.fr/",
+      "result": "OK",
+      "sha256": "930d9d274ff56fdfcfa0e8173a2d63ef3a842a162ad5da635bea6afb121000a5",
+      "dates_2027_detectees": [
+        "2027-06-25",
+        "2027-06-26",
+        "2027-06-27"
+      ],
+      "modifications": []
+    },
+    {
+      "event_id": "cyc-alsacienne-2027",
+      "url": "https://www.alsacienne-cyclo.org/fr/",
+      "result": "OK",
+      "sha256": "fbba9101ad13d7927dee7d21778bc911d1979fc464dac8fab5d9a95be5340c18",
+      "dates_2027_detectees": [
+        "2027-06-27"
+      ],
+      "modifications": []
+    },
+    {
+      "event_id": "cyc-gfny-2027",
+      "url": "https://grandballon.gfny.com/",
+      "result": "OK",
+      "sha256": "26eedcc953929298104c87facdc0ab849da238f5f82593e22e86b8143d371efe",
+      "dates_2027_detectees": [],
+      "modifications": []
+    },
+    {
+      "event_id": "cyc-jpp-2027",
+      "url": "https://www.cyclo-jpp.com/",
+      "result": "OK",
+      "sha256": "01b032e94b7c5258f267f021fa4c4acc41304d2ef009336f90b4f747d7c2c053",
+      "dates_2027_detectees": [
+        "2027-07-04"
+      ],
+      "modifications": []
+    },
+    {
+      "event_id": "cyc-etape-2027",
+      "url": "https://www.letapedutourdefrance.com/fr/la-course/s-inscrire",
+      "result": "OK",
+      "sha256": "333116072d7dac1826150d1ffb661cd2fd7a04755bf97c8456579eb380b8955b",
+      "dates_2027_detectees": [
+        "2027-07-11"
+      ],
+      "modifications": []
+    }
+  ]
+}
