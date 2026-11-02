@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01",
+  "checkedAt": "2026-11-02",
   "conflicts": [],
   "officialCandidates": [],
   "alsaceStatus": {
@@ -7,9 +7,9 @@
     "years": {
       "2026": {
         "status": "ok",
-        "rows": 436,
-        "upcoming": 52,
-        "inArea": 31,
+        "rows": 440,
+        "upcoming": 50,
+        "inArea": 29,
         "excludedType": 21,
         "unrecognizedCities": [
           "Belmont",
@@ -19,8 +19,8 @@
           "Houssen",
           "Masevaux",
           "Niederbronn-les-Bains",
-          "Reichshoffen",
           "Saint-Louis",
+          "Schleithal",
           "Wittelsheim"
         ],
         "skippedDates": 0,
@@ -33,7 +33,7 @@
     },
     "pagesOk": 1,
     "candidates": 17,
-    "checkedAt": "2026-11-01",
+    "checkedAt": "2026-11-02",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
   "alsaceDateConflicts": [],
@@ -46,7 +46,7 @@
     "status": "unavailable",
     "regionalRows": 0,
     "areaCandidates": 0,
-    "checkedAt": "2026-11-01",
+    "checkedAt": "2026-11-02",
     "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
   }
 }
