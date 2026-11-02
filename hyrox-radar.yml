@@ -1,0 +1,79 @@
+name: RACE RADAR - Veille HYROX quotidienne
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '31 8 * * *'
+      timezone: 'Europe/Paris'
+  push:
+    branches: [main]
+    paths:
+      - 'hyrox_updates.json'
+      - 'scripts/apply_hyrox_updates.py'
+      - 'scripts/watch_hyrox_news.py'
+      - '.github/workflows/hyrox-radar.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: race-radar-pages
+  cancel-in-progress: false
+
+jobs:
+  hyrox-et-publication:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Tester les scripts
+        run: python -m unittest discover -s tests -p 'test_hyrox*.py' -v
+
+      - name: Chercher les nouvelles annonces HYROX dans les flux RSS
+        run: python scripts/watch_hyrox_news.py
+
+      - name: Appliquer seulement les annonces officiellement validees
+        run: python scripts/apply_hyrox_updates.py
+
+      - name: Enregistrer les informations HYROX
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- events.json
+          if [ -f hyrox_candidates.json ]; then
+            git add -- hyrox_candidates.json
+          fi
+          if [ -f hyrox_watch.json ]; then
+            git add -- hyrox_watch.json
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'RACE RADAR : veille HYROX'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'HYROX : aucune modification a publier'
+          fi
+
+      - name: Configurer Pages
+        uses: actions/configure-pages@v5
+
+      - name: Charger le site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Publier le site
+        id: deployment
+        uses: actions/deploy-pages@v4
