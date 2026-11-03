@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-10-31",
+  "asOf": "2026-11-03",
   "cycling": [
     {
       "id": "cyc-babybel-gravel-2027",
@@ -233,7 +233,7 @@
         154
       ],
       "elevation": "4 850 m D+",
-      "status": "Date confirmée · Ouverture 2 novembre 2026 à 14h",
+      "status": "Date confirmée · Ouverture 2 novembre 2026 à 14h · Inscriptions ouvertes",
       "open_date": "2026-11-02",
       "source": "https://www.letapedutourdefrance.com/fr/la-course/s-inscrire",
       "verified": "2026-10-31"
@@ -320,6 +320,6 @@
       "verified": "2026-10-31"
     }
   ],
-  "cyclingCheckedAt": "2026-11-02",
+  "cyclingCheckedAt": "2026-11-03",
   "cyclingSourcesAccessible": 7
 }
