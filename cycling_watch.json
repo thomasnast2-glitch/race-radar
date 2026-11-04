@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-11-03T07:52:25+00:00",
+  "lastCheckedAt": "2026-11-04T07:54:33+00:00",
   "sources": [
     {
       "event_id": "cyc-babybel-route-2027",
@@ -70,9 +70,7 @@
       "dates_2027_detectees": [
         "2027-07-11"
       ],
-      "modifications": [
-        "inscriptions ouvertes"
-      ]
+      "modifications": []
     }
   ]
 }
