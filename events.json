@@ -856,20 +856,20 @@
     }
   ],
   "asOf": "2026-11-02",
-  "runningCheckedAt": "2026-11-03",
+  "runningCheckedAt": "2026-11-05",
   "collectionStatus": [
     {
       "name": "FFA",
       "url": "https://www.athle.fr/base/calendrier",
       "status": "ok",
-      "checkedAt": "2026-11-03",
-      "rows": 6,
+      "checkedAt": "2026-11-05",
+      "rows": 7,
       "inArea": 5
     },
     {
       "name": "FFA calendrier mensuel",
       "url": "https://www.athle.fr/contenu/tout-le-calendrier-2027/5255",
-      "checkedAt": "2026-11-03",
+      "checkedAt": "2026-11-05",
       "discovered": 0,
       "read": 0,
       "failed": 0,
@@ -886,7 +886,7 @@
       "status": "unavailable",
       "regionalRows": 0,
       "areaCandidates": 0,
-      "checkedAt": "2026-11-03",
+      "checkedAt": "2026-11-05",
       "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
     },
     {
@@ -921,27 +921,27 @@
       },
       "pagesOk": 1,
       "candidates": 17,
-      "checkedAt": "2026-11-03",
+      "checkedAt": "2026-11-05",
       "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
     },
     {
       "name": "Courses 2027 documentees",
       "status": "ok",
-      "checkedAt": "2026-11-03",
+      "checkedAt": "2026-11-05",
       "catalogueSize": 4,
       "new": 0
     },
     {
       "name": "Cross corpo 68",
       "url": "https://www.crosscorpos68.fr/",
-      "checkedAt": "2026-11-03",
+      "checkedAt": "2026-11-05",
       "status": "live",
       "scheduled": 6,
       "live": 6
     }
   ],
   "collectionSummary": {
-    "date": "2026-11-03",
+    "date": "2026-11-05",
     "sourcesOk": 1,
     "sourcesTotal": 1,
     "candidates": 33,
