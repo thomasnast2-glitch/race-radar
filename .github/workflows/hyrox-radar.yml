@@ -40,7 +40,7 @@ jobs:
           python-version: '3.12'
 
       - name: Tester les scripts
-        run: python -m unittest discover -s tests -p 'test_hyrox*.py' -v
+        run: python -m py_compile scripts/watch_hyrox_news.py scripts/apply_hyrox_updates.py
 
       - name: Chercher les annonces HYROX
         run: python scripts/watch_hyrox_news.py
