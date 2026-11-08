@@ -2,6 +2,7 @@
 """HYROX : relève des indices d'annonces dans un flux RSS d'actualités.
 
 Pas de scraping sur hyrox.com. Les indices n'ont PAS valeur d'annonce officielle.
+Version V3 : filtrage strict des titres et retrait des anciens indices hors sujet.
 Ils ne sont jamais publiés dans events.json sans validation humaine.
 """
 from __future__ import annotations
@@ -12,19 +13,38 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import unicodedata
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 
 SEARCH = [
-    'HYROX (inscriptions OR billetterie OR ouverture OR tickets) (France OR Paris OR Lyon OR Bordeaux OR Toulouse OR Nice)',
-    'HYROX (registration OR tickets OR opening) (Basel OR Frankfurt OR Freiburg OR Strasbourg)',
-    'HYROX (2027 OR 2028) (race OR event OR compétition OR inscription)',
+    'HYROX (inscriptions OR billetterie OR ouverture OR tickets OR prévente) (France OR Paris OR Lyon OR Bordeaux OR Toulouse OR Nice)',
+    'HYROX (registration OR tickets OR ticket sales OR opening OR sold out) (Basel OR Frankfurt OR Freiburg OR Strasbourg)',
+    'HYROX (2027 OR 2028) (inscriptions OR billetterie OR tickets OR ouverture OR registration OR annonce)',
 ]
 RSS_BASE = 'https://news.google.com/rss/search?'
-KEYWORDS = ('inscri', 'billet', 'ticket', 'register', 'registration', 'opening', 'ouvertur', 'lanc',
-            'calendrier', 'annonce', 'announc', 'race', 'competition', 'compétition', 'date',
-            'lyon', 'paris', 'bâle', 'basel', 'strasbourg', 'frankfurt', 'francfort', 'france')
+
+# Les titres de presse restent des pistes, JAMAIS des confirmations officielles.
+# Pas de filtrage par simple ville, nom de course ou mot « date ».
+ACTION_MARKERS = (
+    'inscription', 'billetterie', 'ticket', 'billet', 'reservation', 'reserve',
+    'registration', 'register', 'on sale', 'sale opens', 'ticket sales',
+    'ouverture', 'ouvre', 'opening', 'prevente', 'presale',
+    'sold out', 'complet', 'epuise', 'liste d attente', 'waitlist',
+    'nouvel evenement', 'nouvelle course', 'new race', 'new event',
+    'calendrier 2027', 'calendrier 2028',
+)
+
+
+def normalize(text: str) -> str:
+    text = unicodedata.normalize('NFKD', text.casefold())
+    return ''.join(char for char in text if not unicodedata.combining(char)).replace('’', ' ').replace("'", ' ')
+
+
+def relevant_title(title: str) -> bool:
+    text = normalize(title)
+    return 'hyrox' in text and any(marker in text for marker in ACTION_MARKERS)
 
 
 def rss_url(q: str) -> str:
@@ -43,7 +63,7 @@ def parse_rss(xml_text: str, now: datetime) -> list[dict]:
         publisher = (item.findtext('source') or '').strip()
         if not title or not link or not link.startswith('https://'):
             continue
-        if 'hyrox' not in title.casefold() or not any(k in title.casefold() for k in KEYWORDS):
+        if not relevant_title(title):
             continue
         try:
             published = parsedate_to_datetime(pub)
@@ -70,7 +90,7 @@ def parse_rss(xml_text: str, now: datetime) -> list[dict]:
 def merge_candidates(old: list[dict], feeds: list[list[dict]], *, limit: int = 160) -> tuple[list[dict], int]:
     if not isinstance(old, list):
         raise ValueError('hyrox_candidates.json invalide : liste attendue')
-    by_id = {row['id']: row for row in old if isinstance(row, dict) and row.get('id')}
+    by_id = {row['id']: row for row in old if isinstance(row, dict) and row.get('id') and relevant_title(row.get('titre', ''))}
     new_count = 0
     for feed in feeds:
         for row in feed:
