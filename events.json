@@ -171,6 +171,32 @@
       "country": "FR"
     },
     {
+      "id": "ffa-162d31b9d3ac",
+      "name": "Meeting De Lancers Longs",
+      "city": "Obernai",
+      "date": "2026-11-15",
+      "end": "2026-11-15",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/895846668840423852498852419837336840",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-723b1b287a71",
+      "name": "Nordic Des Remparts",
+      "city": "Neuf Brisach",
+      "date": "2026-11-15",
+      "end": "2026-11-15",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/853846429846693828445855916834366843",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "aec-73704870a7de",
       "name": "Vague rose et bleue",
       "city": "Sélestat",
@@ -855,21 +881,21 @@
       "young": false
     }
   ],
-  "asOf": "2026-11-02",
-  "runningCheckedAt": "2026-11-06",
+  "asOf": "2026-11-08",
+  "runningCheckedAt": "2026-11-08",
   "collectionStatus": [
     {
       "name": "FFA",
       "url": "https://www.athle.fr/base/calendrier",
       "status": "ok",
-      "checkedAt": "2026-11-06",
-      "rows": 7,
-      "inArea": 5
+      "checkedAt": "2026-11-08",
+      "rows": 13,
+      "inArea": 8
     },
     {
       "name": "FFA calendrier mensuel",
       "url": "https://www.athle.fr/contenu/tout-le-calendrier-2027/5255",
-      "checkedAt": "2026-11-06",
+      "checkedAt": "2026-11-08",
       "discovered": 0,
       "read": 0,
       "failed": 0,
@@ -886,7 +912,7 @@
       "status": "unavailable",
       "regionalRows": 0,
       "areaCandidates": 0,
-      "checkedAt": "2026-11-06",
+      "checkedAt": "2026-11-08",
       "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
     },
     {
@@ -896,7 +922,7 @@
         "2026": {
           "status": "ok",
           "rows": 440,
-          "upcoming": 50,
+          "upcoming": 49,
           "inArea": 29,
           "excludedType": 21,
           "unrecognizedCities": [
@@ -921,31 +947,31 @@
       },
       "pagesOk": 1,
       "candidates": 17,
-      "checkedAt": "2026-11-06",
+      "checkedAt": "2026-11-08",
       "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
     },
     {
       "name": "Courses 2027 documentees",
       "status": "ok",
-      "checkedAt": "2026-11-06",
+      "checkedAt": "2026-11-08",
       "catalogueSize": 4,
       "new": 0
     },
     {
       "name": "Cross corpo 68",
       "url": "https://www.crosscorpos68.fr/",
-      "checkedAt": "2026-11-06",
+      "checkedAt": "2026-11-08",
       "status": "live",
       "scheduled": 6,
       "live": 6
     }
   ],
   "collectionSummary": {
-    "date": "2026-11-06",
+    "date": "2026-11-08",
     "sourcesOk": 1,
     "sourcesTotal": 1,
-    "candidates": 33,
-    "added": 0,
+    "candidates": 36,
+    "added": 2,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
