@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-11-10T07:50:54+00:00",
+  "lastCheckedAt": "2026-11-11T07:54:05+00:00",
   "sources": [
     {
       "event_id": "cyc-babybel-route-2027",
@@ -66,7 +66,7 @@
       "event_id": "cyc-etape-2027",
       "url": "https://www.letapedutourdefrance.com/fr/la-course/s-inscrire",
       "result": "OK",
-      "sha256": "3b0dc683148004118b8b4909b765e6ce585f0cbdb577a22bd98005c33ce8ce16",
+      "sha256": "9540bc86088c556f5207a17238f78b39ea4e79244102c1c58c42c85fe5bb0339",
       "dates_2027_detectees": [
         "2027-07-11",
         "2027-08-08"
