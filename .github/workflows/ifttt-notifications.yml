@@ -1,0 +1,61 @@
+name: RACE RADAR - Notifications IFTTT
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_notification:
+        description: 'Envoyer une notification de test au telephone'
+        required: false
+        type: boolean
+        default: false
+  workflow_run:
+    workflows:
+      - 'RACE RADAR - Mise a jour quotidienne'
+      - 'RACE RADAR - Veille HYROX quotidienne'
+    types: [completed]
+  schedule:
+    # Rattrapage quotidien, y compris les nouveautes CYCLO.
+    - cron: '43 11 * * *'
+      timezone: 'Europe/Paris'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: race-radar-ifttt-notifications
+  cancel-in-progress: false
+
+jobs:
+  notifier:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer les fichiers RACE RADAR
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Detecter les nouvelles courses et notifier
+        env:
+          IFTTT_WEBHOOK_URL: ${{ secrets.IFTTT_WEBHOOK_URL }}
+          TEST_NOTIFICATION: ${{ inputs.test_notification }}
+        run: python scripts/notify_ifttt.py
+
+      - name: Memoriser les courses deja signalees
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- .ifttt_seen.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'RACE RADAR : memoire des notifications IFTTT'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'Historique des notifications deja a jour.'
+          fi
