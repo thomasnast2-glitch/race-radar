@@ -12,6 +12,7 @@ on:
     workflows:
       - 'RACE RADAR - Mise a jour quotidienne'
       - 'RACE RADAR - Veille HYROX quotidienne'
+      - 'RACE RADAR - Veille cyclo quotidienne'
     types: [completed]
   schedule:
     # Rattrapage quotidien, y compris les nouveautes CYCLO.
@@ -40,13 +41,18 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Tester les notifications sans envoi réel
+        run: python -m unittest discover -s tests -p test_notifications.py -v
+
       - name: Detecter les nouvelles courses et notifier
+        # Les tests n'envoient aucune notification réelle.
         env:
           IFTTT_WEBHOOK_URL: ${{ secrets.IFTTT_WEBHOOK_URL }}
           TEST_NOTIFICATION: ${{ inputs.test_notification }}
         run: python scripts/notify_ifttt.py
 
       - name: Memoriser les courses deja signalees
+        if: always()
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'

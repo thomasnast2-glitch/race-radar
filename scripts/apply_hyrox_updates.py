@@ -114,6 +114,7 @@ def apply(data: dict, updates: dict, checked_date: str) -> tuple[dict, int]:
             label += " — " + cat
         before = (event.get("status"),event.get("open_date"),event.get("url"),event.get("registration_category"))
         event["status"] = label
+        event["registration"] = registration
         if opening is not None or registration == "waitlist":
             event["open_date"] = opening
         event["url"] = source

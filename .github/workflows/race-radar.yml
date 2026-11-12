@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'radar-status.js'
       - 'events.json'
       - 'scripts/collect_events.py'
       - 'tests/**'
@@ -42,7 +43,9 @@ jobs:
         run: python -m pip install 'beautifulsoup4>=4.12,<5'
 
       - name: Tester le programme
-        run: python -m unittest discover -s tests -v
+        run: |
+          python -m unittest discover -s tests -v
+          node --test tests/test_dashboard.cjs
 
       - name: Collecter FFA et surveiller calendriers officiels 67-68
         run: python scripts/collect_events.py
