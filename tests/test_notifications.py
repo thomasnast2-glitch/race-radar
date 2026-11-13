@@ -88,5 +88,31 @@ class NotificationTest(unittest.TestCase):
         self.assertIn('à confirmer', sent[0][1])
 
 
+    def test_webhook_formats_normalised_without_exposing_key(self):
+        from unittest.mock import patch
+        key = 'ExampleKey12345'
+        samples = [
+            key,
+            f'https://maker.ifttt.com/trigger/race_radar_new/with/key/{key}',
+            f'https://maker.ifttt.com/trigger//json/with/key/{key}',
+            f'https://maker.ifttt.com/trigger/test/json/with/key/{key}',
+        ]
+        for raw in samples:
+            with self.subTest(raw=raw.split('/')[0]), patch.dict('os.environ', {'IFTTT_WEBHOOK_URL': raw}):
+                self.assertEqual(
+                    notifier.webhook_url(),
+                    f'https://maker.ifttt.com/trigger/race_radar_new/with/key/{key}'
+                )
+
+    def test_invalid_webhook_rejected_without_leaking_secret(self):
+        from unittest.mock import patch
+        raw = 'https://not-ifttt.example/trigger/race_radar_new/with/key/Sensitive123'
+        with patch.dict('os.environ', {'IFTTT_WEBHOOK_URL': raw}):
+            with self.assertRaises(RuntimeError) as caught:
+                notifier.webhook_url()
+        self.assertNotIn('Sensitive123', str(caught.exception))
+
+
+
 if __name__ == '__main__':
     unittest.main()
