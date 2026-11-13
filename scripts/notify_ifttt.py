@@ -6,6 +6,8 @@ Premiere execution : initialise l'historique, sans notifier les courses deja con
 
 import json
 import os
+import re
+from urllib.error import HTTPError, URLError
 from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -107,15 +109,56 @@ def notify(current, old, today, deliver=None):
         save_state(state)
 
 
+def webhook_url():
+    """Normalise le secret sans afficher sa cle dans les logs GitHub.
+
+    Accepte les deux URLs presentees par IFTTT (/with/key et /json/with/key),
+    y compris si le champ nom d'evenement a ete laisse vide, ou la cle seule.
+    Envoie toujours au declencheur 'Receive a web request' race_radar_new.
+    """
+    raw = os.getenv('IFTTT_WEBHOOK_URL', '').strip()
+    if not raw:
+        raise RuntimeError(
+            'IFTTT_WEBHOOK_URL est vide ou inaccessible. '
+            'GitHub > Settings > Secrets and variables > Actions : mettre a jour le secret.'
+        )
+    if raw.startswith('https://'):
+        parts = urlsplit(raw)
+        match = re.fullmatch(r'/trigger/[^/]*/(?:json/)?with/key/([A-Za-z0-9_-]+)', parts.path)
+        if (parts.hostname != 'maker.ifttt.com' or parts.port is not None
+                or parts.username or parts.password or parts.query or parts.fragment
+                or not match):
+            raise RuntimeError(
+                'IFTTT_WEBHOOK_URL invalide : copier une URL Webhooks Documentation '
+                '(sans guillemets), ou uniquement la cle.'
+            )
+        key = match.group(1)
+    elif re.fullmatch(r'[A-Za-z0-9_-]{10,}', raw):
+        key = raw
+    else:
+        raise RuntimeError(
+            'IFTTT_WEBHOOK_URL n\'est ni une cle IFTTT ni une URL Webhooks reconnue.'
+        )
+    return f'https://maker.ifttt.com/trigger/race_radar_new/with/key/{key}'
+
+
 def send(values):
-    url = os.getenv('IFTTT_WEBHOOK_URL', '').strip()
-    if not url.startswith('https://maker.ifttt.com/trigger/race_radar_new/with/key/'):
-        raise RuntimeError('Secret IFTTT_WEBHOOK_URL manquant ou URL incorrecte : verifier GitHub Settings > Secrets')
+    url = webhook_url()
     body = json.dumps({f'value{i}': v for i, v in enumerate(values, start=1)}, ensure_ascii=False).encode('utf-8')
     req = Request(url, data=body, headers={'Content-Type': 'application/json'}, method='POST')
-    with urlopen(req, timeout=20) as response:
-        if not (200 <= response.status < 300):
-            raise RuntimeError(f'IFTTT a renvoye HTTP {response.status}')
+    try:
+        with urlopen(req, timeout=20) as response:
+            if not (200 <= response.status < 300):
+                raise RuntimeError(f'IFTTT a renvoye HTTP {response.status}')
+    except HTTPError as error:
+        # Ne jamais inclure l'URL webhook (et donc la cle) dans les logs.
+        if error.code in (401, 403):
+            raise RuntimeError('IFTTT refuse la cle Webhook. La regenerer et mettre a jour le secret GitHub.') from None
+        if error.code == 404:
+            raise RuntimeError('Declencheur IFTTT introuvable : verifier l\'applet Webhooks race_radar_new.') from None
+        raise RuntimeError(f'IFTTT a renvoye HTTP {error.code}.') from None
+    except URLError:
+        raise RuntimeError('Connexion a IFTTT impossible, reessayer plus tard.') from None
 
 
 def main():
