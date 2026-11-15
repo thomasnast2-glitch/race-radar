@@ -1,0 +1,11 @@
+{
+  "name": "race-radar",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/test_*.cjs",
+    "test:browser": "node --test tests/interface.browser.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

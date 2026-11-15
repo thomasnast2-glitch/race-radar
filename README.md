@@ -38,3 +38,10 @@ node --test tests/test_dashboard.cjs
 ```
 
 Les tests de notification utilisent une fonction d’envoi simulée et une mémoire temporaire.
+
+## Fiches, distances et tarifs
+
+Les cartes ouvrent une fiche sans quitter le calendrier. Le filtre Distance est
+réservé à Running. Les tarifs officiels sont conservés dans `pricing.json` ;
+à défaut, Running et Cyclo affichent une estimation clairement non officielle.
+Voir [PRICING.md](PRICING.md) pour le format, les règles et les tests navigateur.

@@ -3,7 +3,7 @@ import unittest
 from datetime import date
 from pathlib import Path
 
-spec = importlib.util.spec_from_file_location('collect_events', Path(__file__).resolve().parents[1] / 'scripts' / 'collect_events.py')
+spec = importlib.util.spec_from_file_location('collect_events', Path(__file__).resolve().parent / 'scripts' / 'collect_events.py')
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
 

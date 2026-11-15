@@ -10,6 +10,10 @@ on:
     paths:
       - 'index.html'
       - 'radar-status.js'
+      - 'event-details.js'
+      - 'event-details.css'
+      - 'pricing.js'
+      - 'pricing.json'
       - 'events.json'
       - 'scripts/collect_events.py'
       - 'tests/**'
@@ -45,7 +49,7 @@ jobs:
       - name: Tester le programme
         run: |
           python -m unittest discover -s tests -v
-          node --test tests/test_dashboard.cjs
+          node --test tests/test_*.cjs
 
       - name: Collecter FFA et surveiller calendriers officiels 67-68
         run: python scripts/collect_events.py
