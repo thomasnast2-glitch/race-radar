@@ -84,7 +84,7 @@
     "years": {
       "2026": {
         "status": "ok",
-        "rows": 445,
+        "rows": 444,
         "upcoming": 37,
         "inArea": 23,
         "excludedType": 21,
@@ -105,9 +105,9 @@
       },
       "2027": {
         "status": "ok",
-        "rows": 274,
-        "upcoming": 272,
-        "inArea": 123,
+        "rows": 273,
+        "upcoming": 271,
+        "inArea": 122,
         "excludedType": 2,
         "unrecognizedCities": [
           "Altkirch",
@@ -142,11 +142,11 @@
           "Mollkirch"
         ],
         "skippedDates": 0,
-        "candidates": 84
+        "candidates": 83
       }
     },
     "pagesOk": 2,
-    "candidates": 97,
+    "candidates": 96,
     "checkedAt": "2026-11-15",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
