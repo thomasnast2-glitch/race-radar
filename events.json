@@ -163,7 +163,8 @@
       "end": "2026-11-15",
       "kind": "Cross",
       "dist": [
-        8.3
+        8.3,
+        8.6
       ],
       "zone": "centre",
       "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=crossneufbrisach",
@@ -486,6 +487,21 @@
       "id": "corpo-87a836eb6df6"
     },
     {
+      "id": "aec-82e35b044156",
+      "name": "Corrida de Nouvel An de Geispolsheim",
+      "city": "Geispolsheim",
+      "date": "2027-01-10",
+      "end": "2027-01-10",
+      "kind": "Route",
+      "dist": [
+        7.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=corridageispo",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r16",
       "name": "La Slun",
       "city": "Bergheim",
@@ -499,6 +515,21 @@
       "zone": "centre",
       "source": "https://fr.milesrepublic.com/trail/haut-rhin",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-63103696ca31",
+      "name": "Le cross de la CEA",
+      "city": "Pfaffenheim",
+      "date": "2027-01-10",
+      "end": "2027-01-10",
+      "kind": "Cross",
+      "dist": [
+        10.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=crosschampalsace",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -562,6 +593,69 @@
       "id": "corpo-c35f485e9e60"
     },
     {
+      "id": "aec-d93d63d2604c",
+      "name": "Trail des casemates",
+      "city": "Dangolsheim",
+      "date": "2027-02-06",
+      "end": "2027-02-06",
+      "kind": "Trail",
+      "dist": [
+        13.0,
+        24.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailcasemates12",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-1ba9ddad9625",
+      "name": "La Printanière",
+      "city": "Wuenheim",
+      "date": "2027-03-06",
+      "end": "2027-03-06",
+      "kind": "Nature",
+      "dist": [
+        8.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=rondetourelle",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-6c45edaefd35",
+      "name": "Le Trail du Vieil Armand",
+      "city": "Wuenheim",
+      "date": "2027-03-06",
+      "end": "2027-03-06",
+      "kind": "Trail",
+      "dist": [
+        14.0,
+        25.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailvielarmand",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-525d580113b2",
+      "name": "La Roll Pom",
+      "city": "Bergheim",
+      "date": "2027-03-07",
+      "end": "2027-03-07",
+      "kind": "Cross",
+      "dist": [
+        8.0,
+        12.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=rollpom12",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r18",
       "name": "Semi-marathon de Haute Alsace",
       "city": "Cernay",
@@ -577,6 +671,52 @@
       "country": "FR"
     },
     {
+      "id": "aec-5114eb7683ff",
+      "name": "La course de la Wantzenau",
+      "city": "La Wantzenau",
+      "date": "2027-03-14",
+      "end": "2027-03-14",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=5kmwantzenau",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-bd733775cd11",
+      "name": "Le Circuit des Grands-Crus",
+      "city": "Rouffach",
+      "date": "2027-03-14",
+      "end": "2027-03-14",
+      "kind": "Trail",
+      "dist": [
+        23.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=grandscrus",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-569720be7f79",
+      "name": "Le mini-trail de l'âne",
+      "city": "Rouffach",
+      "date": "2027-03-14",
+      "end": "2027-03-14",
+      "kind": "Nature",
+      "dist": [
+        12.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=minitrailane",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r19",
       "name": "Trail du Petit Ballon",
       "city": "Rouffach",
@@ -586,12 +726,105 @@
       "dist": [
         12,
         23,
+        42.0,
         42.2,
         52
       ],
       "zone": "sud",
       "source": "https://fr.milesrepublic.com/trail/haut-rhin",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-4dadb85de599",
+      "name": "Ekiden de Strasbourg",
+      "city": "Strasbourg",
+      "date": "2027-04-04",
+      "end": "2027-04-04",
+      "kind": "Nature",
+      "dist": [
+        20.0,
+        42.195
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonstrasbourgekiden",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-c8600d13331a",
+      "name": "Wihrun",
+      "city": "Horbourg-Wihr",
+      "date": "2027-04-04",
+      "end": "2027-04-04",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=wihrun10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-2c216e3990d0",
+      "name": "La Montée de la Schrann",
+      "city": "Villé",
+      "date": "2027-04-10",
+      "end": "2027-04-10",
+      "kind": "Nature",
+      "dist": [
+        11.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailwurzel10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-5f1121014c60",
+      "name": "La Montée du Honel",
+      "city": "Villé",
+      "date": "2027-04-10",
+      "end": "2027-04-10",
+      "kind": "Trail",
+      "dist": [
+        17.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=monteehonel",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-d60ae7e1b54d",
+      "name": "La Roche des fées",
+      "city": "Villé",
+      "date": "2027-04-10",
+      "end": "2027-04-10",
+      "kind": "Trail",
+      "dist": [
+        25.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailwurzelcourt",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-01f963f2ba6e",
+      "name": "Le Tour du Wurzel",
+      "city": "Villé",
+      "date": "2027-04-10",
+      "end": "2027-04-10",
+      "kind": "Trail",
+      "dist": [
+        80.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=tourwurzel",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -612,6 +845,37 @@
       "id": "v27-5245edf198a1"
     },
     {
+      "id": "aec-537f44efd8d6",
+      "name": "Trail et Relais du Wurzel",
+      "city": "Ville",
+      "date": "2027-04-10",
+      "end": "2027-04-10",
+      "kind": "Trail",
+      "dist": [
+        52.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailwurzel",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-dbd66b077091",
+      "name": "Foulées de Jebsheim",
+      "city": "Jebsheim",
+      "date": "2027-04-17",
+      "end": "2027-04-17",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=jebsheim10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r20",
       "name": "Trail des Elfes & Druides",
       "city": "Pfaffenheim",
@@ -625,6 +889,22 @@
       "zone": "sud",
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-5bcd18ebc4dc",
+      "name": "Les foulées du Schiebenberg",
+      "city": "Dinsheim-sur-Bruche",
+      "date": "2027-04-24",
+      "end": "2027-04-24",
+      "kind": "Nature",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=schiebenberg5km",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -647,6 +927,51 @@
       "id": "v27-a54d3d05cc4c"
     },
     {
+      "id": "aec-54455c60015f",
+      "name": "La ronde du Sonnenglanz",
+      "city": "Beblenheim",
+      "date": "2027-04-25",
+      "end": "2027-04-25",
+      "kind": "Nature",
+      "dist": [
+        10.6
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=sonnenglanz",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-fe74625c785d",
+      "name": "Le Trail des Perles",
+      "city": "Beblenheim",
+      "date": "2027-04-25",
+      "end": "2027-04-25",
+      "kind": "Trail",
+      "dist": [
+        29.2
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailperles",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-fa07b772de4f",
+      "name": "Les Perles du Vignoble",
+      "city": "Beblenheim",
+      "date": "2027-04-25",
+      "end": "2027-04-25",
+      "kind": "Nature",
+      "dist": [
+        16.5
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=perlevignoble",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r21",
       "name": "La Colmarienne",
       "city": "Colmar",
@@ -663,6 +988,39 @@
       "country": "FR"
     },
     {
+      "id": "aec-00341cfbc9f8",
+      "name": "Tous au Bernstein",
+      "city": "Dambach-la-Ville",
+      "date": "2027-05-01",
+      "end": "2027-05-01",
+      "kind": "Trail",
+      "dist": [
+        16.0,
+        24.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=bernstein19",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-69a500a6be20",
+      "name": "Trail du Muguet",
+      "city": "Jungholtz",
+      "date": "2027-05-01",
+      "end": "2027-05-01",
+      "kind": "Trail",
+      "dist": [
+        5.0,
+        11.0,
+        22.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=muguet5",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r22",
       "name": "Foulées de la Foire aux Vins",
       "city": "Guebwiller",
@@ -671,12 +1029,28 @@
       "kind": "Trail",
       "dist": [
         11,
+        11.5,
         18,
         21.5
       ],
       "zone": "sud",
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-a92db932ca93",
+      "name": "Les foulées d'Ungersheim",
+      "city": "Ungersheim",
+      "date": "2027-05-06",
+      "end": "2027-05-06",
+      "kind": "Route",
+      "dist": [
+        12.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=fouleesungersheim",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -715,6 +1089,51 @@
       "country": "FR"
     },
     {
+      "id": "aec-a7cbbeafaec5",
+      "name": "U3T L'Ungersberg",
+      "city": "Reichsfeld",
+      "date": "2027-05-09",
+      "end": "2027-05-09",
+      "kind": "Trail",
+      "dist": [
+        24.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=ungersberg18",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-0524772f6c01",
+      "name": "U3T La Tour Héring",
+      "city": "Reichsfeld",
+      "date": "2027-05-09",
+      "end": "2027-05-09",
+      "kind": "Trail",
+      "dist": [
+        14.5
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=ungersberg10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-955eb7676985",
+      "name": "U3T Marathon du Bundschuh",
+      "city": "Reichsfeld",
+      "date": "2027-05-09",
+      "end": "2027-05-09",
+      "kind": "Trail",
+      "dist": [
+        42.6
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=ungersberg28",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r24",
       "name": "Trail Alsace by UTMB",
       "city": "Obernai",
@@ -735,6 +1154,66 @@
       "country": "FR"
     },
     {
+      "id": "aec-d23d832d2b55",
+      "name": "Trail Alsace by UTMB - Ultra-Trail des Chevaliers",
+      "city": "Colmar",
+      "date": "2027-05-14",
+      "end": "2027-05-14",
+      "kind": "Trail",
+      "dist": [
+        156.7
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace165",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-b4538b15e8d9",
+      "name": "Trail Alsace by UTMB - Ronde des Pages",
+      "city": "Obernai",
+      "date": "2027-05-15",
+      "end": "2027-05-15",
+      "kind": "Nature",
+      "dist": [
+        18.3
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace18",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-d6cb619146bb",
+      "name": "Trail Alsace by UTMB - Trail des Ecuyers",
+      "city": "Châtenois",
+      "date": "2027-05-15",
+      "end": "2027-05-15",
+      "kind": "Trail",
+      "dist": [
+        10.2
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utbmgalsace10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-40031cbdda39",
+      "name": "Trail Alsace by UTMB - Trail des Pèlerins",
+      "city": "Barr",
+      "date": "2027-05-15",
+      "end": "2027-05-15",
+      "kind": "Trail",
+      "dist": [
+        28.9
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace30",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "r25",
       "name": "Courses du Taennchel",
       "city": "Ribeauvillé",
@@ -749,6 +1228,81 @@
       "zone": "centre",
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
+      "country": "FR"
+    },
+    {
+      "id": "aec-62bd97f1d37d",
+      "name": "La montée des 3 Châteaux",
+      "city": "Ribeauvillé",
+      "date": "2027-05-23",
+      "end": "2027-05-23",
+      "kind": "Trail",
+      "dist": [
+        11.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=ribeauvillechateau",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-58c1b6a3b847",
+      "name": "Le circuit des Verreries",
+      "city": "Ribeauvillé",
+      "date": "2027-05-23",
+      "end": "2027-05-23",
+      "kind": "Trail",
+      "dist": [
+        22.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=ribeauvilletaennchel",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-787db07b70ed",
+      "name": "Le Trail du Taennchel",
+      "city": "Ribeauvillé",
+      "date": "2027-05-23",
+      "end": "2027-05-23",
+      "kind": "Trail",
+      "dist": [
+        33.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=taennchel33km",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-bc87e0f9bc22",
+      "name": "Le Trail découverte de Lutzelbach",
+      "city": "Ribeauvillé",
+      "date": "2027-05-23",
+      "end": "2027-05-23",
+      "kind": "Nature",
+      "dist": [
+        6.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=ribeauvillelutzelbach",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-124110879f59",
+      "name": "Les 5 km de Molsheim",
+      "city": "Molsheim",
+      "date": "2027-05-29",
+      "end": "2027-05-29",
+      "kind": "Route",
+      "dist": [
+        5.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=5kmmolsheim",
+      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -785,6 +1339,195 @@
       "country": "FR"
     },
     {
+      "id": "aec-5bfc139f89a2",
+      "name": "Run'In Night Trail",
+      "city": "Wettolsheim",
+      "date": "2027-06-05",
+      "end": "2027-06-05",
+      "kind": "Trail",
+      "dist": [
+        14.0,
+        29.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=runintrail",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-a94b2622b552",
+      "name": "Les Foulées Eco-Solidaires",
+      "city": "Schiltigheim",
+      "date": "2027-06-06",
+      "end": "2027-06-06",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0,
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=fouleesecosolidaires10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-f8717f971ca5",
+      "name": "L'Ortenbourg",
+      "city": "Scherwiller",
+      "date": "2027-06-11",
+      "end": "2027-06-11",
+      "kind": "Trail",
+      "dist": [
+        14.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=circuitortenbourg",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-6f821f75cc3f",
+      "name": "Le Taennel",
+      "city": "Scherwiller",
+      "date": "2027-06-11",
+      "end": "2027-06-11",
+      "kind": "Route",
+      "dist": [
+        5.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=circuitriesling",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-07ffff5249d4",
+      "name": "Le Trail de la Hasel",
+      "city": "Oberhaslach",
+      "date": "2027-06-12",
+      "end": "2027-06-12",
+      "kind": "Trail",
+      "dist": [
+        9.0,
+        16.0,
+        32.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=hasel14",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-1bc01ca02faa",
+      "name": "Les foulées epfigeoises",
+      "city": "Epfig",
+      "date": "2027-06-13",
+      "end": "2027-06-13",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=5kmepfig",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-32c93de1b4c8",
+      "name": "Landelow Trail",
+      "city": "Andlau",
+      "date": "2027-06-20",
+      "end": "2027-06-20",
+      "kind": "Trail",
+      "dist": [
+        15.0,
+        25.0,
+        50.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=landelow15",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-dad10afa0957",
+      "name": "Trail du mur Païen",
+      "city": "Saint-Nabor",
+      "date": "2027-07-03",
+      "end": "2027-07-03",
+      "kind": "Trail",
+      "dist": [
+        13.0,
+        21.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailmurpaien",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-341699998cfb",
+      "name": "La Tour du Faudé",
+      "city": "Orbey",
+      "date": "2027-07-10",
+      "end": "2027-07-10",
+      "kind": "Trail",
+      "dist": [
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=tourfaude",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-b07cfe0b77f8",
+      "name": "Le relais du Welche",
+      "city": "Orbey",
+      "date": "2027-07-10",
+      "end": "2027-07-10",
+      "kind": "Nature",
+      "dist": [
+        50.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=relaiswelche",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-e0e2f22fceb0",
+      "name": "Le trail du pays Welche",
+      "city": "Orbey",
+      "date": "2027-07-10",
+      "end": "2027-07-10",
+      "kind": "Trail",
+      "dist": [
+        50.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailwelche",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-703f70b0065c",
+      "name": "Les balcons d'Orbey",
+      "city": "Orbey",
+      "date": "2027-07-10",
+      "end": "2027-07-10",
+      "kind": "Trail",
+      "dist": [
+        26.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=balconorbey",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "name": "Trail du Grand Ballon — Estivale",
       "city": "Le Markstein",
       "date": "2027-07-17",
@@ -799,6 +1542,367 @@
       "certainty": "confirmée",
       "country": "FR",
       "id": "v27-d4f243231f12"
+    },
+    {
+      "id": "aec-022b403909cf",
+      "name": "Run'In FAV",
+      "city": "Turckheim",
+      "date": "2027-08-08",
+      "end": "2027-08-08",
+      "kind": "Route",
+      "dist": [
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=runinfav",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-a9e87121b08a",
+      "name": "Le Trail du Hatschbourg",
+      "city": "Hattstatt",
+      "date": "2027-08-13",
+      "end": "2027-08-13",
+      "kind": "Trail",
+      "dist": [
+        16.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailhatschbourg",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-9ba2643c986a",
+      "name": "Le Tour des Lacs",
+      "city": "Orbey",
+      "date": "2027-08-22",
+      "end": "2027-08-22",
+      "kind": "Trail",
+      "dist": [
+        19.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=tourdeslacs",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-32c8a2501721",
+      "name": "La COW",
+      "city": "Wolfisheim",
+      "date": "2027-09-12",
+      "end": "2027-09-12",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=cowolfisheim",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-2ededaa7c71b",
+      "name": "Le Semi-Marathon de Colmar",
+      "city": "Colmar",
+      "date": "2027-09-19",
+      "end": "2027-09-19",
+      "kind": "Route",
+      "dist": [
+        10.0,
+        21.1,
+        42.195
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semicolmar",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-e278222ce28d",
+      "name": "La Strasbourgeoise",
+      "city": "Strasbourg",
+      "date": "2027-10-03",
+      "end": "2027-10-03",
+      "kind": "Route",
+      "dist": [
+        5.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=strasbourgeoise",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-397d36a0a3af",
+      "name": "Munster'Trail",
+      "city": "Munster",
+      "date": "2027-10-09",
+      "end": "2027-10-09",
+      "kind": "Trail",
+      "dist": [
+        10.0,
+        21.0,
+        34.0,
+        69.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=munstertrail17",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-435cc341202b",
+      "name": "Les Foulées Vertes d'Erno",
+      "city": "Ernolsheim-Bruche",
+      "date": "2027-10-10",
+      "end": "2027-10-10",
+      "kind": "Nature",
+      "dist": [
+        9.5,
+        19.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=erno17",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-1acbbfd574e9",
+      "name": "Trai'elle",
+      "city": "Kaysersberg",
+      "date": "2027-10-10",
+      "end": "2027-10-10",
+      "kind": "Trail",
+      "dist": [
+        8.0,
+        14.0,
+        21.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=traiellekb15",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-f4b1771ffb83",
+      "name": "Les courses des châteaux",
+      "city": "Ottrott",
+      "date": "2027-10-17",
+      "end": "2027-10-17",
+      "kind": "Nature",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=5kmottrott",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-a087bb0b9614",
+      "name": "Trail des Châteaux d'Ottrott",
+      "city": "Ottrott",
+      "date": "2027-10-17",
+      "end": "2027-10-17",
+      "kind": "Trail",
+      "dist": [
+        31.1
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailottrott",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-6aee388ecaba",
+      "name": "Trail du Mont Sainte Odile",
+      "city": "Ottrott",
+      "date": "2027-10-17",
+      "end": "2027-10-17",
+      "kind": "Trail",
+      "dist": [
+        21.7
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semisainteodile",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-3d44a8a41787",
+      "name": "Défi Décath'",
+      "city": "Colmar",
+      "date": "2027-10-24",
+      "end": "2027-10-24",
+      "kind": "Route",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=decathlondefi",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-95fbb179e795",
+      "name": "La Décathlonienne",
+      "city": "Colmar",
+      "date": "2027-10-24",
+      "end": "2027-10-24",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=decathlon10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-498ad7f9df97",
+      "name": "Natura'Cap Eckwersheim",
+      "city": "Eckwersheim",
+      "date": "2027-11-01",
+      "end": "2027-11-01",
+      "kind": "Nature",
+      "dist": [
+        5.0,
+        10.0,
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=Eckwer-nat-10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-f6af7f698fb3",
+      "name": "Le Strasbourgeois",
+      "city": "Strasbourg",
+      "date": "2027-11-07",
+      "end": "2027-11-07",
+      "kind": "Route",
+      "dist": [
+        5.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=strasbourgeois",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-468d534ab82b",
+      "name": "Les courses de Colmar by Capsugel",
+      "city": "Colmar",
+      "date": "2027-11-07",
+      "end": "2027-11-07",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmcolmar",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-419dcd4d9911",
+      "name": "Les Foulées du Souvenir",
+      "city": "Orbey",
+      "date": "2027-11-13",
+      "end": "2027-11-13",
+      "kind": "Trail",
+      "dist": [
+        9.5,
+        27.8
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=souvenir10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-62e05a34fe37",
+      "name": "Le cross de Neuf-Brisach",
+      "city": "Neuf-Brisach",
+      "date": "2027-11-14",
+      "end": "2027-11-14",
+      "kind": "Cross",
+      "dist": [
+        8.6
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=crossneufbrisach",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-6670456d4f12",
+      "name": "Courses de Wintzenheim",
+      "city": "Wintzenheim",
+      "date": "2027-11-28",
+      "end": "2027-11-28",
+      "kind": "Route",
+      "dist": [
+        5.0,
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=wintzenheim10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-60f9df14c0e8",
+      "name": "Le Trail du Téléthon",
+      "city": "Buhl",
+      "date": "2027-12-05",
+      "end": "2027-12-05",
+      "kind": "Trail",
+      "dist": [
+        11.0,
+        18.0
+      ],
+      "zone": "sud",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailtelethon12",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-f0fd4cfbb7f3",
+      "name": "Corrida Jean Ritzenthaler",
+      "city": "Kientzheim",
+      "date": "2027-12-26",
+      "end": "2027-12-26",
+      "kind": "Route",
+      "dist": [
+        3.3,
+        6.9
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=corridakientzheim",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-e02d90814852",
+      "name": "Relais Schangala",
+      "city": "Kientzheim",
+      "date": "2027-12-26",
+      "end": "2027-12-26",
+      "kind": "Nature",
+      "dist": [
+        6.9
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=corridakientzheimrelais",
+      "certainty": "à vérifier",
+      "country": "FR"
     }
   ],
   "hyrox": [
@@ -920,21 +2024,21 @@
       "young": false
     }
   ],
-  "asOf": "2026-11-14",
-  "runningCheckedAt": "2026-11-14",
+  "asOf": "2026-11-15",
+  "runningCheckedAt": "2026-11-15",
   "collectionStatus": [
     {
       "name": "FFA",
       "url": "https://www.athle.fr/base/calendrier",
       "status": "ok",
-      "checkedAt": "2026-11-14",
-      "rows": 14,
-      "inArea": 9
+      "checkedAt": "2026-11-15",
+      "rows": 13,
+      "inArea": 8
     },
     {
       "name": "FFA calendrier mensuel",
       "url": "https://www.athle.fr/contenu/tout-le-calendrier-2027/5255",
-      "checkedAt": "2026-11-14",
+      "checkedAt": "2026-11-15",
       "discovered": 0,
       "read": 0,
       "failed": 0,
@@ -951,21 +2055,20 @@
       "status": "unavailable",
       "regionalRows": 0,
       "areaCandidates": 0,
-      "checkedAt": "2026-11-14",
+      "checkedAt": "2026-11-15",
       "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
     },
     {
       "name": "Alsace en courant",
-      "status": "partial",
+      "status": "ok",
       "years": {
         "2026": {
           "status": "ok",
           "rows": 445,
-          "upcoming": 42,
-          "inArea": 25,
+          "upcoming": 37,
+          "inArea": 23,
           "excludedType": 21,
           "unrecognizedCities": [
-            "Belmont",
             "Gaschney",
             "Gunsbach",
             "Hirsingue",
@@ -978,41 +2081,78 @@
             "Zimmersheim"
           ],
           "skippedDates": 0,
-          "candidates": 14
+          "candidates": 13
         },
         "2027": {
-          "status": "error",
-          "error": "HTTP 300"
+          "status": "ok",
+          "rows": 274,
+          "upcoming": 272,
+          "inArea": 123,
+          "excludedType": 2,
+          "unrecognizedCities": [
+            "Altkirch",
+            "Belmont",
+            "Brunstatt",
+            "Burnhaupt-le-haut",
+            "Col des Bagenelles",
+            "Dettwiller",
+            "Dinsheim",
+            "Eschentzwiller",
+            "Ferette",
+            "Ferrette",
+            "Fessenheim",
+            "Gaschney",
+            "Gunsbach",
+            "Hegenheim",
+            "Hirsingue",
+            "Houssen",
+            "Kintzheim",
+            "Kruth Wildenstein",
+            "Kruth-Wildenstein",
+            "La Petite-Pierre",
+            "Le Markstein",
+            "Lembach",
+            "Magstatt",
+            "Magstatt-le-Bas",
+            "Markstein",
+            "Masevaux",
+            "Meistratzheim",
+            "Meitrastzheim",
+            "Mitzach",
+            "Mollkirch"
+          ],
+          "skippedDates": 0,
+          "candidates": 84
         }
       },
-      "pagesOk": 1,
-      "candidates": 14,
-      "checkedAt": "2026-11-14",
+      "pagesOk": 2,
+      "candidates": 97,
+      "checkedAt": "2026-11-15",
       "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
     },
     {
       "name": "Courses 2027 documentees",
       "status": "ok",
-      "checkedAt": "2026-11-14",
+      "checkedAt": "2026-11-15",
       "catalogueSize": 4,
       "new": 0
     },
     {
       "name": "Cross corpo 68",
       "url": "https://www.crosscorpos68.fr/",
-      "checkedAt": "2026-11-14",
+      "checkedAt": "2026-11-15",
       "status": "live",
       "scheduled": 6,
       "live": 6
     }
   ],
   "collectionSummary": {
-    "date": "2026-11-14",
+    "date": "2026-11-15",
     "sourcesOk": 1,
     "sourcesTotal": 1,
-    "candidates": 34,
-    "added": 2,
-    "conflicts": 0,
+    "candidates": 116,
+    "added": 71,
+    "conflicts": 4,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
   }

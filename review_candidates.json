@@ -1,18 +1,94 @@
 {
-  "checkedAt": "2026-11-14",
-  "conflicts": [],
+  "checkedAt": "2026-11-15",
+  "conflicts": [
+    {
+      "candidate": {
+        "id": "aec-489641e0d032",
+        "name": "Trail Alsace by UTMB - Trail des Celtes",
+        "city": "Barr",
+        "date": "2027-05-16",
+        "end": "2027-05-16",
+        "kind": "Trail",
+        "dist": [
+          48.9
+        ],
+        "zone": "centre",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace50",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "aec-40031cbdda39",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-8f74ce351545",
+        "name": "Le marathon du vignoble d'Alsace",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          42.195
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r26",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-ac22ef0a9d6e",
+        "name": "Les 10 km de Molsheim",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          10.0
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "aec-124110879f59",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-717471d156c1",
+        "name": "Le semi-Marathon du vignoble d'Alsace",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          21.1
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semivignoble",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r26",
+      "reason": "dates contradictoires"
+    }
+  ],
   "officialCandidates": [],
   "alsaceStatus": {
-    "status": "partial",
+    "status": "ok",
     "years": {
       "2026": {
         "status": "ok",
         "rows": 445,
-        "upcoming": 42,
-        "inArea": 25,
+        "upcoming": 37,
+        "inArea": 23,
         "excludedType": 21,
         "unrecognizedCities": [
-          "Belmont",
           "Gaschney",
           "Gunsbach",
           "Hirsingue",
@@ -25,19 +101,133 @@
           "Zimmersheim"
         ],
         "skippedDates": 0,
-        "candidates": 14
+        "candidates": 13
       },
       "2027": {
-        "status": "error",
-        "error": "HTTP 300"
+        "status": "ok",
+        "rows": 274,
+        "upcoming": 272,
+        "inArea": 123,
+        "excludedType": 2,
+        "unrecognizedCities": [
+          "Altkirch",
+          "Belmont",
+          "Brunstatt",
+          "Burnhaupt-le-haut",
+          "Col des Bagenelles",
+          "Dettwiller",
+          "Dinsheim",
+          "Eschentzwiller",
+          "Ferette",
+          "Ferrette",
+          "Fessenheim",
+          "Gaschney",
+          "Gunsbach",
+          "Hegenheim",
+          "Hirsingue",
+          "Houssen",
+          "Kintzheim",
+          "Kruth Wildenstein",
+          "Kruth-Wildenstein",
+          "La Petite-Pierre",
+          "Le Markstein",
+          "Lembach",
+          "Magstatt",
+          "Magstatt-le-Bas",
+          "Markstein",
+          "Masevaux",
+          "Meistratzheim",
+          "Meitrastzheim",
+          "Mitzach",
+          "Mollkirch"
+        ],
+        "skippedDates": 0,
+        "candidates": 84
       }
     },
-    "pagesOk": 1,
-    "candidates": 14,
-    "checkedAt": "2026-11-14",
+    "pagesOk": 2,
+    "candidates": 97,
+    "checkedAt": "2026-11-15",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
-  "alsaceDateConflicts": [],
+  "alsaceDateConflicts": [
+    {
+      "candidate": {
+        "id": "aec-489641e0d032",
+        "name": "Trail Alsace by UTMB - Trail des Celtes",
+        "city": "Barr",
+        "date": "2027-05-16",
+        "end": "2027-05-16",
+        "kind": "Trail",
+        "dist": [
+          48.9
+        ],
+        "zone": "centre",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace50",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "aec-40031cbdda39",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-8f74ce351545",
+        "name": "Le marathon du vignoble d'Alsace",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          42.195
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r26",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-ac22ef0a9d6e",
+        "name": "Les 10 km de Molsheim",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          10.0
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "aec-124110879f59",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-717471d156c1",
+        "name": "Le semi-Marathon du vignoble d'Alsace",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          21.1
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semivignoble",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r26",
+      "reason": "dates contradictoires"
+    }
+  ],
   "verified2027Conflicts": [],
   "corpoConflicts": [],
   "ffaSeasonPreview": [],
@@ -47,7 +237,7 @@
     "status": "unavailable",
     "regionalRows": 0,
     "areaCandidates": 0,
-    "checkedAt": "2026-11-14",
+    "checkedAt": "2026-11-15",
     "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
   }
 }
