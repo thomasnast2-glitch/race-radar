@@ -1,0 +1,27 @@
+.navbtn{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-height:44px}
+.filters{grid-template-columns:1.4fr repeat(4,minmax(0,1fr))}
+.event[data-event-id]{cursor:pointer}
+.event-details{border:0;padding:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-align:left}
+.event-details:focus-visible{outline:3px solid #72a700;outline-offset:4px;border-radius:3px}
+.details-dialog{width:min(680px,calc(100% - 28px));max-height:calc(100dvh - 28px);padding:26px;border:1px solid var(--line);border-radius:18px;background:var(--white);color:var(--ink);overflow:auto;overscroll-behavior:contain}
+.details-dialog::backdrop{background:rgba(8,20,26,.72)}
+body:has(.details-dialog[open]){overflow:hidden}
+.details-header{display:flex;align-items:start;justify-content:space-between;gap:16px}
+.details-header h2{margin:0;font-size:26px;letter-spacing:-.04em;overflow-wrap:anywhere}
+.details-close{flex-shrink:0;min-width:44px;min-height:44px;border:1px solid #cdd8ce;border-radius:10px;background:#edf1e8;color:var(--ink);font-size:22px}
+.details-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.details-meta dt{font-size:11px;font-weight:800;text-transform:uppercase;color:#657570}
+.details-meta dd{margin:5px 0 0;line-height:1.5}
+.price-list{padding:0;list-style:none;margin:12px 0 20px}
+.price-list li{display:grid;grid-template-columns:minmax(80px,.7fr) 2fr;gap:14px;border-top:1px solid var(--line);padding:14px 0;line-height:1.6}
+.price-list strong,.price-list small{display:block}
+.price-list small{font-size:12px;color:#52635a}
+.price-list a{text-decoration:underline;text-underline-offset:3px}
+.details-dialog .note{color:#52635a}
+.details-dialog.hyrox-card .details-meta dt,.details-dialog.hyrox-card .note,.details-dialog.hyrox-card .price-list small{color:#b8c7c7}
+.details-dialog.hyrox-card .price-list li{border-color:#34434a}
+.details-link{display:inline-flex;min-height:44px;align-items:center}
+@media(max-width:1040px){.filters{grid-template-columns:repeat(3,minmax(0,1fr))}.filters .filter-col:last-child{grid-column:auto}}
+@media(max-width:720px){.nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.navbtn{padding:10px 7px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.filters .filter-col:first-child,.filters #distance-filter{grid-column:1/-1}.details-dialog{padding:20px}.details-header h2{font-size:23px}.details-meta{grid-template-columns:1fr}.price-list li{grid-template-columns:1fr;gap:4px}}
+
+.update{max-width:100%;white-space:normal}
