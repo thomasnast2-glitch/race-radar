@@ -1,6 +1,26 @@
 {
-  "checkedAt": "2026-11-15",
+  "checkedAt": "2026-11-16",
   "conflicts": [
+    {
+      "candidate": {
+        "id": "aec-f401d70ab1d0",
+        "name": "Trail du Grand Ballon - L'hivernale",
+        "city": "Jungholtz",
+        "date": "2027-01-17",
+        "end": "2027-01-17",
+        "kind": "Trail",
+        "dist": [
+          21.01,
+          37.28
+        ],
+        "zone": "sud",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=tgb-winter-20",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r17",
+      "reason": "dates contradictoires"
+    },
     {
       "candidate": {
         "id": "aec-489641e0d032",
@@ -41,25 +61,6 @@
     },
     {
       "candidate": {
-        "id": "aec-ac22ef0a9d6e",
-        "name": "Les 10 km de Molsheim",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          10.0
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "aec-124110879f59",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
         "id": "aec-717471d156c1",
         "name": "Le semi-Marathon du vignoble d'Alsace",
         "city": "Molsheim",
@@ -75,6 +76,25 @@
         "country": "FR"
       },
       "existing_id": "r26",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-ac22ef0a9d6e",
+        "name": "Les 10 km de Molsheim",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          10.0
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "aec-124110879f59",
       "reason": "dates contradictoires"
     }
   ],
@@ -85,8 +105,8 @@
       "2026": {
         "status": "ok",
         "rows": 444,
-        "upcoming": 37,
-        "inArea": 23,
+        "upcoming": 33,
+        "inArea": 21,
         "excludedType": 21,
         "unrecognizedCities": [
           "Gaschney",
@@ -96,61 +116,79 @@
           "Hésingue",
           "Masevaux",
           "Saint-Louis",
-          "Schleithal",
-          "Wittelsheim",
           "Zimmersheim"
         ],
         "skippedDates": 0,
-        "candidates": 13
+        "candidates": 11
       },
       "2027": {
         "status": "ok",
-        "rows": 273,
-        "upcoming": 271,
-        "inArea": 122,
-        "excludedType": 2,
+        "rows": 393,
+        "upcoming": 384,
+        "inArea": 162,
+        "excludedType": 9,
         "unrecognizedCities": [
           "Altkirch",
+          "Aubure",
           "Belmont",
           "Brunstatt",
           "Burnhaupt-le-haut",
           "Col des Bagenelles",
           "Dettwiller",
+          "Diefmatten",
           "Dinsheim",
+          "Dossenheim-sur-Zinsel",
+          "Duntzenheim",
           "Eschentzwiller",
           "Ferette",
           "Ferrette",
           "Fessenheim",
           "Gaschney",
+          "Grendelbruch",
           "Gunsbach",
           "Hegenheim",
+          "Heimsbrunn",
+          "Herrlisheim",
           "Hirsingue",
           "Houssen",
+          "Ingwiller",
           "Kintzheim",
           "Kruth Wildenstein",
           "Kruth-Wildenstein",
           "La Petite-Pierre",
-          "Le Markstein",
-          "Lembach",
-          "Magstatt",
-          "Magstatt-le-Bas",
-          "Markstein",
-          "Masevaux",
-          "Meistratzheim",
-          "Meitrastzheim",
-          "Mitzach",
-          "Mollkirch"
+          "Lampertsloch",
+          "Le Markstein"
         ],
         "skippedDates": 0,
-        "candidates": 83
+        "candidates": 107
       }
     },
     "pagesOk": 2,
-    "candidates": 96,
-    "checkedAt": "2026-11-15",
+    "candidates": 118,
+    "checkedAt": "2026-11-16",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
   "alsaceDateConflicts": [
+    {
+      "candidate": {
+        "id": "aec-f401d70ab1d0",
+        "name": "Trail du Grand Ballon - L'hivernale",
+        "city": "Jungholtz",
+        "date": "2027-01-17",
+        "end": "2027-01-17",
+        "kind": "Trail",
+        "dist": [
+          21.01,
+          37.28
+        ],
+        "zone": "sud",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=tgb-winter-20",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r17",
+      "reason": "dates contradictoires"
+    },
     {
       "candidate": {
         "id": "aec-489641e0d032",
@@ -191,25 +229,6 @@
     },
     {
       "candidate": {
-        "id": "aec-ac22ef0a9d6e",
-        "name": "Les 10 km de Molsheim",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          10.0
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "aec-124110879f59",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
         "id": "aec-717471d156c1",
         "name": "Le semi-Marathon du vignoble d'Alsace",
         "city": "Molsheim",
@@ -225,6 +244,25 @@
         "country": "FR"
       },
       "existing_id": "r26",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-ac22ef0a9d6e",
+        "name": "Les 10 km de Molsheim",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          10.0
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "aec-124110879f59",
       "reason": "dates contradictoires"
     }
   ],
@@ -237,7 +275,7 @@
     "status": "unavailable",
     "regionalRows": 0,
     "areaCandidates": 0,
-    "checkedAt": "2026-11-15",
+    "checkedAt": "2026-11-16",
     "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
   }
 }
