@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16",
+  "checkedAt": "2026-11-17",
   "conflicts": [
     {
       "candidate": {
@@ -42,25 +42,6 @@
     },
     {
       "candidate": {
-        "id": "aec-8f74ce351545",
-        "name": "Le marathon du vignoble d'Alsace",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          42.195
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "r26",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
         "id": "aec-717471d156c1",
         "name": "Le semi-Marathon du vignoble d'Alsace",
         "city": "Molsheim",
@@ -72,6 +53,25 @@
         ],
         "zone": "nord",
         "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semivignoble",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r26",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-8f74ce351545",
+        "name": "Le marathon du vignoble d'Alsace",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          42.195
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
         "certainty": "à vérifier",
         "country": "FR"
       },
@@ -123,10 +123,10 @@
       },
       "2027": {
         "status": "ok",
-        "rows": 393,
-        "upcoming": 384,
-        "inArea": 162,
-        "excludedType": 9,
+        "rows": 400,
+        "upcoming": 390,
+        "inArea": 165,
+        "excludedType": 10,
         "unrecognizedCities": [
           "Altkirch",
           "Aubure",
@@ -160,12 +160,12 @@
           "Le Markstein"
         ],
         "skippedDates": 0,
-        "candidates": 107
+        "candidates": 110
       }
     },
     "pagesOk": 2,
-    "candidates": 118,
-    "checkedAt": "2026-11-16",
+    "candidates": 121,
+    "checkedAt": "2026-11-17",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
   "alsaceDateConflicts": [
@@ -210,25 +210,6 @@
     },
     {
       "candidate": {
-        "id": "aec-8f74ce351545",
-        "name": "Le marathon du vignoble d'Alsace",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          42.195
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "r26",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
         "id": "aec-717471d156c1",
         "name": "Le semi-Marathon du vignoble d'Alsace",
         "city": "Molsheim",
@@ -240,6 +221,25 @@
         ],
         "zone": "nord",
         "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semivignoble",
+        "certainty": "à vérifier",
+        "country": "FR"
+      },
+      "existing_id": "r26",
+      "reason": "dates contradictoires"
+    },
+    {
+      "candidate": {
+        "id": "aec-8f74ce351545",
+        "name": "Le marathon du vignoble d'Alsace",
+        "city": "Molsheim",
+        "date": "2027-05-30",
+        "end": "2027-05-30",
+        "kind": "Route",
+        "dist": [
+          42.195
+        ],
+        "zone": "nord",
+        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
         "certainty": "à vérifier",
         "country": "FR"
       },
@@ -275,7 +275,7 @@
     "status": "unavailable",
     "regionalRows": 0,
     "areaCandidates": 0,
-    "checkedAt": "2026-11-16",
+    "checkedAt": "2026-11-17",
     "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
   }
 }
