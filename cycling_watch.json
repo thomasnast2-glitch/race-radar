@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-11-16T09:24:10+00:00",
+  "lastCheckedAt": "2026-11-17T07:56:46+00:00",
   "sources": [
     {
       "event_id": "cyc-babybel-route-2027",
@@ -26,7 +26,7 @@
       "event_id": "cyc-tricolore-2027",
       "url": "https://lasundgauvienne.fr/",
       "result": "OK",
-      "sha256": "a2ea716efb049f9116839aac25e9d5a9ae8e85b17167b3fc7412387444164982",
+      "sha256": "5fd00c76888d127cc08f7a4b01d6a1db95999fda7f57bc5d1c99a6e4173d7aa0",
       "dates_2027_detectees": [
         "2027-06-25",
         "2027-06-26",
