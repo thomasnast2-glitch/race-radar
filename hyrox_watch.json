@@ -1,9 +1,11 @@
 {
-  "last_checked": "2026-11-17",
-  "flux_accessibles": 3,
+  "last_checked": "2026-11-18",
+  "flux_accessibles": 2,
   "flux_total": 3,
   "nouveaux_indices": 0,
   "indices_conserves": 0,
-  "erreurs": [],
+  "erreurs": [
+    "HTTP Error 429: Too Many Requests"
+  ],
   "rappel": "Sources de presse uniquement : validation officielle avant publication sur le site"
 }
