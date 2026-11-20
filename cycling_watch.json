@@ -1,11 +1,11 @@
 {
-  "lastCheckedAt": "2026-11-19T07:57:29+00:00",
+  "lastCheckedAt": "2026-11-20T07:55:01+00:00",
   "sources": [
     {
       "event_id": "cyc-babybel-route-2027",
       "url": "https://cyclosportive-babybel.fr/journee/route/",
       "result": "OK",
-      "sha256": "7048050da2557bd9ffb4a8626c2a39b10096620426d69d8a1e048376d6c68782",
+      "sha256": "f8569f2df83a47f8d3a852fbb87efd5b75270786822be4a9469abb317bd9aa75",
       "dates_2027_detectees": [
         "2027-05-16"
       ],
@@ -15,7 +15,7 @@
       "event_id": "cyc-babybel-gravel-2027",
       "url": "https://cyclosportive-babybel.fr/",
       "result": "OK",
-      "sha256": "987ae264ccefabb67104ec91695d6ad28f3bba61129d8527e014ff8902279a42",
+      "sha256": "f7fbca5a314282864d30fd5d2e04fd8a702294ac43c4d93a3a52ebd44d618580",
       "dates_2027_detectees": [
         "2027-03-15",
         "2027-05-16"
