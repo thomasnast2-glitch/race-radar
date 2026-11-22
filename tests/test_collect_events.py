@@ -40,6 +40,38 @@ class ParseTest(unittest.TestCase):
         added, review = m.merge_candidates(existing, [new])
         self.assertEqual((added,len(review),len(existing['running'])),(0,1,1))
 
+    def test_ffa_excludes_field_and_indoor_meetings_mislabelled_as_cross(self):
+        names = ['Meeting 3 lancers PCA AV', 'Meeting De Lancers Longs',
+                 'Meeting en salle U14 PCA ESRCAC', 'Meeting CDA 68 en salle à partir de U16',
+                 'Meeting Indoor U 16', 'Meeting Perche en salle PCA ESRCAC']
+        html = '<table>' + ''.join(
+            f'<tr><td>28 novembre</td><td>{name}</td><td>Colmar 068 - G-E</td><td>Cross</td></tr>'
+            for name in names + ['Cross de Colmar']) + '</table>'
+        events, _ = m.parse_ffa(html, self.TODAY)
+        self.assertEqual([event['name'] for event in events], ['Cross de Colmar'])
+
+    def test_distinct_formats_and_multiday_events_do_not_conflict(self):
+        a = {'name':'Trail Alsace by UTMB - Trail des Pèlerins','city':'Barr','date':'2027-05-15'}
+        b = {'name':'Trail Alsace by UTMB - Trail des Celtes','city':'Barr','date':'2027-05-16'}
+        self.assertFalse(m.is_conflicting_date(a, b))
+        a = {'name':'Les 5 km de Molsheim','city':'Molsheim','date':'2027-05-29'}
+        b = {'name':'Les 10 km de Molsheim','city':'Molsheim','date':'2027-05-30'}
+        self.assertFalse(m.is_conflicting_date(a, b))
+        a = {'name':'Trail du Grand Ballon — Hivernale','city':'Jungholtz','date':'2027-01-16','end':'2027-01-17'}
+        b = {'name':"Trail du Grand Ballon - L'hivernale",'city':'Jungholtz','date':'2027-01-17'}
+        self.assertTrue(m.equivalent_alsace(a, b))
+        self.assertFalse(m.is_conflicting_date(a, b))
+
+    def test_official_editions_survive_secondary_merges_and_replays(self):
+        data = {'running':[]}
+        self.assertEqual(m.apply_official_events(data), 7)
+        self.assertEqual(m.apply_official_events(data), 0)
+        original = next(e.copy() for e in data['running'] if e['id'] == 'aec-489641e0d032')
+        secondary = dict(original, dist=[48.9], source='https://secondary.example')
+        self.assertEqual(m.merge_alsace(data, [secondary]), (0, 0, []))
+        self.assertEqual(next(e for e in data['running'] if e['id'] == original['id'])['dist'], [47])
+        self.assertEqual(next(e for e in data['running'] if e['id'] == 'r26')['date'], '2027-05-30')
+
     def test_ffa_parser_regional(self):
         html = '''<table><tr><td>08 novembre</td><td>Courses de Colmar</td><td>Colmar<br/>068 - G-E</td><td>Running</td></tr></table>'''
         events, seen = m.parse_ffa(html, self.TODAY)

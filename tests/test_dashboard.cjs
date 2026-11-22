@@ -22,3 +22,19 @@ test('source failures stay visible even after a successful workflow', () => {
   assert.match(report.text, /1\/2 source/);
   assert.match(report.text, /1 erreur/);
 });
+
+test('running reports surface collection failures and unresolved date conflicts', () => {
+  const report = summarize('running', {checkedAt: '2026-11-12',
+    sources: [{status: 'links_found'}, {status: 'links_found'}],
+    collectionStatus: [{status: 'ok'}, {status: 'unavailable'}, {status: 'unavailable'}],
+    conflicts: 5}, now);
+  assert.equal(report.warning, true);
+  assert.match(report.text, /2 collecte/);
+  assert.match(report.text, /5 conflit/);
+});
+
+test('a recent report with no accessible source is not healthy', () => {
+  assert.equal(summarize('running', {checkedAt: '2026-11-12', sources: []}, now).warning, true);
+  assert.equal(summarize('hyrox', {last_checked: '2026-11-12', flux_accessibles: 0,
+    flux_total: 3, erreurs: []}, now).warning, true);
+});

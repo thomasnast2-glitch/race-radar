@@ -16,19 +16,6 @@
       "country": "FR"
     },
     {
-      "id": "ffa-740d1863e1e2",
-      "name": "Meeting 3 lancers PCA AV",
-      "city": "Colmar",
-      "date": "2026-11-01",
-      "end": "2026-11-01",
-      "kind": "Cross",
-      "dist": [],
-      "zone": "centre",
-      "source": "https://www.athle.fr/competitions/585846580840980843742828777855701837",
-      "certainty": "à vérifier",
-      "country": "FR"
-    },
-    {
       "id": "ffa-74c68bc03ce2",
       "name": "Natura Cap Eckwersheim",
       "city": "Eckwersheim",
@@ -172,19 +159,6 @@
       "country": "FR"
     },
     {
-      "id": "ffa-162d31b9d3ac",
-      "name": "Meeting De Lancers Longs",
-      "city": "Obernai",
-      "date": "2026-11-15",
-      "end": "2026-11-15",
-      "kind": "Cross",
-      "dist": [],
-      "zone": "centre",
-      "source": "https://www.athle.fr/competitions/895846668840423852498852419837336840",
-      "certainty": "à vérifier",
-      "country": "FR"
-    },
-    {
       "id": "ffa-723b1b287a71",
       "name": "Nordic Des Remparts",
       "city": "Neuf Brisach",
@@ -209,19 +183,6 @@
       ],
       "zone": "centre",
       "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=vaguerosebleu5",
-      "certainty": "à vérifier",
-      "country": "FR"
-    },
-    {
-      "id": "ffa-a5b37e3f5917",
-      "name": "Meeting en salle U14 PCA ESRCAC",
-      "city": "Colmar",
-      "date": "2026-11-17",
-      "end": "2026-11-17",
-      "kind": "Cross",
-      "dist": [],
-      "zone": "centre",
-      "source": "https://www.athle.fr/competitions/408846628840119834330849694849704831",
       "certainty": "à vérifier",
       "country": "FR"
     },
@@ -270,32 +231,6 @@
       "country": "FR"
     },
     {
-      "id": "ffa-947931da411e",
-      "name": "Meeting CDA 68 en salle à partir de U16",
-      "city": "Colmar",
-      "date": "2026-11-21",
-      "end": "2026-11-21",
-      "kind": "Cross",
-      "dist": [],
-      "zone": "centre",
-      "source": "https://www.athle.fr/competitions/429846544840626834314849355852200828",
-      "certainty": "à vérifier",
-      "country": "FR"
-    },
-    {
-      "id": "ffa-fb898d67f31d",
-      "name": "Meeting Indoor U 16",
-      "city": "Strasbourg",
-      "date": "2026-11-21",
-      "end": "2026-11-21",
-      "kind": "Cross",
-      "dist": [],
-      "zone": "nord",
-      "source": "https://www.athle.fr/competitions/246846630840224849296855211852931828",
-      "certainty": "à vérifier",
-      "country": "FR"
-    },
-    {
       "id": "r8",
       "name": "10 km PsyCHEdélik",
       "city": "Erstein",
@@ -308,19 +243,6 @@
       "zone": "nord",
       "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
       "certainty": "confirmée",
-      "country": "FR"
-    },
-    {
-      "id": "ffa-e6cd9615675e",
-      "name": "Meeting Perche en salle PCA ESRCAC",
-      "city": "Colmar",
-      "date": "2026-11-28",
-      "end": "2026-11-28",
-      "kind": "Cross",
-      "dist": [],
-      "zone": "centre",
-      "source": "https://www.athle.fr/competitions/meeting-perche-en-salle-pca-esrcac/357220",
-      "certainty": "à vérifier",
       "country": "FR"
     },
     {
@@ -581,17 +503,42 @@
       "name": "Trail du Grand Ballon — Hivernale",
       "city": "Jungholtz",
       "date": "2027-01-16",
-      "end": "2027-01-16",
+      "end": "2027-01-17",
       "kind": "Trail",
       "dist": [
-        24.98,
-        48.49,
-        48.5
+        20.9,
+        24.8,
+        37,
+        48.1
       ],
       "zone": "sud",
-      "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
+      "source": "https://grandballon.com/les-trails-du-grand-ballon/trail-du-grand-ballon-winter/fr",
       "certainty": "confirmée",
-      "country": "FR"
+      "country": "FR",
+      "formats": [
+        {
+          "name": "TGB 50",
+          "date": "2027-01-16",
+          "distanceKm": 48.1
+        },
+        {
+          "name": "TGB 25",
+          "date": "2027-01-16",
+          "distanceKm": 24.8
+        },
+        {
+          "name": "TGB 35",
+          "date": "2027-01-17",
+          "distanceKm": 37
+        },
+        {
+          "name": "TGB 20",
+          "date": "2027-01-17",
+          "distanceKm": 20.9
+        }
+      ],
+      "source_type": "official",
+      "verified_at": "2026-11-22"
     },
     {
       "name": "Cross corpo Liebherr",
@@ -1421,12 +1368,31 @@
       "end": "2027-05-15",
       "kind": "Trail",
       "dist": [
-        28.9
+        29
       ],
       "zone": "centre",
-      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace30",
-      "certainty": "à vérifier",
-      "country": "FR"
+      "source": "https://alsace.utmb.world/fr/races/TDP",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-489641e0d032",
+      "name": "Trail Alsace by UTMB - Trail des Celtes",
+      "city": "Barr",
+      "date": "2027-05-16",
+      "end": "2027-05-16",
+      "kind": "Trail",
+      "dist": [
+        47
+      ],
+      "zone": "centre",
+      "source": "https://alsace.utmb.world/fr/races/TDC",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
     },
     {
       "id": "r25",
@@ -1528,30 +1494,14 @@
       "end": "2027-05-29",
       "kind": "Route",
       "dist": [
-        5.0
+        5
       ],
       "zone": "nord",
-      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=5kmmolsheim",
-      "certainty": "à vérifier",
-      "country": "FR"
-    },
-    {
-      "id": "r26",
-      "name": "Marathon du Vignoble d’Alsace",
-      "city": "Molsheim",
-      "date": "2027-05-29",
-      "end": "2027-05-29",
-      "kind": "Route",
-      "dist": [
-        5,
-        10,
-        21.1,
-        42.2
-      ],
-      "zone": "nord",
-      "source": "https://running.life/calendrier-course-a-pied/france/grand-est/strasbourg",
+      "source": "https://marathon-alsace.com/",
       "certainty": "confirmée",
-      "country": "FR"
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
     },
     {
       "id": "aec-eb99d550a360",
@@ -1583,6 +1533,57 @@
       "source": "https://www.trainetic.io/calendrier-courses/haut-rhin/",
       "certainty": "confirmée",
       "country": "FR"
+    },
+    {
+      "id": "aec-717471d156c1",
+      "name": "Le semi-Marathon du vignoble d'Alsace",
+      "city": "Molsheim",
+      "date": "2027-05-30",
+      "end": "2027-05-30",
+      "kind": "Route",
+      "dist": [
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-ac22ef0a9d6e",
+      "name": "Les 10 km de Molsheim",
+      "city": "Molsheim",
+      "date": "2027-05-30",
+      "end": "2027-05-30",
+      "kind": "Route",
+      "dist": [
+        10
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "r26",
+      "name": "Marathon du Vignoble d’Alsace",
+      "city": "Molsheim",
+      "date": "2027-05-30",
+      "end": "2027-05-30",
+      "kind": "Route",
+      "dist": [
+        42.195
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
     },
     {
       "id": "aec-5bfc139f89a2",
@@ -2367,7 +2368,7 @@
       "young": false
     }
   ],
-  "asOf": "2026-11-21",
+  "asOf": "2026-11-22",
   "runningCheckedAt": "2026-11-22",
   "collectionStatus": [
     {
@@ -2487,11 +2488,11 @@
   ],
   "collectionSummary": {
     "date": "2026-11-22",
-    "sourcesOk": 1,
-    "sourcesTotal": 1,
+    "sourcesOk": 4,
+    "sourcesTotal": 6,
     "candidates": 132,
     "added": 0,
-    "conflicts": 5,
+    "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
   }

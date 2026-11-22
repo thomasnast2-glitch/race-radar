@@ -15,6 +15,7 @@ on:
       - 'pricing.js'
       - 'pricing.json'
       - 'events.json'
+      - 'official_events.json'
       - 'scripts/collect_events.py'
       - 'tests/**'
       - '.github/workflows/race-radar.yml'

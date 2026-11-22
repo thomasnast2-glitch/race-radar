@@ -4,6 +4,10 @@ Agenda Running, Trail, HYROX et Cyclo : https://thomasnast2-glitch.github.io/rac
 
 ## Synchronisations
 
+Les dates et formats vérifiés sur les pages des organisateurs figurent dans `official_events.json`. Ce registre est réappliqué avant les imports secondaires, qui ne doivent pas fusionner deux formats distincts ni remplacer les distances officielles. Les courses sur plusieurs jours conservent leur intervalle et leurs dates par format dans la fiche. Une date confirmée ne prouve pas la disponibilité des inscriptions.
+
+L'état Running affiche les collectes indisponibles et les conflits de dates, même si la veille des liens ou le workflow réussit. Les exclusions de meetings de piste/salle sont conservées dans `excluded_events.json`.
+
 Les workflows actifs se trouvent dans `.github/workflows/`.
 Running collecte les calendriers, Cyclo surveille les organisateurs et HYROX relève des pistes de presse.
 Le tableau « État du radar » présente les dates des rapports et les dernières exécutions GitHub.
