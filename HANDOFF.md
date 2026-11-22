@@ -2,12 +2,16 @@
 
 Dernière mise à jour : 22 novembre 2026, Europe/Paris.
 
-## Évolution en préparation : badges, favoris et calendrier
+## Évolution publiée : badges, favoris et calendrier
 
 Branche : `codex/reliability-favorite-status-month-calendar`, issue de
-`2098526c905276fe6f447f11cc6152b90be5595c`. Cette évolution est proposée en PR
-pour validation avant publication ; les sections suivantes décrivent la version
-principale publiée avant cette PR.
+`2098526c905276fe6f447f11cc6152b90be5595c`. La [PR n°4](https://github.com/thomasnast2-glitch/race-radar/pull/4) a été validée par l’utilisateur et fusionnée.
+La [publication Pages](https://github.com/thomasnast2-glitch/race-radar/actions/runs/45026842319)
+et le [workflow IFTTT](https://github.com/thomasnast2-glitch/race-radar/actions/runs/45026898349)
+ont réussi. La recette du site public à 1280 et 390 pixels a confirmé les badges,
+la persistance des statuts, la navigation mensuelle et les fiches, sans erreur
+JavaScript ni débordement horizontal. Elle utilise des sessions isolées des favoris
+personnels. Les sections suivantes conservent aussi l’historique des corrections précédentes.
 
 - Ajout de `planner-model.js`, `planner.js` et `planner.css`, raccordés à l'interface
   et aux fiches existantes. Les badges exigent une source explicitement officielle,
