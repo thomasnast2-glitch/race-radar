@@ -49,3 +49,46 @@ Les cartes ouvrent une fiche sans quitter le calendrier. Le filtre Distance est
 réservé à Running. Les tarifs officiels sont conservés dans `pricing.json` ;
 à défaut, Running et Cyclo affichent une estimation clairement non officielle.
 Voir [PRICING.md](PRICING.md) pour le format, les règles et les tests navigateur.
+
+## Fiabilité et préparation de saison
+
+Les cartes et les fiches distinguent « Vérifié sur le site officiel » et « À confirmer ».
+Le badge vérifié exige `source_type: "official"`, une URL HTTP(S) et une date
+`verified_at` valide, non future. La date reste visible : il s'agit d'une vérification
+historique des informations, pas d'une promesse de places disponibles. Une course
+marquée `certainty: "confirmée"` par un calendrier secondaire ne suffit pas.
+Les contrôles de collecte, les tarifs et les annonces d'inscription HYROX gardent
+leurs indicateurs séparés. Aucune nouvelle vérification officielle n'est inventée.
+
+Les favoris existants restent dans `race-radar-favorites`, sans migration ni
+réécriture au chargement. Le statut personnel « Intéressé », « Inscrit » ou
+« Objectif principal » est enregistré séparément dans `race-radar-favorite-statuses`.
+Sans statut enregistré, un ancien favori apparaît « Intéressé ». Retirer un favori
+ne supprime pas son ancien statut : il est retrouvé si la course est ajoutée à nouveau.
+Les statuts se synchronisent entre les onglets du même navigateur ; ils ne sont
+pas partagés entre appareils et ne déclenchent aucune inscription ou notification.
+Un stockage indisponible est signalé lors de la modification du statut.
+
+Le bouton « Calendrier mensuel » réunit Running, HYROX et Cyclo. Les contrôles
+permettent de changer de mois, revenir au mois courant, sélectionner une discipline
+ou afficher uniquement les favoris. Les filtres des cartes restent indépendants ;
+revenir à « Cartes » les conserve, changer de rubrique garde leur réinitialisation
+habituelle. Le calendrier montre tout le mois, y compris les jours passés.
+Une épreuve sur plusieurs jours figure chaque jour concerné, même à cheval sur
+deux mois. Le compteur compte les événements uniques. Les dates non confirmées
+restent dans une liste séparée, sans utiliser `sort` pour inventer un jour.
+Sur téléphone, les jours avec événements sont présentés en liste lisible.
+Chaque événement ouvre la fiche existante au clic ou au clavier.
+
+Vérifier l'interface et le modèle sans contacter IFTTT :
+
+```sh
+npm install --ignore-scripts
+npm test
+npx playwright install chromium
+npm run test:browser
+```
+
+Les tests couvrent les badges, la conservation des anciens favoris, les trois
+statuts, la persistance, les onglets, les mois et années, les années bissextiles,
+les événements sur plusieurs jours et les largeurs 1280, 390 et 320 pixels.
