@@ -1954,9 +1954,7 @@
       "end": "2027-09-19",
       "kind": "Route",
       "dist": [
-        10.0,
-        21.1,
-        42.195
+        21.1
       ],
       "zone": "centre",
       "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semicolmar",
@@ -2522,7 +2520,7 @@
     "sourcesOk": 4,
     "sourcesTotal": 6,
     "candidates": 131,
-    "added": 2,
+    "added": 0,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
