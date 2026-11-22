@@ -896,7 +896,12 @@ def merge_alsace(existing: dict, candidates: list[dict]) -> tuple[int, int, list
             if match.get('source_type') == 'official':
                 continue  # Une source secondaire ne remplace pas les distances vérifiées.
             before = set(match.get('dist') or [])
-            match['dist'] = sorted(before | set(item['dist']))
+            incoming = set(item['dist'])
+            named_format = r'\b(?:semi marathon|marathon|\d+(?: \d+)?\s*km)\b'
+            specific = all(re.search(named_format, normalized(event['name'])) for event in (match, item))
+            # Une fiche intitulée « Semi-marathon » doit garder ses distances propres,
+            # même si une ancienne fusion y avait ajouté le 10 km et le marathon.
+            match['dist'] = sorted(incoming if specific and incoming else before | incoming)
             if set(match['dist']) != before:
                 updated += 1
             continue
