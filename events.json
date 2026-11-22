@@ -1305,6 +1305,7 @@
       "dist": [
         11,
         18,
+        18.3,
         29,
         47,
         108,
@@ -1916,6 +1917,36 @@
       "country": "FR"
     },
     {
+      "id": "aec-df40f4eb1046",
+      "name": "Le 10km du Marathon de Colmar",
+      "city": "Colmar",
+      "date": "2027-09-19",
+      "end": "2027-09-19",
+      "kind": "Route",
+      "dist": [
+        10.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathoncolmar10",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-74538c83eb76",
+      "name": "Le Marathon de Colmar",
+      "city": "Colmar",
+      "date": "2027-09-19",
+      "end": "2027-09-19",
+      "kind": "Route",
+      "dist": [
+        42.195
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathoncolmar",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "aec-2ededaa7c71b",
       "name": "Le Semi-Marathon de Colmar",
       "city": "Colmar",
@@ -2377,7 +2408,7 @@
       "status": "ok",
       "checkedAt": "2026-11-22",
       "rows": 5,
-      "inArea": 3
+      "inArea": 2
     },
     {
       "name": "FFA calendrier mensuel",
@@ -2490,8 +2521,8 @@
     "date": "2026-11-22",
     "sourcesOk": 4,
     "sourcesTotal": 6,
-    "candidates": 132,
-    "added": 0,
+    "candidates": 131,
+    "added": 2,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
