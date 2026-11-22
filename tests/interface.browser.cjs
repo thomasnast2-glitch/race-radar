@@ -97,6 +97,20 @@ for(const viewport of [{width:1280,height:900},{width:390,height:844},{width:320
     await context.close();
   });
 }
+test('running status exposes degraded collectors and date conflicts',async()=>{
+  const context=await browser.newContext();const page=await context.newPage();
+  await page.clock.setFixedTime(new Date('2026-11-22T12:00:00Z'));
+  await context.route('**/events.json*',route=>route.fulfill({json:{running,hyrox,
+    collectionStatus:[{status:'ok'},{status:'unavailable'},{status:'unavailable'}]}}));
+  await context.route('**/source_watch.json*',route=>route.fulfill({json:{checkedAt:'2026-11-22',sources:[{status:'links_found'}]}}));
+  await context.route('**/review_candidates.json*',route=>route.fulfill({json:{conflicts:[{}, {}, {}, {}, {}]}}));
+  await page.goto(base);
+  await page.waitForFunction(()=>document.getElementById('radar-running').textContent.includes('5 conflit'));
+  assert.match(await page.locator('#radar-running').textContent(),/2 collecte/);
+  assert.equal(await page.locator('#radar-running').evaluate(e=>e.classList.contains('radar-warning')),true);
+  await context.close();
+});
+
 test('missing pricing file preserves events and estimates',async()=>{
   const context=await browser.newContext();const page=await context.newPage();
   await page.clock.setFixedTime(new Date('2026-11-15T12:00:00Z'));

@@ -19,6 +19,7 @@ function openDetails(id,opener){
   $('details-title').textContent=e.name;
   const date=e.date?dateRange({...e,end:e.end||e.date}):(e.date_hint||'Date à confirmer');
   const meta=[['Date',date],['Ville',e.city],['Discipline',hy?'HYROX':e.kind||'Non renseignée']];
+  if(Array.isArray(e.formats)&&e.formats.length)meta.push(['Formats et jours',e.formats.map(f=>`${f.name} : ${formatDate(f.date)} · ${f.distanceKm} km`).join(' ; ')]);
   let rows=[];
   if(hy){
     const record=PRICING.events?.[id];

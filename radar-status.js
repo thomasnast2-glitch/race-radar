@@ -20,9 +20,15 @@ const RadarStatus = {
       : `${rows.length - errors.length}/${rows.length} source(s) accessible(s)`;
     const timestamp = checked && new Date(checked.length === 10 ? checked + 'T00:00:00Z' : checked).getTime();
     const stale = !Number.isFinite(timestamp) || now.getTime() - timestamp > 3 * 86400000;
+    const collectionErrors = kind === 'running' ? (report.collectionStatus || [])
+      .filter(row => !['ok', 'live'].includes(row.status)) : [];
+    const conflicts = kind === 'running' ? Number(report.conflicts || 0) : 0;
     if (errors.length) text += ` · ${errors.length} erreur(s) de source`;
+    if (collectionErrors.length) text += ` · ${collectionErrors.length} collecte(s) indisponible(s) ou dégradée(s)`;
+    if (conflicts) text += ` · ${conflicts} conflit(s) de dates à vérifier`;
     if (stale) text += ' · contrôle ancien ou non daté';
-    return {checked, text, warning: stale || errors.length > 0};
+    const empty = kind === 'hyrox' ? !(report.flux_accessibles > 0) : rows.length === 0;
+    return {checked, text, warning: stale || empty || errors.length > 0 || collectionErrors.length > 0 || conflicts > 0};
   },
   async json(url) {
     const response = await fetch(url, {cache: 'no-store', signal: AbortSignal.timeout(10000)});
@@ -32,7 +38,13 @@ const RadarStatus = {
   async loadReport(kind, file) {
     const element = document.getElementById('radar-' + kind);
     try {
-      const report = this.summarize(kind, await this.json('./' + file));
+      const raw = await this.json('./' + file);
+      if (kind === 'running') {
+        const [events, review] = await Promise.all([this.json('./events.json'), this.json('./review_candidates.json')]);
+        raw.collectionStatus = events.collectionStatus || [];
+        raw.conflicts = (review.conflicts || []).length;
+      }
+      const report = this.summarize(kind, raw);
       element.textContent = `Dernier contrôle : ${this.date(report.checked)}. ${report.text}.`;
       element.classList.toggle('radar-warning', report.warning);
     } catch {

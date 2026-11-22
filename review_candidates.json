@@ -1,103 +1,6 @@
 {
   "checkedAt": "2026-11-22",
-  "conflicts": [
-    {
-      "candidate": {
-        "id": "aec-f401d70ab1d0",
-        "name": "Trail du Grand Ballon - L'hivernale",
-        "city": "Jungholtz",
-        "date": "2027-01-17",
-        "end": "2027-01-17",
-        "kind": "Trail",
-        "dist": [
-          21.01,
-          37.28
-        ],
-        "zone": "sud",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=tgb-winter-20",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "r17",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
-        "id": "aec-489641e0d032",
-        "name": "Trail Alsace by UTMB - Trail des Celtes",
-        "city": "Barr",
-        "date": "2027-05-16",
-        "end": "2027-05-16",
-        "kind": "Trail",
-        "dist": [
-          48.9
-        ],
-        "zone": "centre",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=utmbgalsace50",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "aec-40031cbdda39",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
-        "id": "aec-717471d156c1",
-        "name": "Le semi-Marathon du vignoble d'Alsace",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          21.1
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=semivignoble",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "r26",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
-        "id": "aec-8f74ce351545",
-        "name": "Le marathon du vignoble d'Alsace",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          42.195
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=marathonvignoble",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "r26",
-      "reason": "dates contradictoires"
-    },
-    {
-      "candidate": {
-        "id": "aec-ac22ef0a9d6e",
-        "name": "Les 10 km de Molsheim",
-        "city": "Molsheim",
-        "date": "2027-05-30",
-        "end": "2027-05-30",
-        "kind": "Route",
-        "dist": [
-          10.0
-        ],
-        "zone": "nord",
-        "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=10kmmolsheim",
-        "certainty": "à vérifier",
-        "country": "FR"
-      },
-      "existing_id": "aec-124110879f59",
-      "reason": "dates contradictoires"
-    }
-  ],
+  "conflicts": [],
   "officialCandidates": [],
   "alsaceStatus": {
     "status": "ok",
@@ -166,7 +69,20 @@
     "checkedAt": "2026-11-22",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
-  "alsaceDateConflicts": [
+  "alsaceDateConflicts": [],
+  "verified2027Conflicts": [],
+  "corpoConflicts": [],
+  "ffaSeasonPreview": [],
+  "ffaSeasonStatus": {
+    "source": "https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&frmpostback=true&frmsaisonffa=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=",
+    "season": 2027,
+    "status": "unavailable",
+    "regionalRows": 0,
+    "areaCandidates": 0,
+    "checkedAt": "2026-11-22",
+    "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
+  },
+  "resolvedConflicts": [
     {
       "candidate": {
         "id": "aec-f401d70ab1d0",
@@ -185,7 +101,9 @@
         "country": "FR"
       },
       "existing_id": "r17",
-      "reason": "dates contradictoires"
+      "reason": "dates contradictoires",
+      "resolvedAt": "2026-11-22",
+      "resolution": "Dates et formats séparés vérifiés auprès des organisateurs ; voir official_events.json"
     },
     {
       "candidate": {
@@ -204,7 +122,9 @@
         "country": "FR"
       },
       "existing_id": "aec-40031cbdda39",
-      "reason": "dates contradictoires"
+      "reason": "dates contradictoires",
+      "resolvedAt": "2026-11-22",
+      "resolution": "Dates et formats séparés vérifiés auprès des organisateurs ; voir official_events.json"
     },
     {
       "candidate": {
@@ -223,7 +143,9 @@
         "country": "FR"
       },
       "existing_id": "r26",
-      "reason": "dates contradictoires"
+      "reason": "dates contradictoires",
+      "resolvedAt": "2026-11-22",
+      "resolution": "Dates et formats séparés vérifiés auprès des organisateurs ; voir official_events.json"
     },
     {
       "candidate": {
@@ -242,7 +164,9 @@
         "country": "FR"
       },
       "existing_id": "r26",
-      "reason": "dates contradictoires"
+      "reason": "dates contradictoires",
+      "resolvedAt": "2026-11-22",
+      "resolution": "Dates et formats séparés vérifiés auprès des organisateurs ; voir official_events.json"
     },
     {
       "candidate": {
@@ -261,19 +185,9 @@
         "country": "FR"
       },
       "existing_id": "aec-124110879f59",
-      "reason": "dates contradictoires"
+      "reason": "dates contradictoires",
+      "resolvedAt": "2026-11-22",
+      "resolution": "Dates et formats séparés vérifiés auprès des organisateurs ; voir official_events.json"
     }
-  ],
-  "verified2027Conflicts": [],
-  "corpoConflicts": [],
-  "ffaSeasonPreview": [],
-  "ffaSeasonStatus": {
-    "source": "https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&frmpostback=true&frmsaisonffa=2027&frmtype1=Hors+Stade&frmtype2=&frmtype3=&frmtype4=",
-    "season": 2027,
-    "status": "unavailable",
-    "regionalRows": 0,
-    "areaCandidates": 0,
-    "checkedAt": "2026-11-22",
-    "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
-  }
+  ]
 }

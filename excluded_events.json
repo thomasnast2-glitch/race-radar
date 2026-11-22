@@ -1,0 +1,84 @@
+{
+  "reviewedAt": "2026-11-22",
+  "reason": "Meetings de piste, perche, lancers ou salle classés à tort Cross",
+  "events": [
+    {
+      "id": "ffa-740d1863e1e2",
+      "name": "Meeting 3 lancers PCA AV",
+      "city": "Colmar",
+      "date": "2026-11-01",
+      "end": "2026-11-01",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/585846580840980843742828777855701837",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-162d31b9d3ac",
+      "name": "Meeting De Lancers Longs",
+      "city": "Obernai",
+      "date": "2026-11-15",
+      "end": "2026-11-15",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/895846668840423852498852419837336840",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-a5b37e3f5917",
+      "name": "Meeting en salle U14 PCA ESRCAC",
+      "city": "Colmar",
+      "date": "2026-11-17",
+      "end": "2026-11-17",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/408846628840119834330849694849704831",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-947931da411e",
+      "name": "Meeting CDA 68 en salle à partir de U16",
+      "city": "Colmar",
+      "date": "2026-11-21",
+      "end": "2026-11-21",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/429846544840626834314849355852200828",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-fb898d67f31d",
+      "name": "Meeting Indoor U 16",
+      "city": "Strasbourg",
+      "date": "2026-11-21",
+      "end": "2026-11-21",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "nord",
+      "source": "https://www.athle.fr/competitions/246846630840224849296855211852931828",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "ffa-e6cd9615675e",
+      "name": "Meeting Perche en salle PCA ESRCAC",
+      "city": "Colmar",
+      "date": "2026-11-28",
+      "end": "2026-11-28",
+      "kind": "Cross",
+      "dist": [],
+      "zone": "centre",
+      "source": "https://www.athle.fr/competitions/meeting-perche-en-salle-pca-esrcac/357220",
+      "certainty": "à vérifier",
+      "country": "FR"
+    }
+  ]
+}

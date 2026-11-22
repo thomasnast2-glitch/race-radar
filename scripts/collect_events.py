@@ -131,7 +131,7 @@ def parse_ffa(html: str, today: date, year_hint: int | None = None, season: int 
         if not zone:
             continue
         name = cells[1].get_text(' ', strip=True)
-        if len(name) < 4 or 'annule' in normalized(name):
+        if len(name) < 4 or 'annule' in normalized(name) or not running_event_name(name):
             continue
         kind = 'Cross' if 'cross' in kind_raw else ('Trail' if 'trail' in normalized(name) else 'Nature' if 'nature' in normalized(name) else 'Route')
         href = None
@@ -150,7 +150,14 @@ def parse_ffa(html: str, today: date, year_hint: int | None = None, season: int 
     return out, seen
 
 
+def running_event_name(name: str) -> bool:
+    """Écarter les meetings de piste/salle même si la source les étiquette Cross."""
+    return not re.search(r'\b(?:lancers?|perche|indoor)\b|\bmeeting\b.*\b(?:en salle|u\s*14|u\s*16)\b', normalized(name))
+
+
 def same_event(a: dict, b: dict) -> bool:
+    if different_race_variant(a, b):
+        return False
     if a['date'] != b['date'] or normalized(a['city']) != normalized(b['city']):
         return False
     an, bn = normalized(a['name']), normalized(b['name'])
@@ -308,7 +315,9 @@ def parse_miles(html: str, base_url: str, today: date) -> tuple[list[dict], int]
 
 def is_conflicting_date(a: dict, b: dict) -> bool:
     """Même course/ville +/- 7 jours, mais date différente : revue humaine."""
-    if normalized(a['city']) != normalized(b['city']):
+    if normalized(a['city']) != normalized(b['city']) or different_race_variant(a, b):
+        return False
+    if overlapping_dates(a, b):
         return False
     if SequenceMatcher(None, normalized(a['name']), normalized(b['name'])).ratio() < 0.82:
         return False
@@ -819,9 +828,54 @@ def collect_alsace(today: date) -> tuple[list[dict], dict]:
     return list(out.values()), report
 
 
+def different_race_variant(a: dict, b: dict) -> bool:
+    """Les distances nommées et courses UTMB distinctes ne sont pas des doublons."""
+    def variant(event):
+        name = normalized(event.get('name', ''))
+        for marker in ('celtes', 'pelerins', 'chevaliers', 'paiens'):
+            if re.search(r'\b' + marker + r'\b', name):
+                return 'utmb:' + marker
+        distance = re.search(r'\b(\d+(?:[.,]\d+)?)\s*km\b', name)
+        if distance:
+            return 'km:' + distance.group(1).replace(',', '.')
+        if 'semi marathon' in name:
+            return 'semi'
+        if re.search(r'\bmarathon\b', name):
+            return 'marathon'
+        return None
+    av, bv = variant(a), variant(b)
+    return av is not None and bv is not None and av != bv
+
+
+def overlapping_dates(a: dict, b: dict) -> bool:
+    return max(a['date'], b['date']) <= min(a.get('end') or a['date'], b.get('end') or b['date'])
+
+
+def apply_official_events(existing: dict) -> int:
+    """Réappliquer les vérifications officielles explicites, sans changer les IDs."""
+    registry = json.loads((Path(__file__).resolve().parents[1] / 'official_events.json').read_text(encoding='utf-8'))
+    by_id = {event['id']: event for event in existing['running']}
+    changed = 0
+    for original in registry['events']:
+        item = dict(original)
+        if not item.get('verified_at') or not item['source'].startswith('https://'):
+            raise ValueError('Vérification officielle incomplète')
+        if date.fromisoformat(item['end']) < date.fromisoformat(item['date']):
+            raise ValueError('Intervalle officiel invalide')
+        current = by_id.get(item['id'])
+        if current is None:
+            existing['running'].append(item)
+            by_id[item['id']] = item
+            changed += 1
+        elif any(current.get(key) != value for key, value in item.items()):
+            current.update(item)
+            changed += 1
+    return changed
+
+
 def equivalent_alsace(a: dict, b: dict) -> bool:
     """Une course existante le même jour et dans la même ville peut regrouper les formats."""
-    if a.get('date') != b.get('date') or normalized(a.get('city','')) != normalized(b.get('city','')):
+    if not overlapping_dates(a, b) or normalized(a.get('city','')) != normalized(b.get('city','')) or different_race_variant(a, b):
         return False
     an = re.sub(r'^(?:le|la|les|l) ', '', normalized(alsace_base_name(a.get('name',''))))
     bn = re.sub(r'^(?:le|la|les|l) ', '', normalized(alsace_base_name(b.get('name',''))))
@@ -839,6 +893,8 @@ def merge_alsace(existing: dict, candidates: list[dict]) -> tuple[int, int, list
     for item in candidates:
         match = next((e for e in existing['running'] if equivalent_alsace(e,item)), None)
         if match:
+            if match.get('source_type') == 'official':
+                continue  # Une source secondaire ne remplace pas les distances vérifiées.
             before = set(match.get('dist') or [])
             match['dist'] = sorted(before | set(item['dist']))
             if set(match['dist']) != before:
@@ -1094,6 +1150,7 @@ def main() -> int:
     if not isinstance(existing.get('running'), list) or not isinstance(existing.get('hyrox'), list):
         raise ValueError('events.json invalide : running et hyrox doivent être des listes')
     today = datetime.now(ZoneInfo('Europe/Paris')).date()
+    official_changed = apply_official_events(existing)
     # Ne pas compter comme « sources collectées » les calendriers seulement surveillés.
     try:
         html = fetch(SOURCE, check_robots=False)
@@ -1139,12 +1196,14 @@ def main() -> int:
          'catalogueSize':len(VERIFIED_2027), 'new':verified_added},
         corpo_status,
     ]
-    existing['collectionSummary'] = {'date':today.isoformat(), 'sourcesOk':1,'sourcesTotal':1,
+    existing['collectionSummary'] = {'date':today.isoformat(),
+                                      'sourcesOk':sum(item['status'] in ('ok', 'live') for item in existing['collectionStatus']),
+                                      'sourcesTotal':len(existing['collectionStatus']),
                                       'candidates':len(candidates) + len(alsace_candidates) + len(VERIFIED_2027) + len(corpo_candidates),'added':added + alsace_added + verified_added + corpo_added,
                                       'conflicts':len(review),
                                       'officialWatchOk':sum(x['status']=='links_found' for x in official),
                                       'officialWatchTotal':len(official)}
-    if added or alsace_added or alsace_updated or verified_added or verified_updated or corpo_added:
+    if official_changed or added or alsace_added or alsace_updated or verified_added or verified_updated or corpo_added:
         existing['asOf'] = today.isoformat()
     print(f'2027 VERIFIE : fiches {len(VERIFIED_2027)}, nouveaux {verified_added}, distances completees {verified_updated}, conflits {len(verified_review)}')
     print(f'CROSS CORPO 68 : candidats {len(corpo_candidates)}, nouveaux {corpo_added}, conflits {len(corpo_review)}, statut {corpo_status["status"]}')

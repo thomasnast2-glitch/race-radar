@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "description": "Dates et formats vérifiés sur les pages des organisateurs le 22 novembre 2026 ; les disponibilités d'inscription ne sont pas déduites de ces dates.",
+  "events": [
+    {
+      "id": "r17",
+      "name": "Trail du Grand Ballon — Hivernale",
+      "city": "Jungholtz",
+      "date": "2027-01-16",
+      "end": "2027-01-17",
+      "kind": "Trail",
+      "dist": [
+        20.9,
+        24.8,
+        37,
+        48.1
+      ],
+      "zone": "sud",
+      "source": "https://grandballon.com/les-trails-du-grand-ballon/trail-du-grand-ballon-winter/fr",
+      "formats": [
+        {
+          "name": "TGB 50",
+          "date": "2027-01-16",
+          "distanceKm": 48.1
+        },
+        {
+          "name": "TGB 25",
+          "date": "2027-01-16",
+          "distanceKm": 24.8
+        },
+        {
+          "name": "TGB 35",
+          "date": "2027-01-17",
+          "distanceKm": 37
+        },
+        {
+          "name": "TGB 20",
+          "date": "2027-01-17",
+          "distanceKm": 20.9
+        }
+      ],
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-40031cbdda39",
+      "name": "Trail Alsace by UTMB - Trail des Pèlerins",
+      "city": "Barr",
+      "date": "2027-05-15",
+      "end": "2027-05-15",
+      "kind": "Trail",
+      "dist": [
+        29
+      ],
+      "zone": "centre",
+      "source": "https://alsace.utmb.world/fr/races/TDP",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-489641e0d032",
+      "name": "Trail Alsace by UTMB - Trail des Celtes",
+      "city": "Barr",
+      "date": "2027-05-16",
+      "end": "2027-05-16",
+      "kind": "Trail",
+      "dist": [
+        47
+      ],
+      "zone": "centre",
+      "source": "https://alsace.utmb.world/fr/races/TDC",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-124110879f59",
+      "name": "Les 5 km de Molsheim",
+      "city": "Molsheim",
+      "date": "2027-05-29",
+      "end": "2027-05-29",
+      "kind": "Route",
+      "dist": [
+        5
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "r26",
+      "name": "Marathon du Vignoble d’Alsace",
+      "city": "Molsheim",
+      "date": "2027-05-30",
+      "end": "2027-05-30",
+      "kind": "Route",
+      "dist": [
+        42.195
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-717471d156c1",
+      "name": "Le semi-Marathon du vignoble d'Alsace",
+      "city": "Molsheim",
+      "date": "2027-05-30",
+      "end": "2027-05-30",
+      "kind": "Route",
+      "dist": [
+        21.1
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    },
+    {
+      "id": "aec-ac22ef0a9d6e",
+      "name": "Les 10 km de Molsheim",
+      "city": "Molsheim",
+      "date": "2027-05-30",
+      "end": "2027-05-30",
+      "kind": "Route",
+      "dist": [
+        10
+      ],
+      "zone": "nord",
+      "source": "https://marathon-alsace.com/",
+      "certainty": "confirmée",
+      "country": "FR",
+      "source_type": "official",
+      "verified_at": "2026-11-22"
+    }
+  ]
+}
