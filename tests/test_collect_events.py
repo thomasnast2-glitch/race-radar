@@ -72,6 +72,15 @@ class ParseTest(unittest.TestCase):
         self.assertEqual(next(e for e in data['running'] if e['id'] == original['id'])['dist'], [47])
         self.assertEqual(next(e for e in data['running'] if e['id'] == 'r26')['date'], '2027-05-30')
 
+    def test_specific_format_repairs_distances_from_an_old_aggregate(self):
+        semi = {'id':'semi','name':'Le Semi-Marathon de Colmar','city':'Colmar',
+                'date':'2027-09-19','dist':[10,21.1,42.195]}
+        candidate = dict(semi, dist=[21.1])
+        data = {'running':[semi]}
+        self.assertEqual(m.merge_alsace(data, [candidate]), (0,1,[]))
+        self.assertEqual(semi['dist'], [21.1])
+        self.assertEqual(m.merge_alsace(data, [candidate]), (0,0,[]))
+
     def test_ffa_parser_regional(self):
         html = '''<table><tr><td>08 novembre</td><td>Courses de Colmar</td><td>Colmar<br/>068 - G-E</td><td>Running</td></tr></table>'''
         events, seen = m.parse_ffa(html, self.TODAY)
