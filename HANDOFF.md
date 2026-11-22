@@ -2,6 +2,36 @@
 
 Dernière mise à jour : 22 novembre 2026, Europe/Paris.
 
+## Évolution en préparation : badges, favoris et calendrier
+
+Branche : `codex/reliability-favorite-status-month-calendar`, issue de
+`2098526c905276fe6f447f11cc6152b90be5595c`. Cette évolution est proposée en PR
+pour validation avant publication ; les sections suivantes décrivent la version
+principale publiée avant cette PR.
+
+- Ajout de `planner-model.js`, `planner.js` et `planner.css`, raccordés à l'interface
+  et aux fiches existantes. Les badges exigent une source explicitement officielle,
+  une URL et une date de vérification réelle, non future. Les autres courses restent
+  « À confirmer », même si leur calendrier secondaire dit « confirmée ».
+- Les trois statuts personnels des favoris sont stockés séparément. Les anciens
+  identifiants, y compris ceux qui ne figurent plus dans les données, restent intacts.
+  Un statut ne réalise aucune inscription et ne déclenche aucune notification.
+- Calendrier toutes disciplines avec sélection des favoris, navigation mensuelle,
+  intervalles sur plusieurs jours et liste séparée des dates incertaines. Sur mobile,
+  les jours avec événements deviennent une liste. Les filtres des cartes sont indépendants.
+- La fermeture des fiches restitue le focus même après un ajout aux favoris qui
+  reconstruit les éléments du calendrier. Les sélecteurs sont inclus dans le cycle clavier.
+- Validation locale : 36 passages Python (20 sous tests/, 16 racine), 15 tests
+  unitaires JavaScript et 11 scénarios navigateur. Certains tests Python sont communs
+  aux deux emplacements. Contrôles visuels aux largeurs 1280, 390 et 320 pixels.
+- Aucun changement aux données, collecteurs, tarifs ou notifications IFTTT.
+  Le workflow Pages prend en compte les trois nouveaux fichiers ; le script de test
+  navigateur découvre les deux fichiers `*.browser.cjs`.
+
+Limites : favoris/statuts limités au navigateur ; aucune synchronisation entre appareils.
+Une vérification officielle reste historique et ne prouve pas la disponibilité actuelle
+des inscriptions. Les dates incertaines ne sont jamais placées sur un jour grâce à `sort`.
+
 ## État vérifié
 
 La version principale est publiée sur https://thomasnast2-glitch.github.io/race-radar/. Les tests GitHub, la dernière publication Pages et le dernier passage IFTTT ont réussi. Les données servies ont été relues après publication : aucun des six meetings hors périmètre, sept fiches vérifiées auprès des organisateurs, zéro conflit de dates en attente. Le semi-marathon de Colmar affiche 21,1 km séparément du 10 km et du marathon.

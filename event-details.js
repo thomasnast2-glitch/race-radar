@@ -31,22 +31,27 @@ function openDetails(id,opener){
     rows=RacePricing.distances(e).map(d=>`<li><strong>${safe(String(d).replace('.',','))} km</strong><div>${priceMarkup(RacePricing.price(e,d,bike?'cycling':'running',PRICING))}</div></li>`);
   }
   const link=RacePricing.sourceURL(hy?e.url:e.source);
-  $('details-content').innerHTML=`<dl class="details-meta">${meta.map(([k,v])=>`<div><dt>${k}</dt><dd>${safe(v)}</dd></div>`).join('')}</dl><h3>${hy?'Tarifs par catégorie':'Distances et inscriptions'}</h3>${rows.length?`<ul class="price-list">${rows.join('')}</ul>`:`<p>${hy?'Tarif à consulter sur la billetterie officielle':'Distances non renseignées. Tarif à vérifier auprès de l’organisateur'}</p>`}${!hy?'<p class="note">Les estimations sont indicatives et non officielles. Les options, frais et vagues tarifaires peuvent faire varier le prix. Confirme le montant auprès de l’organisateur.</p>':''}${pricingUnavailable?'<p class="note">Les tarifs vérifiés sont momentanément indisponibles.</p>':''}${link?`<a class="pill-btn primary details-link" href="${safe(link)}" target="_blank" rel="noopener noreferrer">${hy?'Billetterie officielle':'Site organisateur / inscription'} ↗</a>`:''}`;
+  $('details-content').innerHTML=`<dl class="details-meta">${meta.map(([k,v])=>`<div><dt>${k}</dt><dd>${safe(v)}</dd></div>`).join('')}</dl><h3>${hy?'Tarifs par catégorie':'Distances et inscriptions'}</h3>${rows.length?`<ul class="price-list">${rows.join('')}</ul>`:`<p>${hy?'Tarif à consulter sur la billetterie officielle':'Distances non renseignées. Tarif à vérifier auprès de l’organisateur'}</p>`}${!hy?'<p class="note">Les estimations sont indicatives et non officielles. Les options, frais et vagues tarifaires peuvent faire varier le prix. Confirme le montant auprès de l’organisateur.</p>':''}${pricingUnavailable?'<p class="note">Les tarifs vérifiés sont momentanément indisponibles.</p>':''}${detailPlanner(e)}${link?`<a class="pill-btn primary details-link" href="${safe(link)}" target="_blank" rel="noopener noreferrer">${hy?'Billetterie officielle':'Site organisateur / inscription'} ↗</a>`:''}`;
   if(!detailsDialog.open){detailsDialog.showModal();$('details-close').focus();}
 }
 $('results').addEventListener('click',event=>{
   const button=event.target.closest('[data-details]');
   if(button){openDetails(button.dataset.details,button);return;}
-  if(event.target.closest('button,a,input,select,textarea'))return;
+  if(event.target.closest('button,a,input,select,textarea,label'))return;
   const article=event.target.closest('[data-event-id]');
   if(article)openDetails(article.dataset.eventId,article.querySelector('[data-details]'));
 });
 $('details-close').addEventListener('click',()=>detailsDialog.close());
-detailsDialog.addEventListener('close',()=>{detailEventId=null;if(detailOpener?.isConnected)detailOpener.focus();});
+detailsDialog.addEventListener('close',()=>{
+  const id=detailEventId;detailEventId=null;
+  const attr=detailOpener?.hasAttribute('data-calendar-event')?'data-calendar-event':'data-details';
+  const restored=detailOpener?.isConnected?detailOpener:[...document.querySelectorAll(`[${attr}]`)].find(el=>el.getAttribute(attr)===id);
+  (restored||document.querySelector('[data-planner-view][aria-pressed="true"]'))?.focus();
+});
 // Compléter le dialogue natif pour boucler le focus sans passer par la barre du navigateur.
 detailsDialog.addEventListener('keydown',event=>{
   if(event.key!=='Tab')return;
-  const controls=[...detailsDialog.querySelectorAll('button:not(:disabled),a[href]')];
+  const controls=[...detailsDialog.querySelectorAll('button:not(:disabled),a[href],select:not(:disabled)')];
   const first=controls[0],last=controls[controls.length-1];
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}

@@ -1,0 +1,38 @@
+.planner-switch{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 18px}
+.planner-switch p{margin:0;font-size:12px;color:#52635a}
+.view-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.view-buttons button,.calendar-controls button{min-height:44px;padding:10px 15px;border:1px solid #cdd8ce;border-radius:10px;background:white;color:var(--ink);font-weight:800;font-size:12px}
+.view-buttons .active{background:var(--dark);border-color:var(--dark);color:var(--green)}
+.reliability{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:11px;line-height:1.5;color:#705638}
+.reliability span{font-weight:800}.reliability small{font-size:10px}
+.reliability>span{align-self:flex-start;padding:5px 8px;border-radius:7px;background:#fff0df}
+.reliability.verified>span{background:#e5f2e0}
+.hyrox-card .reliability>span{background:#453c2a}.hyrox-card .reliability.verified>span{background:#304238}
+.reliability.verified{color:#31623b}
+.hyrox-card .reliability{color:#e3c794}.hyrox-card .reliability.verified{color:var(--green)}
+.favorite-status{display:flex;flex-direction:column;gap:6px;margin:14px 0;font-size:11px;font-weight:800;line-height:1.5}
+.favorite-status select,.calendar-controls select{width:100%;min-height:44px;padding:8px 10px;border:1px solid #cdd8ce;border-radius:9px;background:#f8faf6;color:var(--ink);font-size:12px}
+.hyrox-card .favorite-status select{background:#24333c;color:white;border-color:#526a75}
+.detail-planner{border-top:1px solid var(--line);margin-top:22px;padding-top:10px}
+.hyrox-card .detail-planner{border-color:#34434a}.reliability-source{text-decoration:underline;font-size:12px;display:inline-flex;align-items:center;min-height:44px}
+.planner-feedback{font-size:12px;color:#8a4e21}.planner-feedback:empty{display:none}
+.calendar-panel{margin:15px 0 24px}.calendar-controls{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.month-navigation{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.month-navigation h3{font-size:24px;letter-spacing:-.04em;margin:0 12px 0 0;text-transform:capitalize}
+.calendar-controls label{font-size:11px;font-weight:800;min-width:190px}.calendar-controls select{display:block;margin-top:6px}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.calendar-weekdays{margin:20px 0 8px;font-size:11px;text-align:center;font-weight:800;color:#52635a}
+.calendar-day{min-width:0;min-height:130px;padding:9px;background:white;border:1px solid var(--line);border-radius:12px}
+.calendar-day h3{margin:0 0 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px}
+.calendar-day.today{outline:2px solid #638d36;outline-offset:-2px}.today-label{font-size:9px;color:#45672d}
+.calendar-event{display:flex;flex-direction:column;gap:5px;width:100%;text-align:left;overflow-wrap:anywhere;min-height:44px;padding:10px 8px;margin-top:7px;border:1px solid #dce2d9;border-radius:9px;background:white;color:var(--ink);font-size:11px;line-height:1.4}
+.calendar-event strong{font-size:12px}.calendar-event:hover{box-shadow:0 3px 12px #14212a18}.calendar-event.hyrox-card{background:var(--darker);color:white;border-color:#34434a}
+.calendar-event.cycling-card{background:linear-gradient(180deg,#fafff5,white 65%);border-color:#c8dfc4}
+.calendar-sport{font-weight:800;text-transform:uppercase;font-size:9px;letter-spacing:.08em}
+.calendar-event .calendar-favorite{font-weight:800;color:#875136}.calendar-event.hyrox-card .calendar-favorite{color:#ffb08e}
+.calendar-certainty{font-size:9px}.mobile-day{display:none}
+@media(max-width:720px){.desktop-day{display:none}}
+.calendar-empty{margin:14px 0;padding:22px;background:white;border-radius:12px;color:#52635a;line-height:1.6}
+.undated-events{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+#calendar-undated{margin-top:25px}#calendar-undated h3{font-size:18px}
+@media(max-width:1040px) and (min-width:721px){.calendar-day{padding:5px}.calendar-event{padding:8px 5px;font-size:10px}.calendar-event strong{font-size:11px}}
+@media(max-width:720px){.calendar-weekdays,.calendar-padding,.calendar-day.empty{display:none}.calendar-grid{display:block}.calendar-day{min-height:0;margin-top:12px;padding:14px}.calendar-day h3{font-size:14px}.mobile-day{display:inline}.calendar-event{padding:12px;font-size:12px}.calendar-event strong{font-size:14px}.calendar-sport,.calendar-certainty{font-size:10px}.calendar-controls{align-items:stretch;flex-direction:column}.month-navigation h3{width:100%;margin:0 0 6px}.calendar-controls label{width:100%}.planner-switch{align-items:flex-start;flex-direction:column}.view-buttons{width:100%}.view-buttons button{flex:1}.undated-events{grid-template-columns:1fr}}
