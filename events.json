@@ -2368,20 +2368,20 @@
     }
   ],
   "asOf": "2026-11-21",
-  "runningCheckedAt": "2026-11-21",
+  "runningCheckedAt": "2026-11-22",
   "collectionStatus": [
     {
       "name": "FFA",
       "url": "https://www.athle.fr/base/calendrier",
       "status": "ok",
-      "checkedAt": "2026-11-21",
-      "rows": 9,
-      "inArea": 5
+      "checkedAt": "2026-11-22",
+      "rows": 5,
+      "inArea": 3
     },
     {
       "name": "FFA calendrier mensuel",
       "url": "https://www.athle.fr/contenu/tout-le-calendrier-2027/5255",
-      "checkedAt": "2026-11-21",
+      "checkedAt": "2026-11-22",
       "discovered": 0,
       "read": 0,
       "failed": 0,
@@ -2398,7 +2398,7 @@
       "status": "unavailable",
       "regionalRows": 0,
       "areaCandidates": 0,
-      "checkedAt": "2026-11-21",
+      "checkedAt": "2026-11-22",
       "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
     },
     {
@@ -2408,21 +2408,19 @@
         "2026": {
           "status": "ok",
           "rows": 444,
-          "upcoming": 33,
-          "inArea": 21,
+          "upcoming": 28,
+          "inArea": 18,
           "excludedType": 21,
           "unrecognizedCities": [
             "Gaschney",
             "Gunsbach",
             "Hirsingue",
-            "Houssen",
             "Hésingue",
             "Masevaux",
-            "Saint-Louis",
-            "Zimmersheim"
+            "Saint-Louis"
           ],
           "skippedDates": 0,
-          "candidates": 11
+          "candidates": 10
         },
         "2027": {
           "status": "ok",
@@ -2467,32 +2465,32 @@
         }
       },
       "pagesOk": 2,
-      "candidates": 121,
-      "checkedAt": "2026-11-21",
+      "candidates": 120,
+      "checkedAt": "2026-11-22",
       "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
     },
     {
       "name": "Courses 2027 documentees",
       "status": "ok",
-      "checkedAt": "2026-11-21",
+      "checkedAt": "2026-11-22",
       "catalogueSize": 4,
       "new": 0
     },
     {
       "name": "Cross corpo 68",
       "url": "https://www.crosscorpos68.fr/",
-      "checkedAt": "2026-11-21",
+      "checkedAt": "2026-11-22",
       "status": "live",
-      "scheduled": 6,
-      "live": 6
+      "scheduled": 5,
+      "live": 5
     }
   ],
   "collectionSummary": {
-    "date": "2026-11-21",
+    "date": "2026-11-22",
     "sourcesOk": 1,
     "sourcesTotal": 1,
-    "candidates": 136,
-    "added": 1,
+    "candidates": 132,
+    "added": 0,
     "conflicts": 5,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
