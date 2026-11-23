@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-22",
+  "checkedAt": "2026-11-23",
   "conflicts": [],
   "officialCandidates": [],
   "alsaceStatus": {
@@ -8,7 +8,7 @@
       "2026": {
         "status": "ok",
         "rows": 444,
-        "upcoming": 28,
+        "upcoming": 25,
         "inArea": 18,
         "excludedType": 21,
         "unrecognizedCities": [
@@ -16,18 +16,17 @@
           "Gunsbach",
           "Hirsingue",
           "Hésingue",
-          "Masevaux",
-          "Saint-Louis"
+          "Masevaux"
         ],
         "skippedDates": 0,
         "candidates": 10
       },
       "2027": {
         "status": "ok",
-        "rows": 400,
-        "upcoming": 390,
-        "inArea": 165,
-        "excludedType": 10,
+        "rows": 420,
+        "upcoming": 409,
+        "inArea": 175,
+        "excludedType": 11,
         "unrecognizedCities": [
           "Altkirch",
           "Aubure",
@@ -61,12 +60,12 @@
           "Le Markstein"
         ],
         "skippedDates": 0,
-        "candidates": 110
+        "candidates": 115
       }
     },
     "pagesOk": 2,
-    "candidates": 120,
-    "checkedAt": "2026-11-22",
+    "candidates": 125,
+    "checkedAt": "2026-11-23",
     "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
   },
   "alsaceDateConflicts": [],
@@ -79,7 +78,7 @@
     "status": "unavailable",
     "regionalRows": 0,
     "areaCandidates": 0,
-    "checkedAt": "2026-11-22",
+    "checkedAt": "2026-11-23",
     "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
   }
 }

@@ -1096,6 +1096,8 @@
       "end": "2027-05-01",
       "kind": "Trail",
       "dist": [
+        3.0,
+        7.0,
         16.0,
         24.0
       ],
@@ -1733,6 +1735,22 @@
       "country": "FR"
     },
     {
+      "id": "aec-d47f61b32a5c",
+      "name": "Eckbo Run",
+      "city": "Eckbolsheim",
+      "date": "2027-07-04",
+      "end": "2027-07-04",
+      "kind": "Nature",
+      "dist": [
+        1.3,
+        5.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=eckborun",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "aec-341699998cfb",
       "name": "La Tour du Faudé",
       "city": "Orbey",
@@ -2231,6 +2249,23 @@
       "country": "FR"
     },
     {
+      "id": "aec-7d270da73c3a",
+      "name": "La Landsberg",
+      "city": "Barr",
+      "date": "2027-11-28",
+      "end": "2027-11-28",
+      "kind": "Trail",
+      "dist": [
+        9.0,
+        16.0,
+        24.0
+      ],
+      "zone": "centre",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=landsberg17",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
       "id": "aec-60f9df14c0e8",
       "name": "Le Trail du Téléthon",
       "city": "Buhl",
@@ -2243,6 +2278,23 @@
       ],
       "zone": "sud",
       "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailtelethon12",
+      "certainty": "à vérifier",
+      "country": "FR"
+    },
+    {
+      "id": "aec-9998541322a8",
+      "name": "Trail du Téléthon de Marlenheim : la Traditionnelle",
+      "city": "Marlenheim",
+      "date": "2027-12-05",
+      "end": "2027-12-05",
+      "kind": "Nature",
+      "dist": [
+        10.0,
+        17.0,
+        24.0
+      ],
+      "zone": "nord",
+      "source": "https://www.alsace-en-courant.com/courses/fiche.php?course=trailmarlenheim10",
       "certainty": "à vérifier",
       "country": "FR"
     },
@@ -2397,21 +2449,21 @@
       "young": false
     }
   ],
-  "asOf": "2026-11-22",
-  "runningCheckedAt": "2026-11-22",
+  "asOf": "2026-11-23",
+  "runningCheckedAt": "2026-11-23",
   "collectionStatus": [
     {
       "name": "FFA",
       "url": "https://www.athle.fr/base/calendrier",
       "status": "ok",
-      "checkedAt": "2026-11-22",
-      "rows": 5,
+      "checkedAt": "2026-11-23",
+      "rows": 4,
       "inArea": 2
     },
     {
       "name": "FFA calendrier mensuel",
       "url": "https://www.athle.fr/contenu/tout-le-calendrier-2027/5255",
-      "checkedAt": "2026-11-22",
+      "checkedAt": "2026-11-23",
       "discovered": 0,
       "read": 0,
       "failed": 0,
@@ -2428,7 +2480,7 @@
       "status": "unavailable",
       "regionalRows": 0,
       "areaCandidates": 0,
-      "checkedAt": "2026-11-22",
+      "checkedAt": "2026-11-23",
       "error": "robots.txt interdit la collecte : https://www.athle.fr/bases/liste.aspx?frmbase=calendrier&frmdate1=&frmdate2=&frmdepartement=&frmepreuve=&frmespace=0&frmligue=G-E&frmmode=1&frmniveau=&frmniveaulab=&f"
     },
     {
@@ -2438,7 +2490,7 @@
         "2026": {
           "status": "ok",
           "rows": 444,
-          "upcoming": 28,
+          "upcoming": 25,
           "inArea": 18,
           "excludedType": 21,
           "unrecognizedCities": [
@@ -2446,18 +2498,17 @@
             "Gunsbach",
             "Hirsingue",
             "Hésingue",
-            "Masevaux",
-            "Saint-Louis"
+            "Masevaux"
           ],
           "skippedDates": 0,
           "candidates": 10
         },
         "2027": {
           "status": "ok",
-          "rows": 400,
-          "upcoming": 390,
-          "inArea": 165,
-          "excludedType": 10,
+          "rows": 420,
+          "upcoming": 409,
+          "inArea": 175,
+          "excludedType": 11,
           "unrecognizedCities": [
             "Altkirch",
             "Aubure",
@@ -2491,36 +2542,36 @@
             "Le Markstein"
           ],
           "skippedDates": 0,
-          "candidates": 110
+          "candidates": 115
         }
       },
       "pagesOk": 2,
-      "candidates": 120,
-      "checkedAt": "2026-11-22",
+      "candidates": 125,
+      "checkedAt": "2026-11-23",
       "url": "https://www.alsace-en-courant.com/courses/index_2026.php"
     },
     {
       "name": "Courses 2027 documentees",
       "status": "ok",
-      "checkedAt": "2026-11-22",
+      "checkedAt": "2026-11-23",
       "catalogueSize": 4,
       "new": 0
     },
     {
       "name": "Cross corpo 68",
       "url": "https://www.crosscorpos68.fr/",
-      "checkedAt": "2026-11-22",
+      "checkedAt": "2026-11-23",
       "status": "live",
       "scheduled": 5,
       "live": 5
     }
   ],
   "collectionSummary": {
-    "date": "2026-11-22",
+    "date": "2026-11-23",
     "sourcesOk": 4,
     "sourcesTotal": 6,
-    "candidates": 131,
-    "added": 0,
+    "candidates": 136,
+    "added": 3,
     "conflicts": 0,
     "officialWatchOk": 2,
     "officialWatchTotal": 2
