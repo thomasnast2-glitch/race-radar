@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-03",
+  "asOf": "2026-11-26",
   "cycling": [
     {
       "id": "cyc-babybel-gravel-2027",
@@ -90,16 +90,16 @@
       "city": "Thann (68)",
       "region": "Alsace",
       "kind": "Route",
-      "date": null,
-      "end": null,
-      "sort": "2027-07-15",
-      "date_hint": "Mi-juillet 2027 (jour à confirmer)",
+      "date": "2027-07-18",
+      "end": "2027-07-18",
+      "sort": "2027-07-18",
+      "date_hint": "18/07/2027",
       "dist": [
         70,
         146
       ],
       "elevation": "Montagne / Vosges",
-      "status": "Date exacte à confirmer",
+      "status": "Date annoncée sur le site organisateur",
       "source": "https://grandballon.gfny.com/",
       "verified": "2026-10-31"
     },
@@ -320,6 +320,6 @@
       "verified": "2026-10-31"
     }
   ],
-  "cyclingCheckedAt": "2026-11-25",
+  "cyclingCheckedAt": "2026-11-26",
   "cyclingSourcesAccessible": 7
 }

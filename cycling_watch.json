@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-11-25T08:06:34+00:00",
+  "lastCheckedAt": "2026-11-26T08:04:55+00:00",
   "sources": [
     {
       "event_id": "cyc-babybel-route-2027",
@@ -48,9 +48,13 @@
       "event_id": "cyc-gfny-2027",
       "url": "https://grandballon.gfny.com/",
       "result": "OK",
-      "sha256": "26eedcc953929298104c87facdc0ab849da238f5f82593e22e86b8143d371efe",
-      "dates_2027_detectees": [],
-      "modifications": []
+      "sha256": "334c72e3083103f50f59e94c5556b3d416dc7a26bf2d9306306bc9a67d421f4c",
+      "dates_2027_detectees": [
+        "2027-07-18"
+      ],
+      "modifications": [
+        "date 2027-07-18"
+      ]
     },
     {
       "event_id": "cyc-jpp-2027",
